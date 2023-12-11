@@ -11,15 +11,24 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  * This is the class for the Match data
  * 
- * @author javie
+ * @author imanol
  */
 @Entity
 @Table(name="match",schema="esport_six")
+@NamedQueries({
+    @NamedQuery(name = "findAllMatches", query="SELECT m FROM match m ORDER BY playedDate ASC"),
+    @NamedQuery(name = "findAllTournamentMatches", query="SELECT m FROM match m WHERE tournament IS NOT NULL ORDER BY playedDate ASC"),
+    @NamedQuery(name = "findAllLeagueMatches", query="SELECT m FROM match m WHERE tournament IS NOT NULL ORDER BY playedDate ASC")
+})
+
+
 public class Match {
     /**
      * Id field for the Match entity
