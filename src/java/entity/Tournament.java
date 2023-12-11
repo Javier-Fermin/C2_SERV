@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package java.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,7 +27,15 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="tournament",schema="esport_six")
-public class Tournament {
+@NamedQueries({
+    @NamedQuery(name="findTournamentsByName", query="SELECT t FROM tournament t WHERE t.name like :n"), //setParameter(n, '%'+name+'%');
+    @NamedQuery(name="findTournamentsByDate", query="SELECT t FROM tournament WHERE t.date = :date"),
+    @NamedQuery(name="findTournamentsByFormat", query="SELECT t FROM tournament WHERE t.bestOf = :bestOf"),
+    @NamedQuery(name="findMatchTournament", query="SELECT t FROM tournament WHERE t.id = (SELECT m.tournament.id FROM match m WHERE m.id = :id)")
+})
+
+
+public class Tournament implements Serializable{
     /**
      * Id field for the tournament entity
      */
@@ -41,7 +54,16 @@ public class Tournament {
     /**
      * sponsors of the tournament entity
      */
+    
     private Set<Sponsor> sponsors;
+    /***
+     * Matches of the tournament
+     */
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
+    private Set<Match> matches;
+    
+    
+    //Tournament's Getters and Setters
 
     public Integer getId() {
         return id;
@@ -75,5 +97,12 @@ public class Tournament {
         this.sponsors = sponsors;
     }
     
+     public Set<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(Set<Match> matches) {
+        this.matches = matches;
+    }
     
 }
