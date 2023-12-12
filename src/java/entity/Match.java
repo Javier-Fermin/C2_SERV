@@ -22,10 +22,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="match",schema="esport_six")
+
 @NamedQueries({
-    @NamedQuery(name = "findAllMatches", query="SELECT m FROM match m ORDER BY playedDate ASC"),
-    @NamedQuery(name = "findAllTournamentMatches", query="SELECT m FROM match m WHERE tournament IS NOT NULL ORDER BY playedDate ASC"),
-    @NamedQuery(name = "findAllLeagueMatches", query="SELECT m FROM match m WHERE tournament IS NOT NULL ORDER BY playedDate ASC")
+    @NamedQuery(name = "findAllMatches", query="SELECT m FROM match m"),
+    @NamedQuery(name = "findAllTournamentMatches", query="SELECT m FROM match m WHERE tournament IS NOT NULL"),
+    @NamedQuery(name = "findAllLeagueMatches", query="SELECT m FROM match m WHERE league IS NOT NULL"),
+    @NamedQuery(name = "findATournament", query="SELECT m FROM match m WHERE tournament IS NOT NULL AND m.id = :id"),
+    @NamedQuery(name = "findALeague", query= "SELECT m FROM match m WHERE league IS NOT NULL AND m.id = :id")
 })
 
 
@@ -109,6 +112,18 @@ public class Match {
     public void setPlays(Set<Stats> plays) {
         this.plays = plays;
     }
+
+    @Override
+    public String toString() {
+        return "Match [id=" + id + ", playedDate=" + playedDate + ", winner=" + winner + ", tournament=" + tournament
+                + ", league=" + league + ", plays=" + plays + "]";
+    }
     
+    public boolean equals(Match m){
+        if(m instanceof Match){
+
+        }else
+        return false;
+    }
     
 }
