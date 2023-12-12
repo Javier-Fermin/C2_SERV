@@ -30,9 +30,10 @@ import javax.persistence.TemporalType;
 @Table(name="tournament",schema="esport_six")
 @NamedQueries({
     @NamedQuery(name="findTournamentsByName", query="SELECT t FROM tournament t WHERE t.name like :n"), //setParameter(n, '%'+name+'%');
-    @NamedQuery(name="findTournamentsByDate", query="SELECT t FROM tournament WHERE t.date = :date"),
-    @NamedQuery(name="findTournamentsByFormat", query="SELECT t FROM tournament WHERE t.bestOf = :bestOf"),
-    @NamedQuery(name="findMatchTournament", query="SELECT t FROM tournament WHERE t.id = (SELECT m.tournament.id FROM match m WHERE m.id = :id)")
+    @NamedQuery(name="findTournamentsByDate", query="SELECT t FROM tournament t WHERE t.date = :date"),
+    @NamedQuery(name="findTournamentsByFormat", query="SELECT t FROM tournament t WHERE t.bestOf = :bestOf"),
+    @NamedQuery(name="findMatchTournament", query="SELECT t FROM tournament t WHERE t.id = (SELECT m.tournament.id FROM match m WHERE m.id = :id)"),
+    @NamedQuery(name="findAllTournaments", query="SELECT * FROM tournament")
 })
 
 
