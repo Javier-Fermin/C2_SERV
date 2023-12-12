@@ -26,12 +26,13 @@ import javax.persistence.TemporalType;
  *
  * @author javie
  */
-
 /**
  * NamedQueries for League entity
  */
 @Entity
 @NamedQueries({
+    @NamedQuery(name = "findAllLeagues", query = "Select l from League l"),
+    
     @NamedQuery(name = "findLeagueByName", query = "Select l from League l WHERE p.name=:name"),
     
     @NamedQuery(name = "findAllFinishLeagues", query = "Select l from League l WHERE l.endDate < :today"), 
@@ -42,7 +43,7 @@ import javax.persistence.TemporalType;
 })
 
 @Table(name = "league", schema = "esport_six")
-public class League implements Serializable{
+public class League implements Serializable {
 
     /**
      * Id field for the league entity
