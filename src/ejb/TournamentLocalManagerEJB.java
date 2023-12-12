@@ -1,0 +1,83 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ejb;
+
+import java.entity.Match;
+import java.entity.Tournament;
+import java.util.Date;
+import java.util.List;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.ReadException;
+import exception.UpdateException;
+import javax.ejb.Local;
+/**
+ *  EJB Local Interface for managing Tournament entity CRUD operations
+ * @author Fran
+ */
+@Local
+public interface TournamentLocalManagerEJB {
+    /**
+     * Finds one or many {@link Tournament} by its name. 
+     * @param name The name for a tournament to be found.
+     * @return The {@link Tournament} object containing tournament data. 
+     * @throws ReadException If there is any Exception during processing.
+     */
+    public List<Tournament> findTournamentsByName(String name) throws ReadException;
+     /**
+     * Finds one or many {@link Tournament} by its date of creation. 
+     * @param date The date for a tournament to be found.
+     * @return The {@link Tournament} object containing tournament data. 
+     * @throws ReadException If there is any Exception during processing.
+     */
+    public List<Tournament> findTournamentsByDate(Date date) throws ReadException;
+    /**
+     * Finds one or many {@link Tournament} by its play format. 
+     * @param bestOf The format for a tournament to be found.
+     * @return The List object full of {@link Tournament} object containing tournament data. 
+     * @throws ReadException If there is any Exception during processing.
+     */
+    public List<Tournament> findTournamentsByFormat(int bestOf) throws ReadException;
+    /**
+     * Finds a {@link Tournament} of a selected match. 
+     * @param match The match taken as reference for a tournament to be found.
+     * @return The {@link Tournament} object containing tournament data. 
+     * @throws ReadException If there is any Exception during processing.
+     */
+    public Tournament findMatchTournament(Match match) throws ReadException;
+    /**
+     * Finds one or many {@link Tournament} by its id. 
+     * @param id The id for a tournament to be found.
+     * @return The {@link Tournament} object containing tournament data. 
+     * @throws ReadException If there is any Exception during processing.
+     */
+    public Tournament findTournamentById(int id) throws ReadException;
+    /**
+     * Finds a List of {@link User} objects containing data for all users in the
+     * application data storage.
+     * @return A List of {@link User} objects.
+     * @throws ReadException If there is any Exception during processing.
+     */
+    public List<Tournament> findAllTournaments() throws ReadException;
+    /**
+     * Creates a Tournament and stores it in the underlying application storage. 
+     * @param tournament The {@link Tournament} object containing the tournament data. 
+     * @throws CreateException If there is any Exception during processing.
+     */
+    public void createTournament(Tournament tournament) throws CreateException;
+    /**
+     * Updates a tournament's data in the underlying application storage. 
+     * @param tournament The {@link Tournament }object containing the tournament data. 
+     * @throws UpdateException If there is any Exception during processing.
+     */
+    public void updateTournament(Tournament tournament) throws UpdateException;
+    /**
+     * Deletes a tournament's data in the underlying application storage. 
+     * @param tournament The {@link Tournament} object containing the tournament data. 
+     * @throws DeleteException If there is any Exception during processing.
+     */
+    public void deleteTournament(Tournament tournament) throws DeleteException;
+}
