@@ -21,16 +21,16 @@ import javax.persistence.Table;
  * @author imanol
  */
 @Entity
-@Table(name="match",schema="esport_six")
+@Table(name = "match", schema = "esport_six")
 
 @NamedQueries({
-    @NamedQuery(name = "findAllMatches", query="SELECT m FROM match m"),
-    @NamedQuery(name = "findAllTournamentMatches", query="SELECT m FROM match m WHERE tournament IS NOT NULL"),
-    @NamedQuery(name = "findAllLeagueMatches", query="SELECT m FROM match m WHERE league IS NOT NULL"),
-    @NamedQuery(name = "findATournament", query="SELECT m FROM match m WHERE tournament IS NOT NULL AND m.id = :id"),
-    @NamedQuery(name = "findALeague", query= "SELECT m FROM match m WHERE league IS NOT NULL AND m.id = :id")
+        @NamedQuery(name = "findAllMatches", query = "SELECT m FROM match m"),
+        @NamedQuery(name = "findAllTournamentMatches", query = "SELECT m FROM match m WHERE m.tournament IS NOT NULL"),
+        @NamedQuery(name = "findAllLeagueMatches", query = "SELECT m FROM match m WHERE m.league IS NOT NULL"),
+        @NamedQuery(name = "findAMatch", query = "SELECT m FROM match m WHERE m.id = :id"),
+        @NamedQuery(name = "findTournamentById", query = "SELECT m FROM match m WHERE m.tournament.id = :id"),
+        @NamedQuery(name = "findLeagueById", query = "SELECT m FORM match m WHERE m.league.id = :id")
 })
-
 
 public class Match {
     /**
@@ -38,28 +38,28 @@ public class Match {
      */
     @Id
     private Integer id;
-    
+
     /**
      * playedDate field for the Match entity
      */
     private Date playedDate;
-    
+
     /**
      * winner field for the Match entity
      */
     @Enumerated(EnumType.ORDINAL)
     private Team winner;
-    
+
     /**
      * tournament field for the Match entity
      */
     private Tournament tournament;
-    
+
     /**
      * league field for the Match entity
      */
     private League league;
-    
+
     /**
      * plays of the Match entity
      */
@@ -118,7 +118,7 @@ public class Match {
         return "Match [id=" + id + ", playedDate=" + playedDate + ", winner=" + winner + ", tournament=" + tournament
                 + ", league=" + league + ", plays=" + plays + "]";
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -128,7 +128,6 @@ public class Match {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Match)) {
             return false;
         }
@@ -138,5 +137,5 @@ public class Match {
         }
         return true;
     }
-    
+
 }
