@@ -19,14 +19,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ * EJB class for managing Tournament entity CRUD operations
  * @author Fran
  */
 public class TournamentManagerEJB implements TournamentLocalManagerEJB{
-
+    /**
+     * Logger for the class.
+     */
     private static final Logger LOG = Logger.getLogger(TournamentManagerEJB.class.getName());
 
-    
+    /**
+     * Entity manager object.
+     */
     @PersistenceContext
     private EntityManager em;
     
@@ -43,7 +47,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
             LOG.info("TournamentManager: Reading tournaments by name.");
             tournaments=em.createNamedQuery("findTournamentsByName").setParameter("n", '%'+name+'%').getResultList();
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception Finding tournament by name:",
                     e.getMessage());
             throw new ReadException(e.getMessage());
         }
@@ -62,7 +66,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
             LOG.info("TournamentManager: Reading tournaments by date.");
             tournaments=em.createNamedQuery("findTournamentsByDate").setParameter("date", date).getResultList();
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception Finding tournament by date:",
                     e.getMessage());
             throw new ReadException(e.getMessage());
         }
@@ -81,7 +85,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
             LOG.info("TournamentManager: Reading tournaments by format.");
             tournaments=em.createNamedQuery("findTournamentsByFormat").setParameter("bestOf", bestOf).getResultList();
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception Finding tournament by format:",
                     e.getMessage());
             throw new ReadException(e.getMessage());
         }
@@ -100,14 +104,14 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
             LOG.info("TournamentManager: Reading the selected match's tournament.");
             tournament=(Tournament) em.createNamedQuery("findMatchTournaments").setParameter("id", match.getId()).getSingleResult();
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception Finding tournament by match:",
                     e.getMessage());
             throw new ReadException(e.getMessage());
         }
         return tournament;
     }
     /**
-     * Finds one or many {@link Tournament} by its id. 
+     * Finds a {@link Tournament} by its id. 
      * @param id The id for a tournament to be found.
      * @return The {@link Tournament} object containing tournament data. 
      * @throws ReadException If there is any Exception during processing.
@@ -119,16 +123,16 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
             LOG.info("TournamentManager: Reading tournament by id.");
             tournament=em.find(Tournament.class, id);
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception Finding tournament by id:",
                     e.getMessage());
             throw new ReadException(e.getMessage());
         }
         return tournament;
     }
     /**
-     * Finds a List of {@link User} objects containing data for all users in the
-     * application data storage.
-     * @return A List of {@link User} objects.
+     * Finds a List of {@link Tournament} objects containing data for all 
+     * tournaments in the application data storage.
+     * @return A List of {@link Tournament} objects.
      * @throws ReadException If there is any Exception during processing.
      */
     @Override
@@ -138,7 +142,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
             LOG.info("TournamentManager: Reading all tournaments.");
             tournaments=em.createNamedQuery("findAllTournaments").getResultList();
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception reading all tournaments:",
                     e.getMessage());
             throw new ReadException(e.getMessage());
         }
@@ -151,12 +155,12 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
      */
     @Override
     public void createTournament(Tournament tournament) throws CreateException{
-        LOG.info("");
+        LOG.info("TournamentManager: Creating tournament.");
         try{
             em.persist(tournament);
-            LOG.info("");
+            LOG.info("TournamentManager: Tournament created.");
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception creating tournament.{0}",
                     e.getMessage());
             throw new CreateException(e.getMessage());
         }
@@ -174,7 +178,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
             em.flush();
             LOG.info("TournamentManager: Tournament updated.");
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception Updating tournament.{0}",
                     e.getMessage());
             throw new UpdateException(e.getMessage());
         }
@@ -186,13 +190,13 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
      */
     @Override
     public void deleteTournament(Tournament tournament) throws DeleteException{
-        LOG.info("TournamentManager: Updating tournament.");
+        LOG.info("TournamentManager: Deleting tournament.");
         try{
             tournament=em.merge(tournament);
             em.remove(tournament);
-            LOG.info("TournamentManager: Tournament updated.");
+            LOG.info("TournamentManager: Tournament deleted.");
         }catch(Exception e){
-            LOG.log(Level.SEVERE, "UserManager: Exception Finding user by login:",
+            LOG.log(Level.SEVERE, "TournamentManager: Exception deleting tournament.{0}",
                     e.getMessage());
             throw new DeleteException(e.getMessage());
         }

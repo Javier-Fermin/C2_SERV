@@ -6,10 +6,12 @@
 package java.entity;
 
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +23,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="sponsor",schema="esport_six")
+@NamedQuery(name="findAllSponsors", query="SELECT s FROM sponsor s")
+
 public class Sponsor {
     /**
      * Id field for the sponsor entity
@@ -41,6 +45,11 @@ public class Sponsor {
      */
     @Temporal(TemporalType.DATE)
     private Date createdDate;
+    
+    /***
+     * Tournaments this sponsor supports
+     */
+    private Set<Tournament> tournaments;
 
     public Integer getId() {
         return id;
@@ -72,6 +81,14 @@ public class Sponsor {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Set<Tournament> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
     }
     
     

@@ -44,6 +44,12 @@ public class Tournament implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    
+    /***
+     * 
+     */
+    private String name;
+    
     /**
      * bestOf field of the tournament entity
      */
@@ -75,6 +81,14 @@ public class Tournament implements Serializable{
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public Integer getBestOf() {
         return bestOf;
     }

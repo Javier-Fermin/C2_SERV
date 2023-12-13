@@ -49,16 +49,16 @@ public interface TournamentLocalManagerEJB {
      */
     public Tournament findMatchTournament(Match match) throws ReadException;
     /**
-     * Finds one or many {@link Tournament} by its id. 
+     * Finds a {@link Tournament} by its id. 
      * @param id The id for a tournament to be found.
      * @return The {@link Tournament} object containing tournament data. 
      * @throws ReadException If there is any Exception during processing.
      */
     public Tournament findTournamentById(int id) throws ReadException;
     /**
-     * Finds a List of {@link User} objects containing data for all users in the
-     * application data storage.
-     * @return A List of {@link User} objects.
+     * Finds a List of {@link Tournament} objects containing data for all 
+     * tournaments in the application data storage.
+     * @return A List of {@link Tournament} objects.
      * @throws ReadException If there is any Exception during processing.
      */
     public List<Tournament> findAllTournaments() throws ReadException;
