@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entity.Player;
-import entity.Player;
 import exceptions.CreateException;
 import exceptions.DeleteException;
 import exceptions.FindException;
