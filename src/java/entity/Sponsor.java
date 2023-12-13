@@ -52,6 +52,9 @@ public class Sponsor {
      */
     private Set<Tournament> tournaments;
 
+    
+   // -------------- METHODS ----------------
+    
     public Integer getId() {
         return id;
     }
