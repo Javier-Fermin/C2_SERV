@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package ejb;
 
 import exceptions.*;
 import java.entity.League;
@@ -12,8 +12,9 @@ import java.util.List;
 import javax.ejb.Local;
 
 /**
- *
- * @author 2dam
+ * Local Interface for League Entity
+ * 
+ * @author Emil
  */
 @Local
 public interface LeagueManageLocal {
@@ -21,77 +22,77 @@ public interface LeagueManageLocal {
     /**
      * Create a new League, throws CreateException in case of error
      * 
-     * @param league
-     * @throws CreateException 
+     * @param league to create the league
+     * @throws CreateException if have any errors
      */
     public void createLeague(League league) throws CreateException;
     
     /**
      * Update one League, throws UpdateException in case of error
      * 
-     * @param league
-     * @throws UpdateException 
+     * @param league to update
+     * @throws UpdateException if have any errors
      */
     public void updateLeague(League league) throws UpdateException;
     
     /**
      * Delete one League, throws DeleteException in case of error
      * 
-     * @param league
-     * @throws DeleteException 
+      * @param league to delete
+     * @throws DeleteException if have any errors
      */
     public void deleteLeague(League league) throws DeleteException;
     
     /**
      * Find one League by leagues id, throws FindException in case of error
      * 
-     * @param id
-     * @return league
-     * @throws FindException 
+     * @param id to find the league
+     * @return league finded by id
+     * @throws FindException if have any errors
      */
     public League findOneLeague(Integer id) throws FindException;
     
     /**
      * Find a list of all leagues, throws FindException in case of error
      * 
-     * @return leagues
-     * @throws FindException 
+     * @return leagues finded
+     * @throws FindException if have any errors
      */
     public List<League> findAllLeagues() throws FindException;
     
     /**
      * Find one League by leagues name, throws FindException in case of error
      * 
-     * @param name
-     * @return league
-     * @throws FindException 
+     * @param name to find the league
+     * @return league finded by the name
+     * @throws FindException if have any errors
      */
     public League findLeagueByName(String name) throws FindException;
     
     /**
      * Find all finished leagues taking locals date, throws FindException in case of error
      * 
-     * @param today
-     * @return leagues
-     * @throws FindException 
+     * @param today to compare with the end date
+     * @return leagues finished
+     * @throws FindException if have any errors
      */
     public List<League> findAllFinishLeagues(Date today) throws FindException;
 
     /**
      * find all unstarted leagues taking locals date, throws FindException in case of error
      * 
-     * @param today
-     * @return leagues
-     * @throws FindException 
+     * @param today to compare with the end date
+     * @return leagues unstarted
+     * @throws FindException if have any errors
      */
     public List<League> findAllUnstartedLeagues(Date today) throws FindException;
     
     /**
      * Find a league by a match id, throws FindException in case of error
      * 
-     * @param id
-     * @return league
-     * @throws FindException 
+     * @param id to find the league of the match
+     * @return league by the match id
+     * @throws FindException if have any errors
      */
     public League findLeagueForMatch(Integer id) throws FindException;
     

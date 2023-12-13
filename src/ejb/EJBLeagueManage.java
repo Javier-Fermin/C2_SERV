@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package ejb;
 
 import exceptions.*;
 import java.entity.League;
@@ -17,8 +17,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
+ * EJB class for League entity
  *
- * @author 2dam
+ * @author Emil
  */
 @Stateless(name = "EJBLeagueManage")
 public class EJBLeagueManage implements LeagueManageLocal {
@@ -34,8 +35,8 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Create a league
      *
-     * @param league
-     * @throws CreateException
+     * @param league to create the league
+     * @throws CreateException if have any errors
      */
     @Override
     public void createLeague(League league) throws CreateException {
@@ -51,8 +52,8 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Update a league
      *
-     * @param league
-     * @throws UpdateException
+     * @param league to update
+     * @throws UpdateException if have any errors
      */
     @Override
     public void updateLeague(League league) throws UpdateException {
@@ -71,8 +72,8 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Delete a League
      *
-     * @param league
-     * @throws DeleteException
+     * @param league to delete
+     * @throws DeleteException if have any errors
      */
     @Override
     public void deleteLeague(League league) throws DeleteException {
@@ -88,9 +89,9 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Find a league by id
      *
-     * @param id
-     * @return league
-     * @throws FindException
+     * @param id to find the league
+     * @return league finded by id
+     * @throws FindException if have any errors
      */
     @Override
     public League findOneLeague(Integer id) throws FindException {
@@ -111,8 +112,8 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Find all Leagues
      *
-     * @return leagues
-     * @throws FindException
+     * @return leagues finded
+     * @throws FindException if have any errors
      */
     @Override
     public List<League> findAllLeagues() throws FindException {
@@ -131,9 +132,9 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Find league by name
      *
-     * @param name
-     * @return leagued
-     * @throws FindException
+     * @param name to find the league
+     * @return league finded by the name
+     * @throws FindException if have any errors
      */
     @Override
     public League findLeagueByName(String name) throws FindException {
@@ -151,9 +152,9 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * find all finished leagues
      *
-     * @param today
-     * @return leagues
-     * @throws FindException
+     * @param today to compare with the end date
+     * @return leagues finished
+     * @throws FindException if have any errors
      */
     @Override
     public List<League> findAllFinishLeagues(Date today) throws FindException {
@@ -171,9 +172,9 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Find all unstarted leagues
      *
-     * @param today
-     * @return leagues
-     * @throws FindException
+     * @param today to compare with the end date
+     * @return leagues unstarted
+     * @throws FindException if have any errors
      */
     @Override
     public List<League> findAllUnstartedLeagues(Date today) throws FindException {
@@ -191,9 +192,9 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Find league by match id
      *
-     * @param id
-     * @return league
-     * @throws FindException
+     * @param id to find the league of the match
+     * @return league by the match id
+     * @throws FindException if have any errors
      */
     @Override
     public League findLeagueForMatch(Integer id) throws FindException {

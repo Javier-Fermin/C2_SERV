@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 /**
  * This is the class for League data
  *
- * @author javie
+ * @author Emil
  */
 /**
  * NamedQueries for League entity
@@ -74,6 +74,9 @@ public class League implements Serializable {
     @OneToMany(mappedBy = "league", fetch = FetchType.EAGER)
     private Set<Match> matches;
 
+    /**
+     * constructor
+     */
     public League() {
     }
 
@@ -86,6 +89,11 @@ public class League implements Serializable {
         this.matches = matches;
     }
 
+    
+   /**
+    * Getters and Setters for league entity
+    */
+    
     public Integer getId() {
         return id;
     }
@@ -133,6 +141,10 @@ public class League implements Serializable {
     public void setMatches(Set<Match> matches) {
         this.matches = matches;
     }
+    
+    /**
+     * hashCode and equals for the league entity
+     */
 
     @Override
     public int hashCode() {
@@ -179,6 +191,9 @@ public class League implements Serializable {
         return true;
     }
 
+    /**
+     * toString for the League entity 
+     */
     @Override
     public String toString() {
         return "League{" + "id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", name=" + name + ", description=" + description + ", matches=" + matches + '}';

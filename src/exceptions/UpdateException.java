@@ -12,7 +12,7 @@ package exceptions;
 public class UpdateException extends Exception{
     
      /**
-     * Creates a new instance of <code>CreateException</code> without detail message.
+     * Creates a new instance of <code>UpdateException</code> without detail message.
      */
     public UpdateException() {
     }

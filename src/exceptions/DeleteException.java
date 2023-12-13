@@ -12,7 +12,7 @@ package exceptions;
 public class DeleteException extends Exception{
     
      /**
-     * Creates a new instance of <code>CreateException</code> without detail message.
+     * Creates a new instance of <code>DeleteException</code> without detail message.
      */
     public DeleteException() {
     }
