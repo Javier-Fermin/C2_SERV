@@ -6,7 +6,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,14 +24,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "stats", schema = "esport_six")
 @NamedQueries({
-    @NamedQuery(name="viewStatsByPlayer",
-            query="SELECT s FROM Stats s WHERE s.player = :player"),
-    @NamedQuery(name="viewStatsByMatch",
-        query="SELECT s FROM Stats s WHERE s.match = :match"),
-    @NamedQuery(name="viewStatsByLeague",
-        query="SELECT s FROM Stats s WHERE s.match in (SELECT m.id FROM Match m WHERE m.league = :league)"),
-    @NamedQuery(name="viewStatsByTournament",
-        query="SELECT s FROM Stats s WHERE s.match in (SELECT m.id FROM Match m WHERE m.tournament = :tournament)")
+    @NamedQuery(name="findStatsByPlayerNickname",
+            query="SELECT s FROM Stats s WHERE s.player.nickname = :nickname"),
+    @NamedQuery(name="findStatsByMatchId",
+        query="SELECT s FROM Stats s WHERE s.match.id = :matchId"),
+    @NamedQuery(name="findStatsByLeagueName",
+        query="SELECT s FROM Stats s WHERE s.match in (SELECT m.id FROM Match m WHERE m.league.name = :leagueName)"),
+    @NamedQuery(name="findStatsByTournamentName",
+        query="SELECT s FROM Stats s WHERE s.match in (SELECT m.id FROM Match m WHERE m.tournament.name = :tournamentName)")
 })
 public class Stats implements Serializable{
 
@@ -46,7 +45,25 @@ public class Stats implements Serializable{
     /**
      * Kills, deaths and assists fields for the Stats entity
      */
-    private Integer kills, deaths, assists;
+    private Integer kills,
+
+    /**
+     * Kills, deaths and assists fields for the Stat entity
+     */
+
+    /**
+     * Kills, deaths and assists fields for the Stats entity
+     */
+    deaths, 
+
+    /**
+     * Kills, deaths and assists fields for the Stat entity
+     */
+
+    /**
+     * Kills, deaths and assists fields for the Stats entity
+     */
+    assists;
 
     /**
      * Team field of the Stats entity

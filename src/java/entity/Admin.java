@@ -35,20 +35,71 @@ public class Admin extends User{
     @Temporal(TemporalType.DATE)
     private Date joinDate;
 
+    /**
+     * 
+     * @return 
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * 
+     * @param id 
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public Date getJoinDate() {
         return joinDate;
     }
 
+    /**
+     * 
+     * @param joinDate 
+     */
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
+    }
+    
+    /**
+     * 
+     * 
+     * @return 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    /**
+     * 
+     * 
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Admin)) {
+            return false;
+        }
+        Admin other = (Admin) obj;
+        if (this.id != null && this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" + "id=" + id + ", joinDate=" + joinDate + '}';
     }
     
     
