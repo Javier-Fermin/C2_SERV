@@ -95,6 +95,10 @@ public class Sponsor {
         this.tournaments = tournaments;
     }
 
+    /**
+     * HashCode method implementation for the entity.
+     * @return An integer value as hashcode for the object. 
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -102,6 +106,12 @@ public class Sponsor {
         return hash;
     }
 
+    /**
+     * This method compares two sponsor entities for equality. This implementation
+     * compare id field value for equality.
+     * @param obj The object to compare to.
+     * @return True if objects are equals, otherwise false.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -120,6 +130,10 @@ public class Sponsor {
         return true;
     }
 
+    /**
+     * This method returns a String representation for a sponsor entity instance.
+     * @return The String representation for the sponsor object. 
+     */
     @Override
     public String toString() {
         return "Sponsor{" + "id=" + id + '}';

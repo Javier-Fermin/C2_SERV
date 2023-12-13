@@ -121,13 +121,23 @@ public class Tournament implements Serializable{
         this.matches = matches;
     }
 
+    /**
+     * HashCode method implementation for the entity.
+     * @return An integer value as hashcode for the object. 
+     */
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.id);
         return hash;
     }
-
+    
+    /**
+     * This method compares two tournament entities for equality. This implementation
+     * compare id field value for equality.
+     * @param obj The object to compare to.
+     * @return True if objects are equals, otherwise false.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -145,7 +155,11 @@ public class Tournament implements Serializable{
         }
         return true;
     }
-
+    
+    /**
+     * This method returns a String representation for a tournament entity instance.
+     * @return The String representation for the tournament object. 
+     */
     @Override
     public String toString() {
         return "Tournament{" + "id=" + id + '}';
