@@ -6,8 +6,8 @@
 package java.exception;
 
 /**
- * This class represents any error during any query in application storage.
- * @author javi
+ *
+ * @author javie
  */
 public class ReadException extends Exception {
 

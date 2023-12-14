@@ -1,12 +1,12 @@
-package java.service;
+package java.ejb;
 
 import java.util.Set;
 
-import entity.User;
-import exceptions.CreateException;
-import exceptions.DeleteException;
-import exceptions.FindException;
-import exceptions.UpdateException;
+import java.entity.User;
+import java.exception.CreateException;
+import java.exception.DeleteException;
+import java.exception.ReadException;
+import java.exception.UpdateException;
 import javax.ejb.Local;
 
 /**
@@ -22,17 +22,17 @@ public interface UserManagerLocal {
      * 
      * @param email the email for User to be found
      * @return the {@link User} found
-     * @throws FindException
+     * @throws ReadException
      */
-    public User findUserByMail(String email) throws FindException;
+    public User findUserByMail(String email) throws ReadException;
 
     /**
      * Finds all {@link User} in the underlying application storage.
      * 
      * @return a set of {@link User} with all the users.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
-    public Set<User> findUsers() throws FindException;
+    public Set<User> findUsers() throws ReadException;
 
     /**
      * Creates a {@link User} in the underlying application storage.

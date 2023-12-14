@@ -1,5 +1,8 @@
-package java.service;
+package java.ejb;
 
+import java.exception.DeleteException;
+import java.exception.UpdateException;
+import java.exception.CreateException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,8 +10,8 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entity.Match;
-import exceptions.*;
+import java.entity.Match;
+import java.exception.ReadException;
 import javax.ejb.Stateless;
 
 /**
@@ -32,10 +35,10 @@ public class EJBMatchManager implements MatchManagerLocal {
      * Finds a set of {@link Match} objects.
      * 
      * @return A set of all Matches played .
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Match> findAllMatches() throws FindException {
+    public Set<Match> findAllMatches() throws ReadException {
         Set<Match> matches = null;
         try {
             LOGGER.info("MatchManager: Reading all matchs.");
@@ -43,7 +46,7 @@ public class EJBMatchManager implements MatchManagerLocal {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "MatchManager: Exception reading all matchs:",
                     e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return matches;
     }
@@ -52,10 +55,10 @@ public class EJBMatchManager implements MatchManagerLocal {
      * Finds a set of {@link Match} played in a Tournament.
      * 
      * @return A set of {@link Match} that are played in Tournaments.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Match> findAllTournamentMatches() throws FindException {
+    public Set<Match> findAllTournamentMatches() throws ReadException {
         Set<Match> matches = null;
         try {
             LOGGER.info("MatchManager: Reading all matchs.");
@@ -63,7 +66,7 @@ public class EJBMatchManager implements MatchManagerLocal {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "MatchManager: Exception reading all matchs:",
                     e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return matches;
     }
@@ -72,10 +75,10 @@ public class EJBMatchManager implements MatchManagerLocal {
      * Finds a set of {@link Match} played in a League.
      * 
      * @return A set of {@link Match} that are played in a League.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Match> findAllLeagueMatches() throws FindException {
+    public Set<Match> findAllLeagueMatches() throws ReadException {
         Set<Match> matches = null;
         try {
             LOGGER.info("MatchManager: Reading all matchs.");
@@ -83,7 +86,7 @@ public class EJBMatchManager implements MatchManagerLocal {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "MatchManager: Exception reading all matchs:",
                     e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return matches;
     }
@@ -93,10 +96,10 @@ public class EJBMatchManager implements MatchManagerLocal {
      * 
      * @param id The id for the match to be found.
      * @return The {@link Match} object with all the information.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Match findATournament(Integer id) throws FindException {
+    public Match findATournament(Integer id) throws ReadException {
         Match match = null;
         try {
             LOGGER.info("MatchManager: Finding the matches in a tournament by id.");
@@ -106,7 +109,7 @@ public class EJBMatchManager implements MatchManagerLocal {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "MatcManager: Exception Finding tournament by id:", e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return match;
     }
@@ -115,10 +118,10 @@ public class EJBMatchManager implements MatchManagerLocal {
      * Finds a {@link Match} by its id that is played in a League.
      * 
      * @return The {@link Match} object with all the information.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Match findALeague(Integer id) throws FindException {
+    public Match findALeague(Integer id) throws ReadException {
        Match match = null;
         try {
             LOGGER.info("MatchManager: Finding the matches in a league by id.");
@@ -128,7 +131,7 @@ public class EJBMatchManager implements MatchManagerLocal {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "MatcManager: Exception Finding a league by id:", e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return match;
     }
@@ -138,10 +141,10 @@ public class EJBMatchManager implements MatchManagerLocal {
      * 
      * @param id the id for the Tournament to be found.
      * @return A set of {@link Match} that are played in a specific Tournament.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Match> findMatchTournamentById(Integer id) throws FindException {
+    public Set<Match> findMatchTournamentById(Integer id) throws ReadException {
         Set<Match> match = null;
         try {
             LOGGER.info("MatchManager: Finding the matches played in tournaments by id.");
@@ -151,7 +154,7 @@ public class EJBMatchManager implements MatchManagerLocal {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "MatchManager: Exception Finding match by id:", e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return match;
     }
@@ -161,10 +164,10 @@ public class EJBMatchManager implements MatchManagerLocal {
      * 
      * @param id the id for the Tournament to be found.
      * @return A set of {@link Match} that are played in a specific League.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Match> findMatchLeagueById(Integer id) throws FindException {
+    public Set<Match> findMatchLeagueById(Integer id) throws ReadException {
         Set<Match> match = null;
         try {
             LOGGER.info("MatchManager: Finding the matches played in leagues by id.");
@@ -174,7 +177,7 @@ public class EJBMatchManager implements MatchManagerLocal {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "MatchManager: Exception Finding match by id:", e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return match;
     }

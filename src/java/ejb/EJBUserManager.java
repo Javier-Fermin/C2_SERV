@@ -1,4 +1,4 @@
-package java.service;
+package java.ejb;
 
 import java.util.Set;
 import java.util.logging.Level;
@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entity.User;
-import exceptions.CreateException;
-import exceptions.DeleteException;
-import exceptions.FindException;
-import exceptions.UpdateException;
+import java.entity.User;
+import java.exception.CreateException;
+import java.exception.DeleteException;
+import java.exception.ReadException;
+import java.exception.UpdateException;
 import javax.ejb.Stateless;
 
 /**
@@ -37,10 +37,10 @@ public class EJBUserManager implements UserManagerLocal {
      * 
      * @param email the email for User to be found
      * @return the {@link User} found
-     * @throws FindException
+     * @throws ReadException
      */
     @Override
-    public User findUserByMail(String email) throws FindException {
+    public User findUserByMail(String email) throws ReadException {
         User user = null;
         try {
             LOGGER.info("UserManager: Finding the user by email.");
@@ -50,7 +50,7 @@ public class EJBUserManager implements UserManagerLocal {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "UserManager: Exception Finding user by email:", e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return user;
     }
@@ -59,10 +59,10 @@ public class EJBUserManager implements UserManagerLocal {
      * Finds all {@link User} in the underlying application storage.
      * 
      * @return a set of {@link User} with all the users.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<User> findUsers() throws FindException {
+    public Set<User> findUsers() throws ReadException {
         Set<User> users = null;
         try {
             LOGGER.info("UserManager: Reading all users.");
@@ -70,7 +70,7 @@ public class EJBUserManager implements UserManagerLocal {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "UserManager: Exception reading all users:",
                     e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return users;
     }

@@ -5,7 +5,10 @@
  */
 package java.ejb;
 
-import java.exceptions.*;
+import java.exception.DeleteException;
+import java.exception.UpdateException;
+import java.exception.ReadException;
+import java.exception.CreateException;
 import java.entity.League;
 import java.util.Date;
 import java.util.List;
@@ -44,56 +47,56 @@ public interface LeagueManageLocal {
     public void deleteLeague(League league) throws DeleteException;
     
     /**
-     * Find one League by leagues id, throws FindException in case of error
+     * Find one League by leagues id, throws ReadException in case of error
      * 
      * @param id to find the league
      * @return league finded by id
-     * @throws FindException if have any errors
+     * @throws ReadException if have any errors
      */
-    public League findOneLeague(Integer id) throws FindException;
+    public League findOneLeague(Integer id) throws ReadException;
     
     /**
-     * Find a list of all leagues, throws FindException in case of error
+     * Find a list of all leagues, throws ReadException in case of error
      * 
      * @return leagues finded
-     * @throws FindException if have any errors
+     * @throws ReadException if have any errors
      */
-    public List<League> findAllLeagues() throws FindException;
+    public List<League> findAllLeagues() throws ReadException;
     
     /**
-     * Find one League by leagues name, throws FindException in case of error
+     * Find one League by leagues name, throws ReadException in case of error
      * 
      * @param name to find the league
      * @return league finded by the name
-     * @throws FindException if have any errors
+     * @throws ReadException if have any errors
      */
-    public League findLeagueByName(String name) throws FindException;
+    public League findLeagueByName(String name) throws ReadException;
     
     /**
-     * Find all finished leagues taking locals date, throws FindException in case of error
+     * Find all finished leagues taking locals date, throws ReadException in case of error
      * 
      * @param today to compare with the end date
      * @return leagues finished
-     * @throws FindException if have any errors
+     * @throws ReadException if have any errors
      */
-    public List<League> findAllFinishLeagues(Date today) throws FindException;
+    public List<League> findAllFinishLeagues(Date today) throws ReadException;
 
     /**
-     * find all unstarted leagues taking locals date, throws FindException in case of error
+     * find all unstarted leagues taking locals date, throws ReadException in case of error
      * 
      * @param today to compare with the end date
      * @return leagues unstarted
-     * @throws FindException if have any errors
+     * @throws ReadException if have any errors
      */
-    public List<League> findAllUnstartedLeagues(Date today) throws FindException;
+    public List<League> findAllUnstartedLeagues(Date today) throws ReadException;
     
     /**
-     * Find a league by a match id, throws FindException in case of error
+     * Find a league by a match id, throws ReadException in case of error
      * 
      * @param id to find the league of the match
      * @return league by the match id
-     * @throws FindException if have any errors
+     * @throws ReadException if have any errors
      */
-    public League findLeagueForMatch(Integer id) throws FindException;
+    public League findLeagueForMatch(Integer id) throws ReadException;
     
 }

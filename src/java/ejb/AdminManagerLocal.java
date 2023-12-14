@@ -1,12 +1,12 @@
-package java.service;
+package java.ejb;
 
 import java.util.Set;
 
-import entity.Admin;
-import exceptions.CreateException;
-import exceptions.DeleteException;
-import exceptions.FindException;
-import exceptions.UpdateException;
+import java.entity.Admin;
+import java.exception.CreateException;
+import java.exception.DeleteException;
+import java.exception.*;
+import java.exception.UpdateException;
 import javax.ejb.Local;
 
 /**
@@ -22,17 +22,17 @@ public interface AdminManagerLocal {
      * 
      * @param email the email for Admin to be found
      * @return the {@link Admin} found
-     * @throws FindException
+     * @throws ReadException
      */
-    public Admin findAdminByMail(String email) throws FindException;
+    public Admin findAdminByMail(String email) throws ReadException;
 
     /**
      * Finds all {@link Admin} in the underlying application storage.
      * 
      * @return a set of {@link Admin} with all the admins.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Admin> findAdmins() throws FindException;
+    public Set<Admin> findAdmins() throws ReadException;
 
     /**
      * Creates a {@link Admin} in the underlying application storage.
