@@ -207,8 +207,8 @@ public class LeagueREST {
      * REST method to find league by match id, throws
      * InternalServerErrorException if error
      * 
-     * @param id
-     * @return 
+     * @param id from the match ti find the league
+     * @return league finded by match
      */
     @GET
     @Path("match/{id}")
