@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 /**
  * This class is for the Tournament entity
  * 
- * @author javie
+ * @author Fran
  */
 @Entity
 @Table(name="tournament",schema="esport_six")
@@ -46,7 +46,7 @@ public class Tournament implements Serializable{
     private Integer id;
     
     /***
-     * 
+     * Name field of the tournament entity
      */
     private String name;
     
@@ -59,10 +59,10 @@ public class Tournament implements Serializable{
      */
     @Temporal(TemporalType.DATE)
     private Date date;
-    /**
-     * sponsors of the tournament entity
-     */
     
+    /**
+     * Sponsors of the tournament entity
+     */
     private Set<Sponsor> sponsors;
     /***
      * Matches of the tournament
@@ -71,56 +71,105 @@ public class Tournament implements Serializable{
     private Set<Match> matches;
     
     
-    //Tournament's Getters and Setters
+// -------------- SPONSOR SETTERS & GETTERS ---------------
 
+    /***
+     * Method that return the id of the Tournament
+     * @return id The id of the Tournament
+     */
     public Integer getId() {
         return id;
     }
 
+    /***
+     * Method that defines a value to the Tournament id attribute
+     * @param id the value that the id obtains
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /***
+     * Method that return the name of the Tournament
+     * @return name The name of the Tournament
+     */
     public String getName() {
         return name;
     }
-
+    /***
+     * Method that defines a value to the Tournament name attribute
+     * @param name the value that the name obtains
+     */
     public void setName(String name) {
         this.name = name;
     }
     
+    /***
+     * Method that return the bestOf of the Tournament
+     * @return bestOf The bestOf of the Tournament
+     */
     public Integer getBestOf() {
         return bestOf;
     }
 
+    /***
+     * Method that defines a value to the Tournament bestOf attribute
+     * @param bestOf the value that the bestOf obtains
+     */
     public void setBestOf(Integer bestOf) {
         this.bestOf = bestOf;
     }
 
+    /***
+     * Method that return the date of the Tournament
+     * @return date The date of the Tournament
+     */
     public Date getDate() {
         return date;
     }
 
+    /***
+     * Method that defines a value to the Tournament date attribute
+     * @param date the value that the date obtains
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /***
+     * Method that returns all the Tournament sponsors
+     * @return sponsors A collection of Sponsor objects
+     */
     public Set<Sponsor> getSponsors() {
         return sponsors;
     }
 
+    /***
+     * Method that defines the collection of sponsors of the Tournament
+     * @param sponsors a collection of Sponsor objects
+     */
     public void setSponsors(Set<Sponsor> sponsors) {
         this.sponsors = sponsors;
     }
     
+    /***
+     * Method that returns all the matches of the Tournament
+     * @return a collection of {@link Match} objects
+     */
      public Set<Match> getMatches() {
         return matches;
     }
 
+     /***
+     * Method that defines the collection of match of the Tournament
+     * @param matches a collection of {@link Match}
+     */
     public void setMatches(Set<Match> matches) {
         this.matches = matches;
     }
 
+ // ------------------- METHODS --------------------   
+    
     /**
      * HashCode method implementation for the entity.
      * @return An integer value as hashcode for the object. 

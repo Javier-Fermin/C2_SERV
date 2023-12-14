@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb;
+package java.ejb;
 
-import exception.CreateException;
-import exception.DeleteException;
-import exception.ReadException;
-import exception.UpdateException;
+import java.exception.CreateException;
+import java.exception.DeleteException;
+import java.exception.ReadException;
+import java.exception.UpdateException;
 import java.entity.Match;
 import java.entity.Tournament;
 import java.util.Date;
@@ -35,7 +35,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
     private EntityManager em;
     
     /**
-     * Finds one or many {@link Tournament} by its name. 
+     * Finds a List of {@link Tournament} objects by its name. 
      * @param name The name for a tournament to be found.
      * @return The {@link Tournament} object containing tournament data. 
      * @throws ReadException If there is any Exception during processing.
@@ -54,7 +54,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
         return tournaments;
     }
     /**
-     * Finds one or many {@link Tournament} by its date of creation. 
+     * Finds a List of {@link Tournament} objects by its date of creation. 
      * @param date The date for a tournament to be found.
      * @return The {@link Tournament} object containing tournament data. 
      * @throws ReadException If there is any Exception during processing.
@@ -73,7 +73,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
         return tournaments;
     }
     /**
-     * Finds one or many {@link Tournament} by its play format. 
+     * Finds a List of {@link Tournament} objects by its play format. 
      * @param bestOf The format for a tournament to be found.
      * @return The List object full of {@link Tournament} object containing tournament data. 
      * @throws ReadException If there is any Exception during processing.

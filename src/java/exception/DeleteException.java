@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package exception;
+package java.exception;
 
 /**
  * This class represents any error during user object's deletion in application storage.
