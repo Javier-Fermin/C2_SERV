@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package java.exception;
 
-package exceptions;
+/**
+ * This class represents any error during user object's update in application storage.
+ * @author javi
+ */
+public class UpdateException extends Exception {
 
     /**
      * Creates a new instance of <code>UpdateException</code> without detail
      * message.
-     * @author 2dam
-     */
-public class UpdateException extends Exception{
-    
-     /**
-     * Creates a new instance of <code>CreateException</code> without detail message.
      */
     public UpdateException() {
     }
-
 
     /**
      * Constructs an instance of <code>UpdateException</code> with the specified

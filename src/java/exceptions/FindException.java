@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.exceptions;
+package exceptions;
 
 /**
  *
@@ -12,11 +12,10 @@ package java.exceptions;
 public class FindException extends Exception{
     
      /**
-     * Creates a new instance of <code>FindException</code> without detail message.
+     * Creates a new instance of <code>CreateException</code> without detail message.
      */
     public FindException() {
     }
-
 
     /**
      * Constructs an instance of <code>CreateException</code> with the specified detail message.
@@ -25,6 +24,4 @@ public class FindException extends Exception{
     public FindException(String msg) {
         super(msg);
     }
-    
-    
 }
