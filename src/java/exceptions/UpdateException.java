@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package exceptions;
 
     /**
@@ -17,6 +18,7 @@ public class UpdateException extends Exception{
      */
     public UpdateException() {
     }
+
 
     /**
      * Constructs an instance of <code>UpdateException</code> with the specified

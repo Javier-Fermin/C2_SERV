@@ -17,7 +17,6 @@ public class FindException extends Exception{
     public FindException() {
     }
 
-
     /**
      * Constructs an instance of <code>CreateException</code> with the specified detail message.
      * @param msg the detail message.
@@ -25,6 +24,4 @@ public class FindException extends Exception{
     public FindException(String msg) {
         super(msg);
     }
-    
-    
 }
