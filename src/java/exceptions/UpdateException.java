@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package exceptions;
+package java.exceptions;
 
 /**
  *
  * @author 2dam
  */
-public class CreateException extends Exception{
+public class UpdateException extends Exception{
     
      /**
-     * Creates a new instance of <code>CreateException</code> without detail message.
+     * Creates a new instance of <code>UpdateException</code> without detail message.
      */
-    public CreateException() {
+    public UpdateException() {
     }
 
 
@@ -22,7 +22,7 @@ public class CreateException extends Exception{
      * Constructs an instance of <code>CreateException</code> with the specified detail message.
      * @param msg the detail message.
      */
-    public CreateException(String msg) {
+    public UpdateException(String msg) {
         super(msg);
     }
     

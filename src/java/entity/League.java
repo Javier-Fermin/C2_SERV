@@ -133,7 +133,7 @@ public class League implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
     public Set<Match> getMatches() {
         return matches;
     }
