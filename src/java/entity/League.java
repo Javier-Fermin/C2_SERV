@@ -7,8 +7,8 @@ package java.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This is the class for League data
@@ -72,7 +73,7 @@ public class League implements Serializable {
      * Set of matches for league entity
      */
     @OneToMany(mappedBy = "league", fetch = FetchType.EAGER)
-    private Set<Match> matches;
+    private List<Match> matches;
 
     /**
      * constructor
@@ -80,7 +81,7 @@ public class League implements Serializable {
     public League() {
     }
 
-    public League(Integer id, Date startDate, Date endDate, String name, String description, Set<Match> matches) {
+    public League(Integer id, Date startDate, Date endDate, String name, String description, List<Match> matches) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -134,11 +135,12 @@ public class League implements Serializable {
         this.description = description;
     }
     
-    public Set<Match> getMatches() {
+    @XmlTransient
+    public List<Match> getMatches() {
         return matches;
     }
 
-    public void setMatches(Set<Match> matches) {
+    public void setMatches(List<Match> matches) {
         this.matches = matches;
     }
     
