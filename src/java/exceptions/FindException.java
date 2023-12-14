@@ -5,26 +5,26 @@
  */
 package exceptions;
 
-    /**
-     * Creates a new instance of <code>DeleteExceptopn</code> without detail
-     * message.
-     * @author 2dam
-     */
-public class DeleteException extends Exception{
+/**
+ *
+ * @author 2dam
+ */
+public class FindException extends Exception{
     
      /**
      * Creates a new instance of <code>CreateException</code> without detail message.
      */
-    public DeleteException() {
+    public FindException() {
     }
 
+
     /**
-     * Constructs an instance of <code>DeleteExceptopn</code> with the specified
-     * detail message.
-     *
+     * Constructs an instance of <code>CreateException</code> with the specified detail message.
      * @param msg the detail message.
      */
-    public DeleteException(String msg) {
+    public FindException(String msg) {
         super(msg);
     }
+    
+    
 }
