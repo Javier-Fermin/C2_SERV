@@ -5,10 +5,11 @@
  */
 package exceptions;
 
-/**
- *
- * @author 2dam
- */
+    /**
+     * Creates a new instance of <code>UpdateException</code> without detail
+     * message.
+     * @author 2dam
+     */
 public class UpdateException extends Exception{
     
      /**
@@ -17,13 +18,13 @@ public class UpdateException extends Exception{
     public UpdateException() {
     }
 
-
     /**
-     * Constructs an instance of <code>CreateException</code> with the specified detail message.
+     * Constructs an instance of <code>UpdateException</code> with the specified
+     * detail message.
+     *
      * @param msg the detail message.
      */
     public UpdateException(String msg) {
         super(msg);
     }
-    
 }
