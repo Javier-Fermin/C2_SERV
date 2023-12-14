@@ -1,6 +1,5 @@
-package service;
+package java.service;
 
-import java.lang.module.FindException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,13 +9,14 @@ import javax.persistence.PersistenceContext;
 
 import entity.Match;
 import exceptions.*;
+import javax.ejb.Stateless;
 
 /**
  * EJB class for managing Match entity CRUD operations.
  * 
  * @author imanol
  */
-// @Stateless
+@Stateless
 public class EJBMatchManager implements MatchManagerLocal {
     /**
      * Logger for the class

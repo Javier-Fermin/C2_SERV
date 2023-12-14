@@ -1,4 +1,4 @@
-package service;
+package java.service;
 
 import java.util.Set;
 import java.util.logging.Level;
@@ -13,13 +13,14 @@ import exceptions.CreateException;
 import exceptions.DeleteException;
 import exceptions.FindException;
 import exceptions.UpdateException;
+import javax.ejb.Stateless;
 
 /**
  * EJB class for managing Admin entity CRUD operations.
  * 
  * @author imanol
  */
-
+@Stateless
 public class EJBAdminManager implements AdminManagerLocal {
     /**
      * Logger for the class.

@@ -24,7 +24,6 @@ import javax.persistence.Table;
 @Table(name = "match", schema = "esport_six")
 
 @NamedQueries({
-        @NamedQuery(name = "findAllMatches", query = "SELECT m FROM match m"),
         @NamedQuery(name = "findAllTournamentMatches", query = "SELECT m FROM match m WHERE m.tournament IS NOT NULL"),
         @NamedQuery(name = "findAllLeagueMatches", query = "SELECT m FROM match m WHERE m.league IS NOT NULL"),
         @NamedQuery(name = "findAMatch", query = "SELECT m FROM match m WHERE m.id = :id"),
@@ -64,6 +63,19 @@ public class Match {
      * plays of the Match entity
      */
     private Set<Stats> plays;
+
+    /**
+     * descrition of the match
+     */
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Integer getId() {
         return id;

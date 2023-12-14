@@ -1,4 +1,4 @@
-package service;
+package java.service;
 
 import java.util.Set;
 
@@ -7,13 +7,14 @@ import exceptions.CreateException;
 import exceptions.DeleteException;
 import exceptions.FindException;
 import exceptions.UpdateException;
+import javax.ejb.Local;
 
 /**
  * EJB Local Interface for managing User entity CRUD opreations
  * 
  * @author imanol
  */
-
+@Local
 public interface UserManagerLocal {
     /**
      * Finds a {@link User} with the given email in the underlying application

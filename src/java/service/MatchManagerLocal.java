@@ -1,12 +1,13 @@
-package service;
+package java.service;
 
-import java.lang.module.FindException;
+import exceptions.*;
 import java.util.Set;
 
 import entity.Match;
 import exceptions.CreateException;
 import exceptions.DeleteException;
 import exceptions.UpdateException;
+import javax.ejb.Local;
 
 //import javax.ejb.Local;
 /**
@@ -14,7 +15,7 @@ import exceptions.UpdateException;
  * 
  * @author imanol
  */
-// @Local
+@Local
 public interface MatchManagerLocal {
     /**
      * Finds a set of {@link Match} objects.

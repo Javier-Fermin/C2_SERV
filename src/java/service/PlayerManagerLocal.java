@@ -1,4 +1,4 @@
-package service;
+package java.service;
 
 import java.util.Set;
 
@@ -7,13 +7,14 @@ import exceptions.CreateException;
 import exceptions.DeleteException;
 import exceptions.FindException;
 import exceptions.UpdateException;
+import javax.ejb.Stateless;
 
 /**
  * EJB Local Interface for managing Player entity CRUD opreations
  * 
  * @author imanol
  */
-
+@Stateless
 public interface PlayerManagerLocal {
     /**
      * Finds a {@link Player} with the given email in the underlying application
