@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -22,6 +23,7 @@ import javax.persistence.PersistenceContext;
  * EJB class for managing Tournament entity CRUD operations
  * @author Fran
  */
+@Stateless
 public class TournamentManagerEJB implements TournamentLocalManagerEJB{
     /**
      * Logger for the class.

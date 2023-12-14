@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This class is for the Tournament entity
@@ -50,6 +51,11 @@ public class Tournament implements Serializable{
      */
     private String name;
     
+    /***
+     * Description field of the tournament entity
+     */
+    private String description;
+    
     /**
      * bestOf field of the tournament entity
      */
@@ -71,7 +77,7 @@ public class Tournament implements Serializable{
     private Set<Match> matches;
     
     
-// -------------- SPONSOR SETTERS & GETTERS ---------------
+// -------------- TOURNAMENT SETTERS & GETTERS ---------------
 
     /***
      * Method that return the id of the Tournament
@@ -103,6 +109,24 @@ public class Tournament implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+
+    /***
+     * Method that return the description of the Tournament
+     * @return description The description of the Tournament
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /***
+     * Method that defines a value to the Tournament description attribute
+     * @param description the value that the description obtains
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    
     
     /***
      * Method that return the bestOf of the Tournament
@@ -140,6 +164,7 @@ public class Tournament implements Serializable{
      * Method that returns all the Tournament sponsors
      * @return sponsors A collection of Sponsor objects
      */
+    @XmlTransient
     public Set<Sponsor> getSponsors() {
         return sponsors;
     }
@@ -156,6 +181,7 @@ public class Tournament implements Serializable{
      * Method that returns all the matches of the Tournament
      * @return a collection of {@link Match} objects
      */
+    @XmlTransient
      public Set<Match> getMatches() {
         return matches;
     }

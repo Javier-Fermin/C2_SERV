@@ -16,6 +16,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This class is for the Sponsor entity
@@ -123,6 +124,7 @@ public class Sponsor {
      * Method that returns all the {@link Tournament} that the sponsor supports
      * @return sponsors A collection of {@link Tournament} objects
      */
+    @XmlTransient
     public Set<Tournament> getTournaments() {
         return tournaments;
     }
