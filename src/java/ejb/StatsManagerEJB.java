@@ -78,11 +78,11 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
+     * Finds a set of {@link Stats} by a player nickname
      * 
-     * 
-     * @param nickname
-     * @return
-     * @throws ReadException 
+     * @param nickname the player nickname to be searched
+     * @return the set of {@link Stats} that fullfilled the requirements
+     * @throws ReadException if there is any exception during the execution
      */
     @Override
     public Set<Stats> findStatsByPlayerNickname(String nickname) throws ReadException {
@@ -102,10 +102,11 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
+     * Finds a set of {@link Stats} by a match id
      * 
-     * @param matchId
-     * @return
-     * @throws ReadException 
+     * @param matchId the match id to be searched
+     * @return the set of {@link Stats} that fullfilled the requirements
+     * @throws ReadException if there is any exception during the method
      */
     @Override
     public Set<Stats> findStatsByMatchId(Integer matchId) throws ReadException {
@@ -125,10 +126,11 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
+     * Finds a set of {@link Stats} by the league name
      * 
-     * @param leagueName
-     * @return
-     * @throws ReadException 
+     * @param leagueName the league name to be searched
+     * @return the set of {@link Stats} that fullfilled the requirements
+     * @throws ReadException if there is any exception during the execution
      */
     @Override
     public Set<Stats> findStatsByLeagueName(String leagueName) throws ReadException {
@@ -148,10 +150,11 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
+     * Finds a set of {@link Stats} by the tournament name
      * 
-     * @param tournamentName
-     * @return
-     * @throws ReadException 
+     * @param tournamentName the tournament name to be searched
+     * @return the set of {@link Stats} that fullfilled the requirements
+     * @throws ReadException if there is any exception during the execution
      */
     @Override
     public Set<Stats> findStatsByTournamentName(String tournamentName) throws ReadException {
@@ -171,9 +174,10 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
+     * Creates a Stats in the database
      * 
-     * @param stats
-     * @throws CreateException 
+     * @param stats the Stats to be created
+     * @throws CreateException  if there is any exception during the method
      */
     @Override
     public void createStats(Stats stats) throws CreateException {
@@ -188,9 +192,10 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
+     * Updates a Stats data in the database
      * 
-     * @param stats
-     * @throws UpdateException 
+     * @param stats the Stats to be updated with the data changes
+     * @throws UpdateException if there is any exception during the method
      */
     @Override
     public void updateStats(Stats stats) throws UpdateException {
@@ -206,9 +211,10 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
+     * Deletes a Stats from the database
      * 
-     * @param stats
-     * @throws DeleteException 
+     * @param stats the desired Stats to be deleted
+     * @throws DeleteException if there is any exception during the execution
      */
     @Override
     public void deleteStats(Stats stats) throws DeleteException {
