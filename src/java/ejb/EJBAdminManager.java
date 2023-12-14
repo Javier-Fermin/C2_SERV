@@ -1,4 +1,4 @@
-package java.service;
+package java.ejb;
 
 import java.util.Set;
 import java.util.logging.Level;
@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entity.Admin;
+import java.entity.Admin;
 
-import exceptions.CreateException;
-import exceptions.DeleteException;
-import exceptions.FindException;
-import exceptions.UpdateException;
+import java.exception.CreateException;
+import java.exception.DeleteException;
+import java.exception.*;
+import java.exception.UpdateException;
 import javax.ejb.Stateless;
 
 /**
@@ -38,10 +38,10 @@ public class EJBAdminManager implements AdminManagerLocal {
      * 
      * @param email the email for Admin to be found
      * @return the {@link Admin} found
-     * @throws FindException
+     * @throws ReadException
      */
     @Override
-    public Admin findAdminByMail(String email) throws FindException {
+    public Admin findAdminByMail(String email) throws ReadException {
         Admin admin = null;
         try {
             LOGGER.info("AdminManager: Finding the admin by email.");
@@ -51,7 +51,7 @@ public class EJBAdminManager implements AdminManagerLocal {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "AdminManager: Exception Finding admin by email:", e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return admin;
     }
@@ -60,10 +60,10 @@ public class EJBAdminManager implements AdminManagerLocal {
      * Finds all {@link Admin} in the underlying application storage.
      * 
      * @return a set of {@link Admin} with all the admins.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Admin> findAdmins() throws FindException {
+    public Set<Admin> findAdmins() throws ReadException {
         Set<Admin> admins = null;
         try {
             LOGGER.info("AdminManager: Reading all admins.");
@@ -71,7 +71,7 @@ public class EJBAdminManager implements AdminManagerLocal {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "AdminManager: Exception reading all admins:",
                     e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return admins;
     }

@@ -1,4 +1,4 @@
-package java.service;
+package java.ejb;
 
 import java.util.Set;
 import java.util.logging.Level;
@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entity.Player;
-import exceptions.CreateException;
-import exceptions.DeleteException;
-import exceptions.FindException;
-import exceptions.UpdateException;
+import java.entity.Player;
+import java.exception.CreateException;
+import java.exception.DeleteException;
+import java.exception.ReadException;
+import java.exception.UpdateException;
 import javax.ejb.Stateless;
 
 /**
@@ -37,10 +37,10 @@ public class EJBPlayerManager implements PlayerManagerLocal {
      * 
      * @param email the email for Player to be found
      * @return the {@link Player} found
-     * @throws FindException
+     * @throws ReadException
      */
     @Override
-    public Player findPlayerByMail(String email) throws FindException {
+    public Player findPlayerByMail(String email) throws ReadException {
         Player player = null;
         try {
             LOGGER.info("PlayerManager: Finding the player by email.");
@@ -50,7 +50,7 @@ public class EJBPlayerManager implements PlayerManagerLocal {
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "PlayerManager: Exception Finding player by email:", e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return player;
     }
@@ -59,10 +59,10 @@ public class EJBPlayerManager implements PlayerManagerLocal {
      * Finds all {@link Player} in the underlying application storage.
      * 
      * @return a set of {@link Player} with all the players.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Player> findPlayers() throws FindException {
+    public Set<Player> findPlayers() throws ReadException {
         Set<Player> players = null;
         try {
             LOGGER.info("PlayerManager: Reading all players.");
@@ -70,7 +70,7 @@ public class EJBPlayerManager implements PlayerManagerLocal {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "PlayerManager: Exception reading all players:",
                     e.getMessage());
-            throw new FindException(e.getMessage());
+            throw new ReadException(e.getMessage());
         }
         return players;
     }

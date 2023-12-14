@@ -1,12 +1,12 @@
-package java.service;
+package java.ejb;
 
 import java.util.Set;
 
-import entity.Player;
-import exceptions.CreateException;
-import exceptions.DeleteException;
-import exceptions.FindException;
-import exceptions.UpdateException;
+import java.entity.Player;
+import java.exception.CreateException;
+import java.exception.DeleteException;
+import java.exception.ReadException;
+import java.exception.UpdateException;
 import javax.ejb.Stateless;
 
 /**
@@ -22,17 +22,17 @@ public interface PlayerManagerLocal {
      * 
      * @param email the email for Player to be found
      * @return the {@link Player} found
-     * @throws FindException
+     * @throws ReadException
      */
-    public Player findPlayerByMail(String email) throws FindException;
+    public Player findPlayerByMail(String email) throws ReadException;
 
     /**
      * Finds all {@link Player} in the underlying application storage.
      * 
      * @return a set of {@link Player} with all the players.
-     * @throws FindException If there is any Exception during processing.
+     * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Player> findPlayers() throws FindException;
+    public Set<Player> findPlayers() throws ReadException;
 
     /**
      * Creates a {@link Player} in the underlying application storage.
