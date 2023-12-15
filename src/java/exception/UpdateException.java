@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package java.exception;
+package exception;
 
     /**
      * Creates a new instance of <code>UpdateException</code> without detail

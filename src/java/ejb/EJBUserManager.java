@@ -1,4 +1,4 @@
-package java.ejb;
+package ejb;
 
 import java.util.Set;
 import java.util.logging.Level;
@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.entity.User;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
+import entity.User;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.ReadException;
+import exception.UpdateException;
 import javax.ejb.Stateless;
 
 /**
