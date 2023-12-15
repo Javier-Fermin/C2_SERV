@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name="sponsor",schema="esport_six")
-@NamedQuery(name="findAllSponsors", query="SELECT s FROM sponsor s")
+@NamedQuery(name="findAllSponsors", query="SELECT s FROM Sponsor s")
 
 public class Sponsor implements Serializable{
     /**
