@@ -1,12 +1,12 @@
-package java.ejb;
+package ejb;
 
 import java.util.Set;
 
-import java.entity.Match;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
+import entity.Match;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.ReadException;
+import exception.UpdateException;
 import javax.ejb.Local;
 
 //import javax.ejb.Local;

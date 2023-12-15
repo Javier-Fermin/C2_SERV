@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.ejb;
+package ejb;
 
-import java.ejb.SponsorLocalManagerEJB;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
-import java.entity.Sponsor;
+import ejb.SponsorLocalManagerEJB;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.ReadException;
+import exception.UpdateException;
+import entity.Sponsor;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.entity;
+package entity;
 
-import java.entity.League;
+import entity.League;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Entity;
