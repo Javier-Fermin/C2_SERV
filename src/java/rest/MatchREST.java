@@ -21,8 +21,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  * RESTful web service class exposing CRUD operations for {@link Match}
@@ -30,7 +32,7 @@ import javax.ws.rs.Produces;
  *
  * @author imanol
  */
-@Path("match")
+@Path("entities.match")
 public class MatchREST {
 
     /**
@@ -45,7 +47,7 @@ public class MatchREST {
     private EJBMatchManager ejb;
 
     @POST
-    @Consumes({"application/xml"})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void createMatch(Match match) {
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: create {0}.", match);
@@ -59,7 +61,8 @@ public class MatchREST {
     }
 
     @PUT
-    @Consumes({"application/xml"})
+    @Path("{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void updateMatch(Match match) {
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: update {0}.", match);
@@ -73,7 +76,7 @@ public class MatchREST {
     }
 
     @GET
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Set<Match> findAllMatches() {
         Set<Match> matches = null;
         try {
@@ -90,7 +93,7 @@ public class MatchREST {
 
     @GET
     @Path("{id}")
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Match findAMatch(@PathParam("id") Integer id) {
         Match match = null;
         try {
@@ -121,7 +124,8 @@ public class MatchREST {
     }
 
     @GET
-    @Produces({"application/xml"})
+    @Path("Nickname/{nickname}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Set<Match> findMatchesByUserNickname(String nickname) {
         Set<Match> matches = null;
         try {
@@ -137,7 +141,8 @@ public class MatchREST {
     }
 
     @GET
-    @Produces({"application/xml"})
+    @Path("league/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Set<Match> findMatchesByLeagueId(Integer id) {
         Set<Match> matches = null;
         try {
@@ -153,7 +158,8 @@ public class MatchREST {
     }
 
     @GET
-    @Produces({"application/xml"})
+    @Path("tournament/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Set<Match> findMatchesByTournamentId(Integer id) {
         Set<Match> matches = null;
         try {

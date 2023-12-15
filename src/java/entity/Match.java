@@ -11,6 +11,8 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -20,14 +22,14 @@ import javax.persistence.Table;
 
 /**
  * This is the class for the Match data
- * 
+ *
  * @author imanol
  */
 @Entity
 @Table(name = "match", schema = "esport_six")
 
 @NamedQueries({
-        @NamedQuery(name = "findAllTournamentMatches", query = "SELECT m FROM Match m WHERE m.tournament IS NOT NULL"),
+    @NamedQuery(name = "findAllTournamentMatches", query = "SELECT m FROM Match m WHERE m.tournament IS NOT NULL"),
         @NamedQuery(name = "findAllLeagueMatches", query = "SELECT m FROM Match m WHERE m.league IS NOT NULL"),
         @NamedQuery(name = "findAMatch", query = "SELECT m FROM Match m WHERE m.id = :id"),
         @NamedQuery(name = "findTournamentById", query = "SELECT m FROM Match m WHERE m.tournament.id = :id"),
@@ -36,10 +38,12 @@ import javax.persistence.Table;
 })
 
 public class Match implements Serializable {
+
     /**
      * Id field for the Match entity
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**

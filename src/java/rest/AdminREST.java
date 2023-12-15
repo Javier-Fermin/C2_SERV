@@ -21,14 +21,16 @@ import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author imanol
  */
-@Path
+@Path("entities.admin")
 public class AdminREST {
     /**
      * Logger for class methods.
@@ -44,10 +46,10 @@ public class AdminREST {
      * RESTful POST method for creating {@link User} objects from XML
      * representation.
      *
-     * @param user The object containing user data.
+     * @param admin The object containing user data.
      */
     @POST
-    @Consumes({"application/xml"})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void createAdmin(Admin admin) {
         try {
             LOGGER.log(Level.INFO,"AdminRESTful service: create {0}.",admin);
@@ -61,10 +63,11 @@ public class AdminREST {
     }
     /**
      * RESTful PUT method for updating {@link User} objects from XML representation.
-     * @param user The object containing user data.
+     * @param admin The object containing user data.
      */
     @PUT
-    @Consumes({"application/xml"})
+    @Path("{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void updateAdmin(Admin admin) {
         try {
             LOGGER.log(Level.INFO,"AdminRESTful service: update {0}.",admin);
@@ -82,7 +85,6 @@ public class AdminREST {
      */
     @DELETE
     @Path("{id}")
-    //@Consumes({"application/xml", "application/json"})
     public void deleteAdmin(@PathParam("id") Integer id) {
         try {
             LOGGER.log(Level.INFO,"AdminRESTful service: delete Admin by id={0}.",id);
@@ -96,7 +98,7 @@ public class AdminREST {
     }
     
     @GET
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Set<Admin> findAllAdmins() {
         Set<Admin> admins = null;
         try {
@@ -112,7 +114,8 @@ public class AdminREST {
     }
     
     @GET
-    @Produces({"application/xml"})
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Admin findAdminById(Integer id) {
         Admin admin = null;
         try {
@@ -129,7 +132,8 @@ public class AdminREST {
     }
     
     @GET
-    @Produces({"application/xml"})
+    @Path("Email/{email}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Admin findPlayerByEmail(String email) {
         Admin admin = null;
         try {

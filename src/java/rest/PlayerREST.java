@@ -21,15 +21,18 @@ import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author imanol
  */
+@Path("entities.player")
 public class PlayerREST {
-    
+
     /**
      * Logger for class methods.
      */
@@ -40,34 +43,39 @@ public class PlayerREST {
      */
     @EJB
     private EJBPlayerManager ejb;
+
     /**
      * RESTful POST method for creating {@link User} objects from XML
      * representation.
      *
-     * @param user The object containing user data.
+     * @param player The object containing user data.
      */
     @POST
-    @Consumes({"application/xml"})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void createPlayer(Player player) {
         try {
-            LOGGER.log(Level.INFO,"PlayerRESTful service: create {0}.",player);
+            LOGGER.log(Level.INFO, "PlayerRESTful service: create {0}.", player);
             ejb.createPlayer(player);
         } catch (CreateException ex) {
-            LOGGER.log(Level.SEVERE, 
+            LOGGER.log(Level.SEVERE,
                     "PlayerRESTful service: Exception creating player, {0}",
                     ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
     }
+
     /**
-     * RESTful PUT method for updating {@link User} objects from XML representation.
-     * @param user The object containing user data.
+     * RESTful PUT method for updating {@link User} objects from XML
+     * representation.
+     *
+     * @param player The object containing user data.
      */
     @PUT
-    @Consumes({"application/xml"})
+    @Path("{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void updatePlayer(Player player) {
         try {
-            LOGGER.log(Level.INFO,"PlayerRESTful service: update {0}.",player);
+            LOGGER.log(Level.INFO, "PlayerRESTful service: update {0}.", player);
             ejb.updatePlayer(player);
         } catch (UpdateException ex) {
             LOGGER.log(Level.SEVERE,
@@ -76,8 +84,10 @@ public class PlayerREST {
             throw new InternalServerErrorException(ex);
         }
     }
+
     /**
      * RESTful DELETE method for deleting {@link User} objects from id.
+     *
      * @param id The id for the object to be deleted.
      */
     @DELETE
@@ -85,18 +95,18 @@ public class PlayerREST {
     //@Consumes({"application/xml", "application/json"})
     public void deletePlayer(@PathParam("id") Integer id) {
         try {
-            LOGGER.log(Level.INFO,"PlayerRESTful service: delete Player by id={0}.",id);
+            LOGGER.log(Level.INFO, "PlayerRESTful service: delete Player by id={0}.", id);
             ejb.deletePlayer(ejb.findPlayerById(id));
         } catch (ReadException | DeleteException ex) {
             LOGGER.log(Level.SEVERE,
                     "PlayerRESTful service: Exception deleting player by id, {0}",
                     ex.getMessage());
             throw new InternalServerErrorException(ex);
-        } 
+        }
     }
-    
+
     @GET
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Set<Player> findAllPlayers() {
         Set<Player> players = null;
         try {
@@ -110,9 +120,10 @@ public class PlayerREST {
         }
         return players;
     }
-    
+
     @GET
-    @Produces({"application/xml"})
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Player findPlayerById(Integer id) {
         Player player = null;
         try {
@@ -125,11 +136,12 @@ public class PlayerREST {
             throw new InternalServerErrorException(ex);
         }
         return player;
-    
+
     }
-    
+
     @GET
-    @Produces({"application/xml"})
+    @Path("Email{email}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Player findPlayerByEmail(String email) {
         Player player = null;
         try {
@@ -142,6 +154,6 @@ public class PlayerREST {
             throw new InternalServerErrorException(ex);
         }
         return player;
-    
+
     }
 }

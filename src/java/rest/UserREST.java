@@ -21,14 +21,16 @@ import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author imanol
  */
-@Path("user")
+@Path("entities.user")
 public class UserREST {
 
     /**
@@ -41,6 +43,7 @@ public class UserREST {
      */
     @EJB
     private EJBUserManager ejb;
+
     /**
      * RESTful POST method for creating {@link User} objects from XML
      * representation.
@@ -48,27 +51,31 @@ public class UserREST {
      * @param user The object containing user data.
      */
     @POST
-    @Consumes({"application/xml"})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void createUser(User user) {
         try {
-            LOGGER.log(Level.INFO,"UserRESTful service: create {0}.",user);
+            LOGGER.log(Level.INFO, "UserRESTful service: create {0}.", user);
             ejb.createUser(user);
         } catch (CreateException ex) {
-            LOGGER.log(Level.SEVERE, 
+            LOGGER.log(Level.SEVERE,
                     "UserRESTful service: Exception creating user, {0}",
                     ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
     }
+
     /**
-     * RESTful PUT method for updating {@link User} objects from XML representation.
+     * RESTful PUT method for updating {@link User} objects from XML
+     * representation.
+     *
      * @param user The object containing user data.
      */
     @PUT
-    @Consumes({"application/xml"})
+    @Path("{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void updateUser(User user) {
         try {
-            LOGGER.log(Level.INFO,"UserRESTful service: update {0}.",user);
+            LOGGER.log(Level.INFO, "UserRESTful service: update {0}.", user);
             ejb.updateUser(user);
         } catch (UpdateException ex) {
             LOGGER.log(Level.SEVERE,
@@ -77,8 +84,10 @@ public class UserREST {
             throw new InternalServerErrorException(ex);
         }
     }
+
     /**
      * RESTful DELETE method for deleting {@link User} objects from id.
+     *
      * @param id The id for the object to be deleted.
      */
     @DELETE
@@ -86,18 +95,18 @@ public class UserREST {
     //@Consumes({"application/xml", "application/json"})
     public void deleteUser(@PathParam("id") Integer id) {
         try {
-            LOGGER.log(Level.INFO,"UserRESTful service: delete User by id={0}.",id);
+            LOGGER.log(Level.INFO, "UserRESTful service: delete User by id={0}.", id);
             ejb.deleteUser(ejb.findUserById(id));
         } catch (ReadException | DeleteException ex) {
             LOGGER.log(Level.SEVERE,
                     "UserRESTful service: Exception deleting user by id, {0}",
                     ex.getMessage());
             throw new InternalServerErrorException(ex);
-        } 
+        }
     }
-    
+
     @GET
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Set<User> findAllUsers() {
         Set<User> users = null;
         try {
@@ -111,9 +120,10 @@ public class UserREST {
         }
         return users;
     }
-    
+
     @GET
-    @Produces({"application/xml"})
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public User findUserById(Integer id) {
         User user = null;
         try {
@@ -126,11 +136,12 @@ public class UserREST {
             throw new InternalServerErrorException(ex);
         }
         return user;
-    
+
     }
-    
+
     @GET
-    @Produces({"application/xml"})
+    @Path("Email/{email}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public User findUserByEmail(String email) {
         User user = null;
         try {
@@ -143,7 +154,5 @@ public class UserREST {
             throw new InternalServerErrorException(ex);
         }
         return user;
-    
     }
-    
 }
