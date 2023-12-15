@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.entity;
+package entity;
+
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,7 +31,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="user",schema="esport_six")
-@NamedQuery(name = "findUserByMail",query = "SELECT u FROM user u WHERE u.email = :email")
+@NamedQueries({
+        @NamedQuery(name = "findUserByMail",query = "SELECT u FROM User u WHERE u.email = :email"),
+        @NamedQuery(name = "findUserById", query = "SELECT u FROM User u WHERE u.id = :id")
+})
 public class User implements Serializable{
     /**
      * Attributes for the Odoo user
@@ -42,7 +47,7 @@ public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    
+      
     /**
      * UserType field for the User entity
      */
@@ -183,4 +188,5 @@ public class User implements Serializable{
     public void setAddress(String address) {
         this.address = address;
     }
+    
 }

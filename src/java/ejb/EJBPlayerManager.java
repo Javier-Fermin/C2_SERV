@@ -1,4 +1,4 @@
-package java.ejb;
+package ejb;
 
 import java.util.Set;
 import java.util.logging.Level;
@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.entity.Player;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
+import entity.Player;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.ReadException;
+import exception.UpdateException;
 import javax.ejb.Stateless;
 
 /**
@@ -133,6 +133,22 @@ public class EJBPlayerManager implements PlayerManagerLocal {
                     e.getMessage());
             throw new UpdateException(e.getMessage());
         }
+    }
+    
+    @Override
+    public Player findPlayerById(Integer id) throws ReadException {
+         Player player = null;
+        try {
+            LOGGER.info("UserManager: Finding the player by email.");
+            player = em.find(Player.class, id);
+            if (player != null) {
+                LOGGER.log(Level.INFO, "PlayerManager: Player found {0}", player.getId());
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "PlayerManager: Exception Finding player by email:", e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return player;
     }
 
 }

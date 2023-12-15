@@ -1,12 +1,12 @@
-package java.ejb;
+package ejb;
 
 import java.util.Set;
 
-import java.entity.Admin;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.*;
-import java.exception.UpdateException;
+import entity.Admin;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.*;
+import exception.UpdateException;
 import javax.ejb.Local;
 
 /**
@@ -57,5 +57,7 @@ public interface AdminManagerLocal {
      * @throws UpdateException If there is any Exception during processing.
      * @throws DeleteException
      */
-    public void updateAdmin(Admin admin) throws UpdateException, DeleteException;
+    public void updateAdmin(Admin admin) throws UpdateException;
+    
+    public Admin findAdminById(Integer id) throws ReadException;
 }

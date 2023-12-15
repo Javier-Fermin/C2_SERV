@@ -1,4 +1,4 @@
-package java.ejb;
+package ejb;
 
 import java.util.Set;
 import java.util.logging.Level;
@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.entity.Admin;
+import entity.Admin;
 
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.*;
-import java.exception.UpdateException;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.*;
+import exception.UpdateException;
 import javax.ejb.Stateless;
 
 /**
@@ -45,7 +45,7 @@ public class EJBAdminManager implements AdminManagerLocal {
         Admin admin = null;
         try {
             LOGGER.info("AdminManager: Finding the admin by email.");
-            admin = em.find(Admin.class, email);
+            admin = (Admin) em.createNamedQuery("findAdminByMail").setParameter("mail",email).getSingleResult(); 
             if (admin != null) {
                 LOGGER.log(Level.INFO, "AdminManager: Admin found {0}", admin.getEmail());
             }
@@ -122,7 +122,7 @@ public class EJBAdminManager implements AdminManagerLocal {
      * @throws UpdateException If there is any Exception during processing.
      */
     @Override
-    public void updateAdmin(Admin admin) throws UpdateException, DeleteException {
+    public void updateAdmin(Admin admin) throws UpdateException {
         LOGGER.info("AdminManager: Updating admin.");
         try {
             // if(!em.contains(admin))em.merge(admin);
@@ -135,5 +135,23 @@ public class EJBAdminManager implements AdminManagerLocal {
             throw new UpdateException(e.getMessage());
         }
     }
+
+    @Override
+    public Admin findAdminById(Integer id) throws ReadException {
+        Admin admin = null;
+        try {
+            LOGGER.info("AdminManager: Finding the admin by id.");
+            admin = (Admin) em.createNamedQuery("findAdminById").setParameter("id",id).getSingleResult(); 
+            if (admin != null) {
+                LOGGER.log(Level.INFO, "AdminManager: Admin found {0}", admin.getId());
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "AdminManager: Exception Finding admin by id:", e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return admin;
+    }
+    
+    
 
 }

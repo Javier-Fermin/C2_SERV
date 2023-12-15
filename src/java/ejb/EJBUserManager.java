@@ -1,4 +1,4 @@
-package java.ejb;
+package ejb;
 
 import java.util.Set;
 import java.util.logging.Level;
@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.entity.User;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
+import entity.User;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.ReadException;
+import exception.UpdateException;
 import javax.ejb.Stateless;
 
 /**
@@ -135,4 +135,20 @@ public class EJBUserManager implements UserManagerLocal {
         }
     }
 
+    @Override
+    public User findUserById(Integer id) throws ReadException {
+         User user = null;
+        try {
+            LOGGER.info("UserManager: Finding the user by email.");
+            user = em.find(User.class, id);
+            if (user != null) {
+                LOGGER.log(Level.INFO, "UserManager: User found {0}", user.getId());
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "UserManager: Exception Finding user by email:", e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return user;
+    }
+    
 }

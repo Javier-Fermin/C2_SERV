@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.entity;
+package entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -33,7 +36,15 @@ public class Player extends User{
     /**
      * nickname field for the player entity
      */
+    @Column(unique=true)
     private String nickname;
+
+    public Player(Integer id, Boolean active, String nickname, String name, String passwd, String phone, String email, String address, UserType userType) {
+        super(name, passwd, phone, email, address, userType);
+        this.id = id;
+        this.active = active;
+        this.nickname = nickname;
+    }
 
     public Integer getId() {
         return id;
