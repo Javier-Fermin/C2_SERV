@@ -11,10 +11,17 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * This is the class for the Match data
@@ -37,11 +44,13 @@ public class Match {
      * Id field for the Match entity
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     /**
      * playedDate field for the Match entity
      */
+    @Temporal(TemporalType.DATE)
     private Date playedDate;
 
     /**
@@ -53,17 +62,20 @@ public class Match {
     /**
      * tournament field for the Match entity
      */
+    @ManyToOne
     private Tournament tournament;
 
     /**
      * league field for the Match entity
      */
+    @ManyToOne
     private League league;
 
     /**
      * plays of the Match entity
      */
-    private Set<Stats> plays;
+    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER)
+    private Set<Stats> stats;
 
     /**
      * descrition of the match
@@ -118,18 +130,18 @@ public class Match {
         this.league = league;
     }
 
-    public Set<Stats> getPlays() {
-        return plays;
+    public Set<Stats> getStats() {
+        return stats;
     }
 
-    public void setPlays(Set<Stats> plays) {
-        this.plays = plays;
+    public void setPlays(Set<Stats> stats) {
+        this.stats = stats;
     }
 
     @Override
     public String toString() {
         return "Match [id=" + id + ", playedDate=" + playedDate + ", winner=" + winner + ", tournament=" + tournament
-                + ", league=" + league + ", plays=" + plays + "]";
+                + ", league=" + league + ", stats=" + stats + "]";
     }
 
     @Override
