@@ -28,16 +28,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- *
+ * RESTful web service class exposing CRUD operations for {@link Tournament} 
+ * entities.
+ * 
  * @author Fran
  */
-@Path("tournaments")
+@Path("tournaments") //"entities.Tournament")
 public class TournamentREST {
     /**
      * Logger for class methods.
      */
     private static final Logger LOGGER =
             Logger.getLogger("javafxserverside");
+    
     /**
      * EJB reference for business logic object.
      */
