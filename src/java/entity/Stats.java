@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.entity;
+package entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The entity class for the Stats data.
@@ -34,6 +36,7 @@ import javax.persistence.Table;
     @NamedQuery(name="findStatsByTournamentName",
         query="SELECT s FROM Stats s WHERE s.match in (SELECT m.id FROM Match m WHERE m.tournament.name = :tournamentName)")
 })
+@XmlRootElement
 public class Stats implements Serializable{
 
     /**
@@ -184,6 +187,7 @@ public class Stats implements Serializable{
      * 
      * @return the player field
      */
+    @XmlTransient
     public Player getPlayer() {
         return player;
     }
@@ -202,6 +206,7 @@ public class Stats implements Serializable{
      * 
      * @return the match field
      */
+    @XmlTransient
     public Match getMatch() {
         return match;
     }

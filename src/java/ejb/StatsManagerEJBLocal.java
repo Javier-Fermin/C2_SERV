@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.ejb;
+package ejb;
 
-import java.entity.Stats;
+import entity.Stats;
 import java.exception.CreateException;
 import java.exception.DeleteException;
 import java.exception.ReadException;
 import java.exception.UpdateException;
-import java.util.Set;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -30,48 +30,48 @@ public interface StatsManagerEJBLocal {
     public Stats findStatById(Integer id) throws ReadException;
     
     /**
-     * Finds a set of {@link Stats} with all the possible Stats
+     * Finds a list of {@link Stats} with all the possible Stats
      * 
-     * @return the set of {@link Stats} with all the data found 
+     * @return the list of {@link Stats} with all the data found 
      * @throws ReadException if there is any exception during the method
      */
-    public Set<Stats> findAllStats() throws ReadException;
+    public List<Stats> findAllStats() throws ReadException;
     
     /**
-     * Finds a set of {@link Stats} by a player nickname
+     * Finds a list of {@link Stats} by a player nickname
      * 
      * @param nickname the player nickname to be searched
-     * @return the set of {@link Stats} that fullfilled the requirements
+     * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the execution
      */
-    public Set<Stats> findStatsByPlayerNickname(String nickname) throws ReadException;
+    public List<Stats> findStatsByPlayerNickname(String nickname) throws ReadException;
     
     /**
-     * Finds a set of {@link Stats} by a match id
+     * Finds a list of {@link Stats} by a match id
      * 
      * @param matchId the match id to be searched
-     * @return the set of {@link Stats} that fullfilled the requirements
+     * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the method
      */
-    public Set<Stats> findStatsByMatchId(Integer matchId) throws ReadException;
+    public List<Stats> findStatsByMatchId(Integer matchId) throws ReadException;
     
     /**
-     * Finds a set of {@link Stats} by the league name
+     * Finds a list of {@link Stats} by the league name
      * 
      * @param leagueName the league name to be searched
-     * @return the set of {@link Stats} that fullfilled the requirements
+     * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the execution
      */
-    public Set<Stats> findStatsByLeagueName(String leagueName) throws ReadException;
+    public List<Stats> findStatsByLeagueName(String leagueName) throws ReadException;
     
     /**
-     * Finds a set of {@link Stats} by the tournament name
+     * Finds a list of {@link Stats} by the tournament name
      * 
      * @param tournamentName the tournament name to be searched
-     * @return the set of {@link Stats} that fullfilled the requirements
+     * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the execution
      */
-    public Set<Stats> findStatsByTournamentName(String tournamentName) throws ReadException;
+    public List<Stats> findStatsByTournamentName(String tournamentName) throws ReadException;
     
     /**
      * Creates a Stats in the database
