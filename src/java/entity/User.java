@@ -5,9 +5,8 @@
  */
 package entity;
 
-
 import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -34,12 +33,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="user",schema="esport_six")
 @NamedQueries({
-    @NamedQuery(name = "findUserByMail", query = "SELECT u FROM User u WHERE u.email =:email")
+        @NamedQuery(name = "findUserByMail",query = "SELECT u FROM User u WHERE u.email = :email"),
+        @NamedQuery(name = "findUserById", query = "SELECT u FROM User u WHERE u.id = :id")
 })
-@Table(name = "user", schema = "esport_six")
-@XmlRootElement
-public class User implements Serializable {
+@XmlRootElement  
+public class User implements Serializable{
 
     /**
      * Attributes for the user
@@ -52,7 +52,6 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     /**
      * UserType field for the User entity
      */
@@ -246,7 +245,5 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" + "name=" + name + ", passwd=" + passwd + ", phone=" + phone + ", email=" + email + ", address=" + address + ", id=" + id + ", userType=" + userType + '}';
-    }
-    
-    
+    } 
 }
