@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.ejb;
+package ejb;
 
-import java.entity.Match;
-import java.entity.Tournament;
+import entity.Match;
+import entity.Tournament;
 import java.util.Date;
 import java.util.List;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
+import exception.CreateException;
+import exception.DeleteException;
+import exception.ReadException;
+import exception.UpdateException;
 import javax.ejb.Local;
 /**
  *  EJB Local Interface for managing Tournament entity CRUD operations

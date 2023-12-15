@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.ejb;
+package ejb;
 
-import java.exception.DeleteException;
-import java.exception.UpdateException;
-import java.exception.ReadException;
-import java.exception.CreateException;
-import java.entity.League;
-import java.entity.Match;
+import exception.*;
+import entity.League;
+import entity.Match;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;

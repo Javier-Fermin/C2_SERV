@@ -1,8 +1,8 @@
-package java.ejb;
+package ejb;
 
-import java.exception.DeleteException;
-import java.exception.UpdateException;
-import java.exception.CreateException;
+import exception.DeleteException;
+import exception.UpdateException;
+import exception.CreateException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import java.entity.Match;
-import java.exception.ReadException;
+import entity.Match;
+import exception.ReadException;
 import javax.ejb.Stateless;
 
 /**

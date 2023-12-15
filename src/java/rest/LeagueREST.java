@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.rest;
+package rest;
 
 import java.util.logging.Logger;
-import java.ejb.EJBLeagueManage;
-import java.entity.League;
-import java.exception.*;
+import ejb.EJBLeagueManage;
+import exception.*;
+import entity.League;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
