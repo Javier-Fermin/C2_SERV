@@ -57,5 +57,7 @@ public interface AdminManagerLocal {
      * @throws UpdateException If there is any Exception during processing.
      * @throws DeleteException
      */
-    public void updateAdmin(Admin admin) throws UpdateException, DeleteException;
+    public void updateAdmin(Admin admin) throws UpdateException;
+    
+    public Admin findAdminById(Integer id) throws ReadException;
 }

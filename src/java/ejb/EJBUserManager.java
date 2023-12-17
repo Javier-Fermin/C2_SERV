@@ -135,4 +135,20 @@ public class EJBUserManager implements UserManagerLocal {
         }
     }
 
+    @Override
+    public User findUserById(Integer id) throws ReadException {
+         User user = null;
+        try {
+            LOGGER.info("UserManager: Finding the user by email.");
+            user = em.find(User.class, id);
+            if (user != null) {
+                LOGGER.log(Level.INFO, "UserManager: User found {0}", user.getId());
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "UserManager: Exception Finding user by email:", e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return user;
+    }
+    
 }

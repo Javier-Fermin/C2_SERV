@@ -8,10 +8,11 @@ package rest;
 import javax.ws.rs.Path;
 
 /**
- *
+ * RESTful for League entity
+ * 
  * @author 2dam
  */
-@Path("entities.League")
+@Path("league")
 public class LeagueREST {
     
 }

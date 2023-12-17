@@ -57,4 +57,6 @@ public interface PlayerManagerLocal {
      * @throws UpdateException If there is any Exception during processing.
      */
     public void updatePlayer(Player player) throws UpdateException;
+    
+    public Player findPlayerById(Integer id) throws ReadException;
 }

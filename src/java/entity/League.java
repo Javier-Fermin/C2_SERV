@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "findAllLeagues", query = "Select l from League l"),
     
-    @NamedQuery(name = "findLeagueByName", query = "Select l from League l WHERE p.name=:name"),
+    @NamedQuery(name = "findLeagueByName", query = "Select l from League l WHERE l.name =:name"),
     
     @NamedQuery(name = "findAllFinishLeagues", query = "Select l from League l WHERE l.endDate < :today"), 
     
@@ -92,10 +92,11 @@ public class League implements Serializable {
         this.matches = matches;
     }
 
+    /**
+     * Getters and Setters for all atributes
+     *  
+     */
     
-   /**
-    * Getters and Setters for league entity
-    */
     
     public Integer getId() {
         return id;

@@ -57,5 +57,12 @@ public interface UserManagerLocal {
      * @throws UpdateException If there is any Exception during processing.
      */
     public void updateUser(User user) throws UpdateException;
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws exception.ReadException
+     */
+    public User findUserById(Integer id) throws ReadException;
 
 }
