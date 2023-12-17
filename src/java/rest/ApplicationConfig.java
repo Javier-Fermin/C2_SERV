@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      * @param resources The resource's classes Set.
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(rest.LeagueREST.class);
         resources.add(rest.StatsREST.class);
     }
     

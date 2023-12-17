@@ -70,6 +70,58 @@ public class StatsREST {
     }
     
     @GET
+    @Path("player/{nickname}")
+    @Produces({"application/xml"})
+    public List<Stats> findStatsByPlayerNickname(@PathParam("nickname") String nickname) {
+        List<Stats> stats=null;
+        try {
+            stats=ejb.findStatsByPlayerNickname(nickname);
+        } catch (ReadException ex) {
+            throw new InternalServerErrorException(ex);
+        }
+        return stats;
+    }
+    
+    @GET
+    @Path("match/{id}")
+    @Produces({"application/xml"})
+    public List<Stats> findStatsByMatchId(@PathParam("id") Integer id) {
+        List<Stats> stats=null;
+        try {
+            stats=ejb.findStatsByMatchId(id);
+        } catch (ReadException ex) {
+            throw new InternalServerErrorException(ex);
+        }
+        return stats;
+    }
+    
+    @GET
+    @Path("league/{name}")
+    @Produces({"application/xml"})
+    public List<Stats> findStatsByLeagueName(@PathParam("name") String leagueName) {
+        List<Stats> stats=null;
+        try {
+            stats=ejb.findStatsByLeagueName(leagueName);
+        } catch (ReadException ex) {
+            throw new InternalServerErrorException(ex);
+        }
+        return stats;
+    }
+    
+    @GET
+    @Path("tournament/{name}")
+    @Produces({"application/xml"})
+    public List<Stats> findStatsByTournamentName(@PathParam("name") String tournamentName) {
+        List<Stats> stats=null;
+        try {
+            stats=ejb.findStatsByTournamentName(tournamentName);
+        } catch (ReadException ex) {
+            throw new InternalServerErrorException(ex);
+        }
+        return stats;
+    }
+    
+    @GET
     @Path("{id}")
     @Produces({"application/xml"})
     public Stats find(@PathParam("id") Integer id) {
