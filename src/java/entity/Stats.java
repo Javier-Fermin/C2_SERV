@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "stats", schema = "esport_six")
 @NamedQueries({
+    @NamedQuery(name="findAllStats",query="SELECT s FROM Stats s"),
     @NamedQuery(name="findStatsByPlayerNickname",
             query="SELECT s FROM Stats s WHERE s.player.nickname = :nickname"),
     @NamedQuery(name="findStatsByMatchId",

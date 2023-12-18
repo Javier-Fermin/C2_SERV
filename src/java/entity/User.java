@@ -52,7 +52,7 @@ public class User implements Serializable{
      * Id field for User entity
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
     /**
      * UserType field for the User entity
