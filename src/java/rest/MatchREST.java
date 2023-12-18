@@ -61,7 +61,6 @@ public class MatchREST {
     }
 
     @PUT
-    @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void updateMatch(Match match) {
         try {
@@ -124,9 +123,9 @@ public class MatchREST {
     }
 
     @GET
-    @Path("Nickname/{nickname}")
+    @Path("nickname/{nickname}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Match> findMatchesByUserNickname(String nickname) {
+    public Set<Match> findMatchesByUserNickname(@PathParam("nickname") String nickname) {
         Set<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all matches.");
@@ -143,7 +142,7 @@ public class MatchREST {
     @GET
     @Path("league/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Match> findMatchesByLeagueId(Integer id) {
+    public Set<Match> findMatchesByLeagueId(@PathParam("id") Integer id) {
         Set<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all league matches.");
@@ -160,7 +159,7 @@ public class MatchREST {
     @GET
     @Path("tournament/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Match> findMatchesByTournamentId(Integer id) {
+    public Set<Match> findMatchesByTournamentId(@PathParam("id") Integer id) {
         Set<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all tournament matches.");

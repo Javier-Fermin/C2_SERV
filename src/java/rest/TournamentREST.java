@@ -162,7 +162,7 @@ public class TournamentREST {
      * @return A List of Tournament objects containing data. 
      */
     @GET
-    @Path("{name}")
+    @Path("tournament/{name}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Tournament> findTournamentByName(@PathParam("name") String name){
         List<Tournament> tournaments=null;

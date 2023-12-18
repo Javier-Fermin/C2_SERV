@@ -5,13 +5,12 @@
  */
 package entity;
 
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -35,22 +34,17 @@ public class Player extends User {
     /**
      * list of Stats
      */
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="player", fetch = FetchType.EAGER)
     private List<Stats> stats;
 
-    public Player(Integer id, Boolean active, String nickname, String name, String passwd, String phone, String email, String address, UserType userType) {
+    public Player() {
+        super();
+    }
+    
+    public Player(Boolean active, String nickname, String name, String passwd, String phone, String email, String address, UserType userType) {
         super(name, passwd, phone, email, address, userType);
-        this.id = id;
         this.active = active;
         this.nickname = nickname;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Boolean getActive() {

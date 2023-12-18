@@ -6,10 +6,7 @@
 package ejb;
 
 import entity.Stats;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
+import exception.*;
 import java.util.List;
 import javax.ejb.Local;
 

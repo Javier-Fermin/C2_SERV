@@ -6,10 +6,7 @@
 package ejb;
 
 import entity.Stats;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
+import exception.*;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -31,7 +28,7 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     /**
      * Entity manager
      */
-    @PersistenceContext
+    @PersistenceContext(unitName = "C2PU")
     private EntityManager em;
     
     /**

@@ -65,7 +65,6 @@ public class LeagueREST {
      * @param league to update the league
      */
     @PUT
-    @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void update(League league) {
         try {
@@ -125,7 +124,7 @@ public class LeagueREST {
      * @return league finded by name
      */
     @GET
-    @Path("{name}")
+    @Path("league/{name}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public League findLeagueByName(@PathParam("name") String name) {
         League league = null;
@@ -167,7 +166,7 @@ public class LeagueREST {
      * @return leagues that are finished
      */
     @GET
-    @Path("EndDate/{date}")
+    @Path("endDate/{date}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<League> findAllFinishLeagues(@PathParam("date") Date today) {
         List<League> leagues = null;
@@ -189,7 +188,7 @@ public class LeagueREST {
      * @return leagues that are unstarted
      */
     @GET
-    @Path("StatDate/{date}")
+    @Path("startDate/{date}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<League> findAllUnstartedLeagues(@PathParam("date") Date today) {
         List<League> leagues = null;

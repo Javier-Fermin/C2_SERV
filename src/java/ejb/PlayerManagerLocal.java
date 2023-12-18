@@ -7,6 +7,7 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 /**
@@ -14,7 +15,7 @@ import javax.ejb.Stateless;
  * 
  * @author imanol
  */
-@Stateless
+@Local
 public interface PlayerManagerLocal {
     /**
      * Finds a {@link Player} with the given email in the underlying application

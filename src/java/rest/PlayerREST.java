@@ -71,7 +71,6 @@ public class PlayerREST {
      * @param player The object containing user data.
      */
     @PUT
-    @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void updatePlayer(Player player) {
         try {
@@ -124,7 +123,7 @@ public class PlayerREST {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Player findPlayerById(Integer id) {
+    public Player findPlayerById(@PathParam("id") Integer id) {
         Player player = null;
         try {
             LOGGER.log(Level.INFO, "PlayerRESTful service: find Player by id={0}.", id);
@@ -140,9 +139,9 @@ public class PlayerREST {
     }
 
     @GET
-    @Path("Email{email}")
+    @Path("email/{email}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Player findPlayerByEmail(String email) {
+    public Player findPlayerByEmail(@PathParam("email") String email) {
         Player player = null;
         try {
             LOGGER.log(Level.INFO, "PlayerRESTful service: find Player by email={0}.", email);

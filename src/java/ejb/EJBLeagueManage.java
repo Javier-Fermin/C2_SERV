@@ -21,7 +21,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Emil
  */
-@Stateless(name = "EJBLeagueManage")
+@Stateless
 public class EJBLeagueManage implements LeagueManageLocal {
 
     /**

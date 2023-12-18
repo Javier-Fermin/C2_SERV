@@ -6,11 +6,9 @@
 package rest;
 
 import ejb.StatsManagerEJB;
+import ejb.StatsManagerEJBLocal;
 import entity.Stats;
-import java.exception.CreateException;
-import java.exception.DeleteException;
-import java.exception.ReadException;
-import java.exception.UpdateException;
+import exception.*;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -34,7 +32,7 @@ public class StatsREST {
     private static final Logger LOGGER = Logger.getLogger(StatsREST.class.getName());
     
     @EJB
-    private StatsManagerEJB ejb;
+    private StatsManagerEJBLocal ejb;
     
     @POST
     @Consumes({"application/xml"})

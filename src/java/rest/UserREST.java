@@ -71,7 +71,6 @@ public class UserREST {
      * @param user The object containing user data.
      */
     @PUT
-    @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void updateUser(User user) {
         try {
@@ -124,7 +123,7 @@ public class UserREST {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public User findUserById(Integer id) {
+    public User findUserById(@PathParam("id") Integer id) {
         User user = null;
         try {
             LOGGER.log(Level.INFO, "UserRESTful service: find User by id={0}.", id);
@@ -140,9 +139,9 @@ public class UserREST {
     }
 
     @GET
-    @Path("Email/{email}")
+    @Path("email/{email}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public User findUserByEmail(String email) {
+    public User findUserByEmail(@PathParam("email") String email) {
         User user = null;
         try {
             LOGGER.log(Level.INFO, "UserRESTful service: find User by email={0}.", email);

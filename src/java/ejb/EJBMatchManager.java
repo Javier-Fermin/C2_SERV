@@ -93,29 +93,6 @@ public class EJBMatchManager implements MatchManagerLocal {
     }
 
     /**
-     * Finds a {@link Match} by its id that is played in a Tournament.
-     * 
-     * @param id The id for the match to be found.
-     * @return The {@link Match} object with all the information.
-     * @throws ReadException If there is any Exception during processing.
-     */
-    @Override
-    public Match findATournament(Integer id) throws ReadException {
-        Match match = null;
-        try {
-            LOGGER.info("MatchManager: Finding the matches in a tournament by id.");
-            match = em.find(Match.class, id);
-            if (match != null) {
-                LOGGER.log(Level.INFO, "MatcManager: Match found {0}", match.getId());
-            }
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "MatcManager: Exception Finding tournament by id:", e.getMessage());
-            throw new ReadException(e.getMessage());
-        }
-        return match;
-    }
-
-    /**
      * Finds a {@link Match} by its id that is played in a League.
      * 
      * @return The {@link Match} object with all the information.

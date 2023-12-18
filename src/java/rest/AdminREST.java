@@ -66,7 +66,6 @@ public class AdminREST {
      * @param admin The object containing user data.
      */
     @PUT
-    @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void updateAdmin(Admin admin) {
         try {
@@ -116,7 +115,7 @@ public class AdminREST {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Admin findAdminById(Integer id) {
+    public Admin findAdminById(@PathParam("id") Integer id) {
         Admin admin = null;
         try {
             LOGGER.log(Level.INFO, "AdminRESTful service: find Admin by id={0}.", id);
@@ -132,9 +131,9 @@ public class AdminREST {
     }
     
     @GET
-    @Path("Email/{email}")
+    @Path("email/{email}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Admin findPlayerByEmail(String email) {
+    public Admin findPlayerByEmail(@PathParam("email") String email) {
         Admin admin = null;
         try {
             LOGGER.log(Level.INFO, "AdminRESTful service: find Admin by email={0}.", email);
