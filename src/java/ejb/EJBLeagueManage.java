@@ -5,10 +5,7 @@
  */
 package ejb;
 
-import exception.DeleteException;
-import exception.UpdateException;
-import exception.ReadException;
-import exception.CreateException;
+import exception.*;
 import entity.League;
 import entity.Match;
 import java.util.Date;

@@ -3,10 +3,7 @@ package ejb;
 import java.util.Set;
 
 import entity.Admin;
-import exception.CreateException;
-import exception.DeleteException;
 import exception.*;
-import exception.UpdateException;
 import javax.ejb.Local;
 
 /**

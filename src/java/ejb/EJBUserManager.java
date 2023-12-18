@@ -150,5 +150,4 @@ public class EJBUserManager implements UserManagerLocal {
         }
         return user;
     }
-    
 }

@@ -79,7 +79,7 @@ public interface MatchManagerLocal {
     /**
      * Deletes a {@link Match} in the underlying application storage.
      * 
-     * @param match The match for the match to be found and deleted.
+     * @param match The match to be found and deleted.
      * @throws DeleteException If there is any Exception during processing.
      */
     public void deleteMatch(Match match) throws DeleteException;

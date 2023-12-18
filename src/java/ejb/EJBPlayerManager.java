@@ -134,7 +134,7 @@ public class EJBPlayerManager implements PlayerManagerLocal {
             throw new UpdateException(e.getMessage());
         }
     }
-    
+
     @Override
     public Player findPlayerById(Integer id) throws ReadException {
          Player player = null;
@@ -150,5 +150,4 @@ public class EJBPlayerManager implements PlayerManagerLocal {
         }
         return player;
     }
-
 }

@@ -150,7 +150,4 @@ public class EJBAdminManager implements AdminManagerLocal {
         }
         return admin;
     }
-    
-    
-
 }
