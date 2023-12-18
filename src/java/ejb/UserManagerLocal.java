@@ -58,4 +58,12 @@ public interface UserManagerLocal {
      */
     public void updateUser(User user) throws UpdateException;
 
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws exception.ReadException
+     */
+    public User findUserById(Integer id) throws ReadException;
+
 }

@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import entity.Match;
 import exception.ReadException;
 import javax.ejb.Stateless;
+import javax.xml.registry.FindException;
 
 /**
  * EJB class for managing Match entity CRUD operations.
@@ -121,16 +122,16 @@ public class EJBMatchManager implements MatchManagerLocal {
      * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Match findALeague(Integer id) throws ReadException {
+    public Match findAMatch(Integer id) throws ReadException {
        Match match = null;
         try {
-            LOGGER.info("MatchManager: Finding the matches in a league by id.");
+            LOGGER.info("MatchManager: Finding the match in a league by id.");
             match = em.find(Match.class, id);
             if (match != null) {
                 LOGGER.log(Level.INFO, "MatcManager: Match found {0}", match.getId());
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "MatcManager: Exception Finding a league by id:", e.getMessage());
+            LOGGER.log(Level.SEVERE, "MatcManager: Exception Finding a match by id:", e.getMessage());
             throw new ReadException(e.getMessage());
         }
         return match;
@@ -144,7 +145,7 @@ public class EJBMatchManager implements MatchManagerLocal {
      * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Match> findMatchTournamentById(Integer id) throws ReadException {
+    public Set<Match> findMatchesByTournamentId(Integer id) throws ReadException {
         Set<Match> match = null;
         try {
             LOGGER.info("MatchManager: Finding the matches played in tournaments by id.");
@@ -167,7 +168,7 @@ public class EJBMatchManager implements MatchManagerLocal {
      * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Match> findMatchLeagueById(Integer id) throws ReadException {
+    public Set<Match> findMatchesByLeagueId(Integer id) throws ReadException {
         Set<Match> match = null;
         try {
             LOGGER.info("MatchManager: Finding the matches played in leagues by id.");
@@ -236,4 +237,19 @@ public class EJBMatchManager implements MatchManagerLocal {
         }
     }
 
+    @Override
+    public Set<Match> findMatchesByUserNickname(String nickname) throws ReadException {
+        Set<Match> match = null;
+        try {
+            LOGGER.info("MatchManager: Finding the matches played by the introduced nicknaem");
+            match = (Set<Match>) em.createNamedQuery("findMatchesByUserNickname").setParameter("nickname", nickname).getResultList();
+            if (match != null) {
+                LOGGER.log(Level.INFO, "MatchManager: Matches found: {0}", match.size());
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "MatchManager: Exception Finding match by nickname:", e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return match;
+    }
 }

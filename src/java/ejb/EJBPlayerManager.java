@@ -135,4 +135,19 @@ public class EJBPlayerManager implements PlayerManagerLocal {
         }
     }
 
+    @Override
+    public Player findPlayerById(Integer id) throws ReadException {
+         Player player = null;
+        try {
+            LOGGER.info("UserManager: Finding the player by email.");
+            player = em.find(Player.class, id);
+            if (player != null) {
+                LOGGER.log(Level.INFO, "PlayerManager: Player found {0}", player.getId());
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "PlayerManager: Exception Finding player by email:", e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return player;
+    }
 }
