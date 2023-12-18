@@ -15,6 +15,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -31,11 +34,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="tournament",schema="esport_six")
 @NamedQueries({
-    @NamedQuery(name="findTournamentsByName", query="SELECT t FROM tournament t WHERE t.name like :n"), //setParameter(n, '%'+name+'%');
-    @NamedQuery(name="findTournamentsByDate", query="SELECT t FROM tournament t WHERE t.date = :date"),
-    @NamedQuery(name="findTournamentsByFormat", query="SELECT t FROM tournament t WHERE t.bestOf = :bestOf"),
-    @NamedQuery(name="findMatchTournament", query="SELECT t FROM tournament t WHERE t.id = (SELECT m.tournament.id FROM match m WHERE m.id = :id)"),
-    @NamedQuery(name="findAllTournaments", query="SELECT * FROM tournament")
+    @NamedQuery(name="findTournamentsByName", query="SELECT t FROM Tournament t WHERE t.name like :n"), //setParameter(n, '%'+name+'%');
+    @NamedQuery(name="findTournamentsByDate", query="SELECT t FROM Tournament t WHERE t.date = :date"),
+    @NamedQuery(name="findTournamentsByFormat", query="SELECT t FROM Tournament t WHERE t.bestOf = :bestOf"),
+    @NamedQuery(name="findMatchTournament", query="SELECT t FROM Tournament t WHERE t.idTournament IN (SELECT m.tournament.idTournament FROM Match m WHERE m.id = :id)"),
+    @NamedQuery(name="findAllTournaments", query="SELECT t FROM Tournament t")
 })
 
 
@@ -45,7 +48,7 @@ public class Tournament implements Serializable{
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer idTournament;
     
     /***
      * Name field of the tournament entity
@@ -70,7 +73,12 @@ public class Tournament implements Serializable{
     /**
      * Sponsors of the tournament entity
      */
+    @ManyToMany
+    @JoinTable(name="tournament_sponsor", schema="esport_six", 
+            joinColumns = { @JoinColumn(name = "idTournament") }, 
+            inverseJoinColumns = { @JoinColumn(name = "idSponsor")})
     private Set<Sponsor> sponsors;
+    
     /***
      * Matches of the tournament
      */
@@ -78,22 +86,22 @@ public class Tournament implements Serializable{
     private Set<Match> matches;
     
     
-// -------------- TOURNAMENT SETTERS & GETTERS ---------------
+// -------------- TOURNAMENT || SETTERS & GETTERS ---------------
 
     /***
      * Method that return the id of the Tournament
-     * @return id The id of the Tournament
+     * @return idTournament The id of the Tournament
      */
-    public Integer getId() {
-        return id;
+    public Integer getIdTournament() {
+        return idTournament;
     }
 
     /***
      * Method that defines a value to the Tournament id attribute
-     * @param id the value that the id obtains
+     * @param idTournament the value that the id obtains
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdTournament(Integer idTournament) {
+        this.idTournament = idTournament;
     }
 
     /***
@@ -126,8 +134,6 @@ public class Tournament implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
     
     /***
      * Method that return the bestOf of the Tournament
@@ -204,7 +210,7 @@ public class Tournament implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
+        hash = 23 * hash + Objects.hashCode(this.idTournament);
         return hash;
     }
     
@@ -226,7 +232,7 @@ public class Tournament implements Serializable{
             return false;
         }
         final Tournament other = (Tournament) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.idTournament, other.idTournament)) {
             return false;
         }
         return true;
@@ -238,6 +244,7 @@ public class Tournament implements Serializable{
      */
     @Override
     public String toString() {
-        return "Tournament{" + "id=" + id + '}';
+        return "Tournament{" + "idTournament=" + idTournament + ", name=" + name + ", description=" + description + ", bestOf=" + bestOf + ", date=" + date + ", sponsors=" + sponsors + ", matches=" + matches + '}';
     }
+    
 }
