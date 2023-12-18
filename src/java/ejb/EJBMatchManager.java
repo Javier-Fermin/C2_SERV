@@ -29,7 +29,7 @@ public class EJBMatchManager implements MatchManagerLocal {
     /**
      * Entity manager object
      */
-    @PersistenceContext
+    @PersistenceContext(unitName = "C2PU")
     private EntityManager em;
 
     /**

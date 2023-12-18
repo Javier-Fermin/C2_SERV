@@ -5,6 +5,7 @@
  */
 package rest;
 
+import ejb.AdminManagerLocal;
 import ejb.EJBAdminManager;
 import entity.Admin;
 import exception.CreateException;
@@ -41,7 +42,7 @@ public class AdminREST {
      * EJB reference for business logic object.
      */
     @EJB
-    private EJBAdminManager ejb;
+    private AdminManagerLocal ejb;
     /**
      * RESTful POST method for creating {@link User} objects from XML
      * representation.

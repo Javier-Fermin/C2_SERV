@@ -28,7 +28,7 @@ public class EJBPlayerManager implements PlayerManagerLocal {
     /**
      * Entity manager object.
      */
-    @PersistenceContext
+    @PersistenceContext(unitName = "C2PU")
     private EntityManager em;
 
     /**

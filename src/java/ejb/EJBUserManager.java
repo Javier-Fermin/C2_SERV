@@ -12,6 +12,7 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -28,7 +29,7 @@ public class EJBUserManager implements UserManagerLocal {
     /**
      * Entity manager object.
      */
-    @PersistenceContext
+    @PersistenceContext(unitName = "C2PU")
     private EntityManager em;
 
     /**
@@ -62,11 +63,11 @@ public class EJBUserManager implements UserManagerLocal {
      * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<User> findUsers() throws ReadException {
-        Set<User> users = null;
+    public List<User> findUsers() throws ReadException {
+        List<User> users = null;
         try {
             LOGGER.info("UserManager: Reading all users.");
-            users = (Set<User>) em.createNamedQuery("findUsers").getResultList();
+            users = em.createNamedQuery("findUsers").getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "UserManager: Exception reading all users:",
                     e.getMessage());

@@ -34,11 +34,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name="user",schema="esport_six")
 @NamedQueries({
+        @NamedQuery(name = "findUsers", query = "SELECT u FROM User u"),
         @NamedQuery(name = "findUserByMail",query = "SELECT u FROM User u WHERE u.email = :email"),
         @NamedQuery(name = "findUserById", query = "SELECT u FROM User u WHERE u.id = :id")
 })
+@Table(name="userA",schema="esport_six")
 @XmlRootElement  
 public class User implements Serializable{
 
@@ -51,7 +52,7 @@ public class User implements Serializable{
      * Id field for User entity
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     /**
      * UserType field for the User entity

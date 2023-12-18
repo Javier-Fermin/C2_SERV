@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This is the class for the Match data
@@ -38,11 +39,11 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "findAllTournamentMatches", query = "SELECT m FROM Match m WHERE m.tournament IS NOT NULL"),
         @NamedQuery(name = "findAllLeagueMatches", query = "SELECT m FROM Match m WHERE m.league IS NOT NULL"),
         @NamedQuery(name = "findAMatch", query = "SELECT m FROM Match m WHERE m.id = :id"),
-        @NamedQuery(name = "findTournamentById", query = "SELECT m FROM Match m WHERE m.tournament.id = :id"),
-        @NamedQuery(name = "findLeagueById", query = "SELECT m FROM Match m WHERE m.league.id = :id"),
+        @NamedQuery(name = "findTournamentById", query = "SELECT m FROM Match m WHERE m.id = :id"),
+        @NamedQuery(name = "findLeagueById", query = "SELECT m FROM Match m WHERE m.id = :id"),
         @NamedQuery(name = "findMatchesByUserNickname", query = "SELECT m from Match m where m.id in (SELECT s.match.id from Stats s WHERE s.player.nickname = :nickname)")
 })
-
+@XmlRootElement
 public class Match implements Serializable {
 
     /**

@@ -7,6 +7,7 @@ package rest;
 
 import java.util.logging.Logger;
 import ejb.EJBLeagueManage;
+import ejb.LeagueManageLocal;
 import exception.*;
 import entity.League;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class LeagueREST {
      * EJB for League entity
      */
     @EJB
-    private EJBLeagueManage ejb;
+    private LeagueManageLocal ejb;
 
     /**
      * REST method to create league, throws InternalServerErrorException if

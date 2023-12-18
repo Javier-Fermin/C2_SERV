@@ -5,12 +5,13 @@
  */
 package rest;
 
-import ejb.EJBUserManager;
+import ejb.UserManagerLocal;
 import entity.User;
 import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class UserREST {
      * EJB reference for business logic object.
      */
     @EJB
-    private EJBUserManager ejb;
+    private UserManagerLocal ejb;
 
     /**
      * RESTful POST method for creating {@link User} objects from XML
@@ -106,11 +107,11 @@ public class UserREST {
 
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<User> findAllUsers() {
-        Set<User> users = null;
+    public List<User> findAllUsers() {
+        List<User> users = null;
         try {
             LOGGER.log(Level.INFO, "UserRESTful service: find all Users.");
-            users = (Set<User>) ejb.findUsers();
+            users = ejb.findUsers();
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE,
                     "UserRESTful service: Exception reading all Users, {0}",

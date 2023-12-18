@@ -6,6 +6,7 @@
 package rest;
 
 import ejb.EJBMatchManager;
+import ejb.MatchManagerLocal;
 import entity.Match;
 import exception.CreateException;
 import exception.DeleteException;
@@ -44,7 +45,7 @@ public class MatchREST {
      * EJB reference for business logic object.
      */
     @EJB
-    private EJBMatchManager ejb;
+    private MatchManagerLocal ejb;
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

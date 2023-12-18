@@ -6,6 +6,7 @@
 package rest;
 
 import ejb.EJBPlayerManager;
+import ejb.PlayerManagerLocal;
 import entity.Player;
 import exception.CreateException;
 import exception.DeleteException;
@@ -42,7 +43,7 @@ public class PlayerREST {
      * EJB reference for business logic object.
      */
     @EJB
-    private EJBPlayerManager ejb;
+    private PlayerManagerLocal ejb;
 
     /**
      * RESTful POST method for creating {@link User} objects from XML

@@ -7,6 +7,7 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -32,7 +33,7 @@ public interface UserManagerLocal {
      * @return a set of {@link User} with all the users.
      * @throws ReadException If there is any Exception during processing.
      */
-    public Set<User> findUsers() throws ReadException;
+    public List<User> findUsers() throws ReadException;
 
     /**
      * Creates a {@link User} in the underlying application storage.

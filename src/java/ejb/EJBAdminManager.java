@@ -28,7 +28,7 @@ public class EJBAdminManager implements AdminManagerLocal {
     /**
      * Entity manager object.
      */
-    @PersistenceContext
+    @PersistenceContext(unitName = "C2PU")
     private EntityManager em;
 
     /**
