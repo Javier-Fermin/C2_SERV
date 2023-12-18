@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.entity;
+package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -12,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,15 +27,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name="sponsor",schema="esport_six")
-@NamedQuery(name="findAllSponsors", query="SELECT s FROM sponsor s")
+@NamedQuery(name="findAllSponsors", query="SELECT s FROM Sponsor s")
 
-public class Sponsor {
+public class Sponsor implements Serializable{
     /**
      * Id field for the sponsor entity
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer idSponsor;
     /**
      * name field of the sponsor entity
      */
@@ -51,6 +53,7 @@ public class Sponsor {
     /***
      * Tournaments this sponsor supports
      */
+    @ManyToMany(mappedBy="sponsors")
     private Set<Tournament> tournaments;
 
     
@@ -60,16 +63,16 @@ public class Sponsor {
      * Method that return the id of the Sponsor
      * @return id The id of the Sponsor
      */
-    public Integer getId() {
-        return id;
+    public Integer getIdSponsor() {
+        return idSponsor;
     }
 
     /***
      * Method that defines a value to the Sponsor id attribute
-     * @param id the value that the id obtains
+     * @param idSponsor the value that the id obtains
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdSponsor(Integer idSponsor) {
+        this.idSponsor = idSponsor;
     }
 
     /***
@@ -146,7 +149,7 @@ public class Sponsor {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.idSponsor);
         return hash;
     }
 
@@ -168,7 +171,7 @@ public class Sponsor {
             return false;
         }
         final Sponsor other = (Sponsor) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.idSponsor, other.idSponsor)) {
             return false;
         }
         return true;
@@ -180,7 +183,7 @@ public class Sponsor {
      */
     @Override
     public String toString() {
-        return "Sponsor{" + "id=" + id + '}';
+        return "Sponsor{" + "idSponsor=" + idSponsor + ", name=" + name + ", cash=" + cash + ", createdDate=" + createdDate + ", tournaments=" + tournaments + '}';
     }
     
     

@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.rest;
+package rest;
 
 import javax.ws.rs.Path;
 
 /**
- *
+ * RESTful for League entity
+ * 
  * @author 2dam
  */
-@Path("entities.League")
+@Path("league")
 public class LeagueREST {
     
 }

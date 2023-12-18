@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java.entity;
+package entity;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,34 +20,12 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="admin",schema="esport_six")
 public class Admin extends User{
-    /**
-     * Id field for the Admin entity
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
     
     /**
      * This is the date when the Admin joined the application
      */
     @Temporal(TemporalType.DATE)
     private Date joinDate;
-
-    /**
-     * 
-     * @return 
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * 
-     * @param id 
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     /**
      * 
@@ -66,40 +42,35 @@ public class Admin extends User{
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
     }
-    
-    /**
-     * 
-     * 
-     * @return 
-     */
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.joinDate);
         return hash;
     }
 
-    /**
-     * 
-     * 
-     * @param obj
-     * @return 
-     */
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Admin)) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Admin other = (Admin) obj;
-        if (this.id != null && this.id != other.id) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Admin other = (Admin) obj;
+        if (!Objects.equals(this.joinDate, other.joinDate)) {
             return false;
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
-        return "Admin{" + "id=" + id + ", joinDate=" + joinDate + '}';
+        return "Admin{" + ", joinDate=" + joinDate + '}';
     }
     
     
