@@ -12,7 +12,7 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
-import java.util.Set;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -77,8 +77,8 @@ public class MatchREST {
 
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Match> findAllMatches() {
-        Set<Match> matches = null;
+    public List<Match> findAllMatches() {
+        List<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all matches.");
             matches = ejb.findAllMatches();
@@ -126,8 +126,8 @@ public class MatchREST {
     @GET
     @Path("nickname/{nickname}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Match> findMatchesByUserNickname(@PathParam("nickname") String nickname) {
-        Set<Match> matches = null;
+    public List<Match> findMatchesByUserNickname(@PathParam("nickname") String nickname) {
+        List<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all matches.");
             matches = ejb.findMatchesByUserNickname(nickname);
@@ -143,8 +143,8 @@ public class MatchREST {
     @GET
     @Path("league/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Match> findMatchesByLeagueId(@PathParam("id") Integer id) {
-        Set<Match> matches = null;
+    public List<Match> findMatchesByLeagueId(@PathParam("id") Integer id) {
+        List<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all league matches.");
             matches = ejb.findMatchesByLeagueId(id);
@@ -160,8 +160,8 @@ public class MatchREST {
     @GET
     @Path("tournament/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Match> findMatchesByTournamentId(@PathParam("id") Integer id) {
-        Set<Match> matches = null;
+    public List<Match> findMatchesByTournamentId(@PathParam("id") Integer id) {
+        List<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all tournament matches.");
             matches = ejb.findMatchesByTournamentId(id);

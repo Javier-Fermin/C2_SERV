@@ -12,6 +12,7 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -107,8 +108,8 @@ public class PlayerREST {
 
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Player> findAllPlayers() {
-        Set<Player> players = null;
+    public List<Player> findAllPlayers() {
+        List<Player> players = null;
         try {
             LOGGER.log(Level.INFO, "PlayerRESTful service: find all Players.");
             players = ejb.findPlayers();

@@ -12,6 +12,7 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.*;
 import exception.UpdateException;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -62,11 +63,11 @@ public class EJBAdminManager implements AdminManagerLocal {
      * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Admin> findAdmins() throws ReadException {
-        Set<Admin> admins = null;
+    public List<Admin> findAdmins() throws ReadException {
+        List<Admin> admins = null;
         try {
             LOGGER.info("AdminManager: Reading all admins.");
-            admins = (Set<Admin>) em.createNamedQuery("findAdmins").getResultList();
+            admins =  em.createNamedQuery("findAdmins").getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "AdminManager: Exception reading all admins:",
                     e.getMessage());

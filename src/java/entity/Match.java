@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @NamedQueries({
     @NamedQuery(name = "findAllTournamentMatches", query = "SELECT m FROM Match m WHERE m.tournament IS NOT NULL"),
+        @NamedQuery(name = "findAllMatches", query = "SELECT m FROM Match m"),
         @NamedQuery(name = "findAllLeagueMatches", query = "SELECT m FROM Match m WHERE m.league IS NOT NULL"),
         @NamedQuery(name = "findAMatch", query = "SELECT m FROM Match m WHERE m.id = :id"),
         @NamedQuery(name = "findTournamentById", query = "SELECT m FROM Match m WHERE m.id = :id"),

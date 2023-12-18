@@ -4,6 +4,7 @@ import java.util.Set;
 
 import entity.Admin;
 import exception.*;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -29,7 +30,7 @@ public interface AdminManagerLocal {
      * @return a set of {@link Admin} with all the admins.
      * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Admin> findAdmins() throws ReadException;
+    public List<Admin> findAdmins() throws ReadException;
 
     /**
      * Creates a {@link Admin} in the underlying application storage.
