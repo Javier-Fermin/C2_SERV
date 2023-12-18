@@ -6,12 +6,11 @@
 package ejb;
 
 import entity.Stats;
-import exception.CreateException;
-import exception.DeleteException;
-import exception.ReadException;
-import exception.UpdateException;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.exception.CreateException;
+import java.exception.DeleteException;
+import java.exception.ReadException;
+import java.exception.UpdateException;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -56,20 +55,18 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
-     * Finds a set of {@link Stats} with all the possible Stats
+     * Finds a list of {@link Stats} with all the possible Stats
      * 
-     * @return the set of {@link Stats} with all the data found 
+     * @return the list of {@link Stats} with all the data found 
      * @throws ReadException if there is any exception during the method
      */
     @Override
-    public Set<Stats> findAllStats() throws ReadException {
-        Set<Stats> stats = null;
+    public List<Stats> findAllStats() throws ReadException {
+        List<Stats> stats = null;
         try{
             LOGGER.info("Finding all stats.");
-            stats = new LinkedHashSet<Stats>(
-                    em.createNamedQuery("findAllStats")
-                    .getResultList()
-            );
+            stats = em.createNamedQuery("findAllStats")
+                    .getResultList();
         }catch(Exception e){
             LOGGER.severe("Unexpected error occurred during finding all stats: "+e.getMessage());
             throw new ReadException(e.getMessage());
@@ -78,22 +75,20 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
-     * Finds a set of {@link Stats} by a player nickname
+     * Finds a list of {@link Stats} by a player nickname
      * 
      * @param nickname the player nickname to be searched
-     * @return the set of {@link Stats} that fullfilled the requirements
+     * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the execution
      */
     @Override
-    public Set<Stats> findStatsByPlayerNickname(String nickname) throws ReadException {
-        Set<Stats> stats = null;
+    public List<Stats> findStatsByPlayerNickname(String nickname) throws ReadException {
+        List<Stats> stats = null;
         try{
             LOGGER.info("Finding stats by player nickname.");
-            stats = new LinkedHashSet<Stats>(
-                    em.createNamedQuery("findStatsByLeagueName")
+            stats = em.createNamedQuery("findStatsByLeagueName")
                     .setParameter("nickname", nickname)
-                    .getResultList()
-            );
+                    .getResultList();
         }catch(Exception e){
             LOGGER.severe("Unexpected error occurred during finding stats by player nickname: "+e.getMessage());
             throw new ReadException(e.getMessage());
@@ -102,22 +97,20 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
-     * Finds a set of {@link Stats} by a match id
+     * Finds a list of {@link Stats} by a match id
      * 
      * @param matchId the match id to be searched
-     * @return the set of {@link Stats} that fullfilled the requirements
+     * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the method
      */
     @Override
-    public Set<Stats> findStatsByMatchId(Integer matchId) throws ReadException {
-        Set<Stats> stats = null;
+    public List<Stats> findStatsByMatchId(Integer matchId) throws ReadException {
+        List<Stats> stats = null;
         try{
             LOGGER.info("Finding stats by match id.");
-            stats = new LinkedHashSet<Stats>(
-                    em.createNamedQuery("findStatsByMatchId")
+            stats = em.createNamedQuery("findStatsByMatchId")
                     .setParameter("matchId", matchId)
-                    .getResultList()
-            );
+                    .getResultList();
         }catch(Exception e){
             LOGGER.severe("Unexpected error occurred during finding stats by match id: "+e.getMessage());
             throw new ReadException(e.getMessage());
@@ -126,22 +119,20 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
-     * Finds a set of {@link Stats} by the league name
+     * Finds a list of {@link Stats} by the league name
      * 
      * @param leagueName the league name to be searched
-     * @return the set of {@link Stats} that fullfilled the requirements
+     * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the execution
      */
     @Override
-    public Set<Stats> findStatsByLeagueName(String leagueName) throws ReadException {
-        Set<Stats> stats = null;
+    public List<Stats> findStatsByLeagueName(String leagueName) throws ReadException {
+        List<Stats> stats = null;
         try{
             LOGGER.info("Finding stats by league name.");
-            stats = new LinkedHashSet<Stats>(
-                    em.createNamedQuery("findStatsByLeagueName")
+            stats = em.createNamedQuery("findStatsByLeagueName")
                     .setParameter("leagueName", leagueName)
-                    .getResultList()
-            );
+                    .getResultList();
         }catch(Exception e){
             LOGGER.severe("Unexpected error occurred during finding stats by league name: "+e.getMessage());
             throw new ReadException(e.getMessage());
@@ -150,22 +141,20 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     }
 
     /**
-     * Finds a set of {@link Stats} by the tournament name
+     * Finds a list of {@link Stats} by the tournament name
      * 
      * @param tournamentName the tournament name to be searched
-     * @return the set of {@link Stats} that fullfilled the requirements
+     * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the execution
      */
     @Override
-    public Set<Stats> findStatsByTournamentName(String tournamentName) throws ReadException {
-        Set<Stats> stats = null;
+    public List<Stats> findStatsByTournamentName(String tournamentName) throws ReadException {
+        List<Stats> stats = null;
         try{
             LOGGER.info("Finding stats by tournament name.");
-            stats = new LinkedHashSet<Stats>(
-                    em.createNamedQuery("findStatsByTournamentName")
+            stats = em.createNamedQuery("findStatsByTournamentName")
                     .setParameter("tournamentName", tournamentName)
-                    .getResultList()
-            );
+                    .getResultList();
         }catch(Exception e){
             LOGGER.severe("Unexpected error occurred during finding stats by tournament name: "+e.getMessage());
             throw new ReadException(e.getMessage());

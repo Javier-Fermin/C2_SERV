@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Javier, Emil, Imanol, Fran
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name="user",schema="esport_six")
 @NamedQueries({
         @NamedQuery(name = "findUserByMail",query = "SELECT u FROM User u WHERE u.email = :email"),

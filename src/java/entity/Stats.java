@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,9 +14,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * The entity class for the Stats data.
@@ -34,14 +38,14 @@ import javax.persistence.Table;
     @NamedQuery(name="findStatsByTournamentName",
         query="SELECT s FROM Stats s WHERE s.match in (SELECT m.id FROM Match m WHERE m.tournament.name = :tournamentName)")
 })
+@XmlRootElement
 public class Stats implements Serializable{
 
     /**
      * Id field for the Stats entity
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @EmbeddedId
+    private StatsId id;
 
     /**
      * Kills field for the Stats entity
@@ -67,20 +71,21 @@ public class Stats implements Serializable{
     /**
      * Player of the play entity
      */
+    @MapsId("playerId")
     @ManyToOne
     private Player player;
 
     /**
      * Match of the play entity
      */
+    @MapsId("matchId")
     @ManyToOne
     private Match match;
     
     public Stats() {
     }
 
-    public Stats(Integer id, Integer kills, Integer deaths, Integer assists, Team team, Player player, Match match) {
-        this.id = id;
+    public Stats(Integer kills, Integer deaths, Integer assists, Team team, Player player, Match match) {
         this.kills = kills;
         this.deaths = deaths;
         this.assists = assists;
@@ -94,7 +99,7 @@ public class Stats implements Serializable{
      * 
      * @return the id field
      */
-    public Integer getId() {
+    public StatsId getId() {
         return id;
     }
 
@@ -103,7 +108,7 @@ public class Stats implements Serializable{
      * 
      * @param id the value to be set
      */
-    public void setId(Integer id) {
+    public void setId(StatsId id) {
         this.id = id;
     }
 
@@ -184,6 +189,7 @@ public class Stats implements Serializable{
      * 
      * @return the player field
      */
+    @XmlTransient
     public Player getPlayer() {
         return player;
     }
@@ -202,6 +208,7 @@ public class Stats implements Serializable{
      * 
      * @return the match field
      */
+    @XmlTransient
     public Match getMatch() {
         return match;
     }
