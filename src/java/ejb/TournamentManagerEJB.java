@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
 
 /**
  * EJB class for managing Tournament entity CRUD operations
@@ -104,7 +105,7 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
         Tournament tournament=null;
         try{
             LOG.info("TournamentManager: Reading the selected match's tournament.");
-            tournament=(Tournament) em.createNamedQuery("findMatchTournaments").setParameter("id", match.getId()).getSingleResult();
+            tournament=(Tournament) em.createNamedQuery("findMatchTournament").setParameter("id", match.getId()).getSingleResult();
         }catch(Exception e){
             LOG.log(Level.SEVERE, "TournamentManager: Exception Finding tournament by match:",
                     e.getMessage());
