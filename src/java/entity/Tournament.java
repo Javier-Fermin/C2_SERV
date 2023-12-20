@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name="findTournamentsByName", query="SELECT t FROM Tournament t WHERE t.name like :n"), //setParameter(n, '%'+name+'%');
     @NamedQuery(name="findTournamentsByDate", query="SELECT t FROM Tournament t WHERE t.date = :date"),
     @NamedQuery(name="findTournamentsByFormat", query="SELECT t FROM Tournament t WHERE t.bestOf = :bestOf"),
-    @NamedQuery(name="findMatchTournament", query="SELECT t FROM Tournament t WHERE t.idTournament IN (SELECT m.tournament.idTournament FROM Match m WHERE m.id = :id)"),
+    @NamedQuery(name="findMatchTournament", query="SELECT t FROM Tournament t WHERE t.idTournament = (SELECT m.tournament.idTournament FROM Match m WHERE m.id = :id)"),
     @NamedQuery(name="findAllTournaments", query="SELECT t FROM Tournament t")
 })
 @Table(name="tournament",schema="esport_six")

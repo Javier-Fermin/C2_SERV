@@ -6,10 +6,11 @@
 package rest;
 
 import java.util.logging.Logger;
-import ejb.EJBLeagueManage;
 import ejb.LeagueManageLocal;
 import exception.*;
 import entity.League;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -163,50 +164,55 @@ public class LeagueREST {
      * REST method to find all unfinished leagues, throws
      * InternalServerErrorException if error
      *
-     * @param today date to compare with the end date
+     * @param today String to compare with the end date
      * @return leagues that are finished
      */
     @GET
-    @Path("endDate/{date}")
+    @Path("endDate/{endDate}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<League> findAllFinishLeagues(@PathParam("date") Date today) {
+    public List<League> findAllFinishLeagues(@PathParam("endDate") String today) {
         List<League> leagues = null;
         try {
-            LOGGER.log(Level.INFO, "LeagueREST service: find leagues finished.");
-            leagues = ejb.findAllFinishLeagues(today);
+            OffsetDateTime odt = OffsetDateTime.parse(today);
+            Instant instant = odt.toInstant(); // Instant is always in UTC.
+            Date date = Date.from(instant);
+            leagues=ejb.findAllFinishLeagues(date);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE, "LeagueREST service: Exception reading all leagues finished", ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         return leagues;
     }
-    
+
     /**
      * REST method to find all unstarted leagues, throws
      * InternalServerErrorException if error
-     * 
+     *
      * @param today date to compare with the start date
      * @return leagues that are unstarted
      */
     @GET
-    @Path("startDate/{date}")
+    @Path("startDate/{startDate}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<League> findAllUnstartedLeagues(@PathParam("date") Date today) {
+    public List<League> findAllUnstartedLeagues(@PathParam("startDate") String today) {
         List<League> leagues = null;
         try {
             LOGGER.log(Level.INFO, "LeagueREST service: find leagues unstarted.");
-            leagues = ejb.findAllUnstartedLeagues(today);
+            OffsetDateTime odt = OffsetDateTime.parse(today);
+            Instant instant = odt.toInstant(); // Instant is always in UTC.
+            Date date = Date.from(instant);
+            leagues=ejb.findAllFinishLeagues(date);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE, "LeagueREST service: Exception reading all leagues unstarted", ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         return leagues;
     }
-    
+
     /**
      * REST method to find league by match id, throws
      * InternalServerErrorException if error
-     * 
+     *
      * @param id from the match ti find the league
      * @return league finded by match
      */
