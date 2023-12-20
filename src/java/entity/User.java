@@ -19,6 +19,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /*
@@ -33,26 +34,29 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Javier, Emil, Imanol, Fran
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
         @NamedQuery(name = "findUsers", query = "SELECT u FROM User u"),
         @NamedQuery(name = "findUserByMail",query = "SELECT u FROM User u WHERE u.email = :email"),
         @NamedQuery(name = "findUserById", query = "SELECT u FROM User u WHERE u.id = :id")
 })
-@Table(name="userA",schema="esport_six")
+@Table(name="user",schema="esport_six")
 @XmlRootElement  
 public class User implements Serializable{
 
     /**
      * Attributes for the user
      */
-    private String name, passwd, phone, email, address;
+    private String name, passwd, phone, address;
+    
+    @Column(unique = true)
+    private String email;
 
     /**
      * Id field for User entity
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     /**
      * UserType field for the User entity
