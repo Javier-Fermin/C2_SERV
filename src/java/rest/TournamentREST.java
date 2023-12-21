@@ -5,12 +5,15 @@
  */
 package rest;
 
+import ejb.MatchManagerLocal;
 import ejb.TournamentLocalManagerEJB;
 import entity.Tournament;
 import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -46,6 +49,9 @@ public class TournamentREST {
      */
     @EJB
     private TournamentLocalManagerEJB ejbT;
+    
+    @EJB
+    private MatchManagerLocal ejbM;
     
     /**
      * RESTful POST method to create a {@link Tournament}object from XML 
@@ -204,17 +210,20 @@ public class TournamentREST {
      * RESTful GET method for finding {@link Tournament} objects by date.
      * It throws InternalServerErrorException if a ReadException occurs.
      * 
-     * @param date The date for the object to be read.
+     * @param dateText The date for the object to be read.
      * @return A List of Tournament objects containing data. 
      */
     @GET
     @Path("date/{date}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Tournament> findTournamentByDate(@PathParam("date") Date date){
+    public List<Tournament> findTournamentByDate(@PathParam("date") String dateText){
         List<Tournament> tournaments=null;
         
         try{
-            LOGGER.log(Level.INFO, "TournamentREST service: find tournaments by date = {0}.",date);
+            LOGGER.log(Level.INFO, "TournamentREST service: find tournaments by date = {0}.",dateText);
+            OffsetDateTime odt = OffsetDateTime.parse(dateText);
+            Instant instant = odt.toInstant();
+            Date date = Date.from(instant);
             tournaments=ejbT.findTournamentsByDate(date);
         }catch(ReadException ex){
             LOGGER.log(Level.SEVERE, "TournamentREST service: Exception finding any tournament, {0}.", ex.getMessage());
@@ -240,8 +249,8 @@ public class TournamentREST {
         
         try{
             LOGGER.log(Level.INFO, "TournamentREST service: find tournament by match.id = {0}.", id);
-            tournament=ejbT.findTournamentById(id);
-            //tournament=ejbT.findMatchTournament(ejbM.findMatchById(id));
+            //tournament=ejbT.findTournamentById(id);
+            tournament=ejbT.findMatchTournament(ejbM.findAMatch(id));
         }catch(ReadException ex){
             LOGGER.log(Level.SEVERE, "TournamentREST service: Exception finding any tournament, {0}.", ex.getMessage());
             throw new InternalServerErrorException(ex);
