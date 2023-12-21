@@ -26,6 +26,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This is the class for the Match data
@@ -136,7 +137,7 @@ public class Match implements Serializable {
     public void setLeague(League league) {
         this.league = league;
     }
-
+    
     public Set<Stats> getStats() {
         return stats;
     }
