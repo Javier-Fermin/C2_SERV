@@ -23,9 +23,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "player", schema = "esport_six")
-@NamedQueries(
-        @NamedQuery(name = "findPlayers", query = "SELECT p FROM Player p")
-)
+@NamedQueries({
+        @NamedQuery(name = "findPlayers", query = "SELECT p FROM Player p"),
+        @NamedQuery(name = "findPlayerById", query = "SELECT p FROM Player p WHERE p.id = :id"),
+        @NamedQuery(name = "findPlayerByEmail", query = "SELECT p FROM Player p WHERE p.email = :email")
+})
 @XmlRootElement
 public class Player extends User {
 

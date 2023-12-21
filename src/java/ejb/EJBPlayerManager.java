@@ -45,7 +45,7 @@ public class EJBPlayerManager implements PlayerManagerLocal {
         Player player = null;
         try {
             LOGGER.info("PlayerManager: Finding the player by email.");
-            player = em.find(Player.class, email);
+            player = (Player) em.createNamedQuery("findPlayerByEmail").setParameter("email", email).getSingleResult();
             if (player != null) {
                 LOGGER.log(Level.INFO, "PlayerManager: Player found {0}", player.getEmail());
             }

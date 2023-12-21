@@ -45,7 +45,7 @@ public class EJBUserManager implements UserManagerLocal {
         User user = null;
         try {
             LOGGER.info("UserManager: Finding the user by email.");
-            user = em.find(User.class, email);
+            user = (User) em.createNamedQuery("findUserByMail").setParameter("email", email).getSingleResult();
             if (user != null) {
                 LOGGER.log(Level.INFO, "UserManager: User found {0}", user.getEmail());
             }
