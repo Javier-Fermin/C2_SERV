@@ -201,7 +201,7 @@ public class LeagueREST {
             OffsetDateTime odt = OffsetDateTime.parse(today);
             Instant instant = odt.toInstant(); // Instant is always in UTC.
             Date date = Date.from(instant);
-            leagues=ejb.findAllFinishLeagues(date);
+            leagues=ejb.findAllUnstartedLeagues(date);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE, "LeagueREST service: Exception reading all leagues unstarted", ex.getMessage());
             throw new InternalServerErrorException(ex);

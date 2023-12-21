@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     
     @NamedQuery(name = "findAllUnstartedLeagues", query = "Select l from League l WHERE l.startDate >= :date"),
     
-    @NamedQuery(name = "findLeagueForMatch", query = "Select m.league from Match m WHERE m.id = :id")
+    @NamedQuery(name = "findLeagueForMatch", query = "SELECT l FROM League l WHERE l.id IN (SELECT m.league.id FROM Match m WHERE m.id = :id)")
 })
 
 @Table(name = "league", schema = "esport_six")
