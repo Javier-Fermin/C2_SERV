@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
 
 /**
  * EJB class for League entity
@@ -78,7 +79,7 @@ public class EJBLeagueManage implements LeagueManageLocal {
     @Override
     public void deleteLeague(League league) throws DeleteException {
         try {
-            em.remove(league);
+            em.remove(em.merge(league));
             LOGGER.info("LeagueManage: league deleted.");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "LeagueManage: Exception deleting league:", e.getMessage());
@@ -152,16 +153,16 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * find all finished leagues
      *
-     * @param today to compare with the end date
+     * @param date
      * @return leagues finished
      * @throws ReadException if have any errors
      */
     @Override
-    public List<League> findAllFinishLeagues(Date today) throws ReadException {
+    public List<League> findAllFinishLeagues(Date date) throws ReadException {
         List<League> leagues = null;
         try {
             LOGGER.info("LeagueManager: Finding all finished leagues.");
-            leagues = em.createNamedQuery("findAllFinishLeagues").setParameter("today", today).getResultList();
+            leagues = em.createNamedQuery("findAllFinishLeagues").setParameter("date", date).getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "LeagueManage: Exception finding leagues:", e.getMessage());
             throw new ReadException(e.getMessage());
@@ -172,16 +173,16 @@ public class EJBLeagueManage implements LeagueManageLocal {
     /**
      * Find all unstarted leagues
      *
-     * @param today to compare with the end date
+     * @param date to compare with the end date
      * @return leagues unstarted
      * @throws ReadException if have any errors
      */
     @Override
-    public List<League> findAllUnstartedLeagues(Date today) throws ReadException {
+    public List<League> findAllUnstartedLeagues(Date date) throws ReadException {
         List<League> leagues = null;
         try {
             LOGGER.info("LeagueManager: Finding all unstarted leagues.");
-            leagues = em.createNamedQuery("findAllUnstartedLeagues").setParameter("today", today).getResultList();
+            leagues = em.createNamedQuery("findAllUnstartedLeagues").setParameter("date", date).getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "LeagueManage: Exception finding leagues:", e.getMessage());
             throw new ReadException(e.getMessage());
@@ -201,7 +202,7 @@ public class EJBLeagueManage implements LeagueManageLocal {
         League league = null;
         try {
             LOGGER.info("LeagueManager: Finding league by id.");
-            league = (League) em.createNamedQuery("findLeagueForMatch").setParameter("id", em.find(Match.class, id)).getSingleResult();
+            league = (League) em.createNamedQuery("findLeagueForMatch").setParameter("id", id).getSingleResult();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "LeagueManage: Exception finding league:", e.getMessage());
             throw new ReadException(e.getMessage());

@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -37,11 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
     
     @NamedQuery(name = "findLeagueByName", query = "Select l from League l WHERE l.name =:name"),
     
-    @NamedQuery(name = "findAllFinishLeagues", query = "Select l from League l WHERE l.endDate < :today"), 
+    @NamedQuery(name = "findAllFinishLeagues", query = "Select l from League l WHERE l.endDate <= :date"), 
     
-    @NamedQuery(name = "findAllUnstartedLeagues", query = "Select l from League l WHERE l.startDate > :today"),
+    @NamedQuery(name = "findAllUnstartedLeagues", query = "Select l from League l WHERE l.startDate >= :date"),
     
-    @NamedQuery(name = "findLeagueForMatch", query = "Select l from League l WHERE l.id = (Select m.league.id from Match m where m.id = :id)")
+    @NamedQuery(name = "findLeagueForMatch", query = "SELECT l FROM League l WHERE l.id IN (SELECT m.league.id FROM Match m WHERE m.id = :id)")
 })
 
 @Table(name = "league", schema = "esport_six")
@@ -58,7 +57,7 @@ public class League implements Serializable {
     /**
      * startDate and endDate fields for the league entity
      */
-    @Temporal(TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate, endDate;
 
     /**

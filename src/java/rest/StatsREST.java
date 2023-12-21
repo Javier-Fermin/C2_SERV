@@ -5,7 +5,6 @@
  */
 package rest;
 
-import ejb.StatsManagerEJB;
 import ejb.StatsManagerEJBLocal;
 import entity.Stats;
 import exception.*;
