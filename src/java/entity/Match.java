@@ -9,6 +9,7 @@ import entity.League;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.CascadeType.REMOVE;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,6 +20,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -70,13 +72,13 @@ public class Match implements Serializable {
     /**
      * tournament field for the Match entity
      */
-    @ManyToOne(cascade=REMOVE)
+    @ManyToOne
     private Tournament tournament;
 
     /**
      * league field for the Match entity
      */
-    @ManyToOne(cascade=REMOVE)
+    @ManyToOne
     private League league;
 
     /**
