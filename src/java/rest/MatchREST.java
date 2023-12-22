@@ -7,6 +7,7 @@ package rest;
 
 import ejb.EJBMatchManager;
 import ejb.MatchManagerLocal;
+import ejb.TournamentLocalManagerEJB;
 import entity.Match;
 import exception.CreateException;
 import exception.DeleteException;
@@ -45,14 +46,17 @@ public class MatchREST {
      * EJB reference for business logic object.
      */
     @EJB
-    private MatchManagerLocal ejb;
+    private MatchManagerLocal ejbM;
+    
+    @EJB
+    private TournamentLocalManagerEJB ejbT;
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void createMatch(Match match) {
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: create {0}.", match);
-            ejb.createMatch(match);
+            ejbM.createMatch(match);
         } catch (CreateException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception creating match, {0}",
@@ -66,7 +70,7 @@ public class MatchREST {
     public void updateMatch(Match match) {
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: update {0}.", match);
-            ejb.updateMatch(match);
+            ejbM.updateMatch(match);
         } catch (UpdateException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception updating match, {0}",
@@ -81,7 +85,7 @@ public class MatchREST {
         List<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all matches.");
-            matches = ejb.findAllMatches();
+            matches = ejbM.findAllMatches();
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception reading all matches, {0}",
@@ -98,7 +102,7 @@ public class MatchREST {
         Match match = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find Match by id={0}.", id);
-            match = ejb.findAMatch(id);
+            match = ejbM.findAMatch(id);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception reading match by id, {0}",
@@ -114,7 +118,13 @@ public class MatchREST {
     public void delete(@PathParam("id") Integer id) {
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: delete Match by id={0}.", id);
-            ejb.deleteMatch(ejb.findAMatch(id));
+            Match match = ejbM.findAMatch(id);
+            if(match.getTournament()!=null){
+                ejbT.setApartMatch(match, ejbT.findMatchTournament(match));
+                match.setTournament(null);
+                updateMatch(match);
+            }
+            ejbM.deleteMatch(match);
         } catch (ReadException | DeleteException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception deleting match by id, {0}",
@@ -130,7 +140,7 @@ public class MatchREST {
         List<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all matches.");
-            matches = ejb.findMatchesByUserNickname(nickname);
+            matches = ejbM.findMatchesByUserNickname(nickname);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception reading all matches, {0}",
@@ -147,7 +157,7 @@ public class MatchREST {
         List<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all league matches.");
-            matches = ejb.findMatchesByLeagueId(id);
+            matches = ejbM.findMatchesByLeagueId(id);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception reading all league matches, {0}",
@@ -164,7 +174,7 @@ public class MatchREST {
         List<Match> matches = null;
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: find all tournament matches.");
-            matches = ejb.findMatchesByTournamentId(id);
+            matches = ejbM.findMatchesByTournamentId(id);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception reading all tournament matches, {0}",
