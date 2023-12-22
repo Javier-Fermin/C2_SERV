@@ -72,14 +72,14 @@ public class Stats implements Serializable{
      * Player of the play entity
      */
     @JoinColumn(name="playerId",updatable=false,insertable=false)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Player player;
 
     /**
      * Match of the play entity
      */
     @JoinColumn(name="matchId",updatable=false,insertable=false)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Match match;
     
     public Stats() {

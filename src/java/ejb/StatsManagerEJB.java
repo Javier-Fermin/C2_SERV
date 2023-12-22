@@ -36,7 +36,7 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     public Stats findStatById(Integer matchId, Integer playerId) throws ReadException {
         Stats stats = null;
         try{
-            StatsId id = new StatsId(playerId, matchId);
+            StatsId id = new StatsId(matchId, playerId);
             LOGGER.info("Finding stats by id.");
             stats = em.find(Stats.class, id);
         }catch(Exception e){

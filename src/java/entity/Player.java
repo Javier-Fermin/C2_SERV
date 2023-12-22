@@ -7,6 +7,7 @@ package entity;
 
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,7 +43,7 @@ public class Player extends User {
     /**
      * list of Stats
      */
-    @OneToMany(mappedBy="player", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="player", orphanRemoval = true)
     private List<Stats> stats;
 
     public Player() {

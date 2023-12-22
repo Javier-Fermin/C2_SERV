@@ -57,12 +57,14 @@ public class StatsREST {
     }
     
     @DELETE
-    @Path("{matchId}{playerId}")
+    @Path("{matchId}/{playerId}")
     //@Consumes({"application/xml", "application/json"})
     public void delete(@PathParam("matchId") Integer matchId,@PathParam("playerId") Integer playerId) {
         try {
+            LOGGER.info("Deleting stats");
             ejb.deleteStats(ejb.findStatById(matchId, playerId));
         } catch (ReadException | DeleteException ex) {
+            LOGGER.severe("Unexpected error occurred"+ex.getMessage());
             throw new InternalServerErrorException(ex);
         } 
     }
@@ -120,7 +122,7 @@ public class StatsREST {
     }
     
     @GET
-    @Path("{matchId},{playerId}")
+    @Path("{matchId}/{playerId}")
     @Produces({"application/xml"})
     public Stats find(@PathParam("matchId") Integer matchId,@PathParam("playerId") Integer playerId) {
         Stats stats=null;

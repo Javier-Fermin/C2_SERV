@@ -9,6 +9,7 @@ import entity.League;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,6 +28,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.Cascade;
+import static org.hibernate.annotations.CascadeType.DELETE;
 
 /**
  * This is the class for the Match data
@@ -82,7 +85,7 @@ public class Match implements Serializable {
     /**
      * plays of the Match entity
      */
-    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "match", orphanRemoval = true)
     private Set<Stats> stats;
 
     /**
