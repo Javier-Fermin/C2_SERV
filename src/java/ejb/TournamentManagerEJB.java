@@ -203,17 +203,5 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
                     e.getMessage());
             throw new DeleteException(e.getMessage());
         }
-    }
-    
-    /***
-     * Takes a Match out of the collection of matches of Tournament
-     * @param match disinherited Tournament match
-     * @param tournament The tournament the match belonged to
-     * @throws DeleteException If there is any Exception during processing
-     */
-    
-    public void setApartMatch(Match match, Tournament tournament) throws DeleteException{
-        tournament.getMatches().remove(match);
-    }
-    
+    }    
 }
