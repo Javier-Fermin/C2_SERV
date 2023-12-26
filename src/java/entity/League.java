@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import org.hibernate.annotations.CascadeType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,7 +22,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.annotations.Cascade;
 
 /**
  * This is the class for League data
@@ -76,7 +75,6 @@ public class League implements Serializable {
      * Set of matches for league entity
      */
     @OneToMany(mappedBy = "league", fetch = FetchType.EAGER)
-    @Cascade(value={CascadeType.DELETE, CascadeType.SAVE_UPDATE })
     private List<Match> matches;
 
     /**

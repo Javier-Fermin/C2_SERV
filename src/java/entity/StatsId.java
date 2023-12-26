@@ -37,7 +37,7 @@ public class StatsId implements Serializable{
     public StatsId() {
     }
 
-    public StatsId(Integer playerId, Integer matchId) {
+    public StatsId(Integer matchId, Integer playerId) {
         this.playerId = playerId;
         this.matchId = matchId;
     }

@@ -28,8 +28,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.annotations.Cascade;
-import static org.hibernate.annotations.CascadeType.DELETE;
 
 /**
  * This is the class for the Match data
@@ -85,7 +83,7 @@ public class Match implements Serializable {
     /**
      * plays of the Match entity
      */
-    @OneToMany(mappedBy = "match", orphanRemoval = true)
+    @OneToMany(mappedBy = "match")
     private Set<Stats> stats;
 
     /**
@@ -145,7 +143,7 @@ public class Match implements Serializable {
         return stats;
     }
 
-    public void setPlays(Set<Stats> stats) {
+    public void setStats(Set<Stats> stats) {
         this.stats = stats;
     }
 

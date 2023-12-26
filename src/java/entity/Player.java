@@ -43,7 +43,7 @@ public class Player extends User {
     /**
      * list of Stats
      */
-    @OneToMany(mappedBy="player", orphanRemoval = true)
+    @OneToMany(mappedBy="player")
     private List<Stats> stats;
 
     public Player() {
