@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  * NamedQueries for League entity
  */
+import static javax.persistence.CascadeType.ALL;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "findAllLeagues", query = "Select l from League l"),
@@ -74,7 +75,7 @@ public class League implements Serializable {
     /**
      * Set of matches for league entity
      */
-    @OneToMany(mappedBy = "league", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "league", cascade=ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<Match> matches;
 
     /**
