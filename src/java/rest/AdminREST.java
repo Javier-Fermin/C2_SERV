@@ -5,12 +5,14 @@
  */
 package rest;
 
+import ejb.AdminManagerLocal;
 import ejb.EJBAdminManager;
 import entity.Admin;
 import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +43,7 @@ public class AdminREST {
      * EJB reference for business logic object.
      */
     @EJB
-    private EJBAdminManager ejb;
+    private AdminManagerLocal ejb;
     /**
      * RESTful POST method for creating {@link User} objects from XML
      * representation.
@@ -98,8 +100,8 @@ public class AdminREST {
     
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Set<Admin> findAllAdmins() {
-        Set<Admin> admins = null;
+    public List<Admin> findAllAdmins() {
+        List<Admin> admins = null;
         try {
             LOGGER.log(Level.INFO, "AdminRESTful service: find all Admins.");
             admins = ejb.findAdmins();

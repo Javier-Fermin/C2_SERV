@@ -10,6 +10,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
@@ -26,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "stats", schema = "esport_six")
 @NamedQueries({
+    @NamedQuery(name="findAllStats",query="SELECT s FROM Stats s"),
     @NamedQuery(name="findStatsByPlayerNickname",
             query="SELECT s FROM Stats s WHERE s.player.nickname = :nickname"),
     @NamedQuery(name="findStatsByMatchId",
@@ -68,15 +71,15 @@ public class Stats implements Serializable{
     /**
      * Player of the play entity
      */
-    @MapsId("playerId")
-    @ManyToOne
+    @JoinColumn(name="playerId",updatable=false,insertable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Player player;
 
     /**
      * Match of the play entity
      */
-    @MapsId("matchId")
-    @ManyToOne
+    @JoinColumn(name="matchId",updatable=false,insertable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Match match;
     
     public Stats() {

@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -32,16 +34,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Fran
  */
 @Entity
-@Table(name="tournament",schema="esport_six")
+
 @NamedQueries({
     @NamedQuery(name="findTournamentsByName", query="SELECT t FROM Tournament t WHERE t.name like :n"), //setParameter(n, '%'+name+'%');
     @NamedQuery(name="findTournamentsByDate", query="SELECT t FROM Tournament t WHERE t.date = :date"),
     @NamedQuery(name="findTournamentsByFormat", query="SELECT t FROM Tournament t WHERE t.bestOf = :bestOf"),
-    @NamedQuery(name="findMatchTournament", query="SELECT t FROM Tournament t WHERE t.idTournament IN (SELECT m.tournament.idTournament FROM Match m WHERE m.id = :id)"),
+    @NamedQuery(name="findMatchTournament", query="SELECT t FROM Tournament t WHERE t.idTournament = (SELECT m.tournament.idTournament FROM Match m WHERE m.id = :id)"),
     @NamedQuery(name="findAllTournaments", query="SELECT t FROM Tournament t")
 })
-
-
+@Table(name="tournament",schema="esport_six")
+@XmlRootElement
 public class Tournament implements Serializable{
     /**
      * Id field for the tournament entity
@@ -82,12 +84,26 @@ public class Tournament implements Serializable{
     /***
      * Matches of the tournament
      */
-    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Match> matches;
     
     
 // -------------- TOURNAMENT || SETTERS & GETTERS ---------------
 
+    public Tournament() {
+    }
+
+    public Tournament(Integer idTournament, String name, String description, Integer bestOf, Date date, Set<Sponsor> sponsors, Set<Match> matches) {
+        this.idTournament = idTournament;
+        this.name = name;
+        this.description = description;
+        this.bestOf = bestOf;
+        this.date = date;
+        this.sponsors = sponsors;
+        this.matches = matches;
+    }
+   
+    
     /***
      * Method that return the id of the Tournament
      * @return idTournament The id of the Tournament

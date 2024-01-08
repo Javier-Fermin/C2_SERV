@@ -5,9 +5,9 @@
  */
 package rest;
 
-import ejb.StatsManagerEJB;
 import ejb.StatsManagerEJBLocal;
 import entity.Stats;
+import entity.StatsId;
 import exception.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -57,12 +57,14 @@ public class StatsREST {
     }
     
     @DELETE
-    @Path("{id}")
+    @Path("{matchId}/{playerId}")
     //@Consumes({"application/xml", "application/json"})
-    public void delete(@PathParam("id") Integer id) {
+    public void delete(@PathParam("matchId") Integer matchId,@PathParam("playerId") Integer playerId) {
         try {
-            ejb.deleteStats(ejb.findStatById(id));
+            LOGGER.info("Deleting stats");
+            ejb.deleteStats(ejb.findStatById(matchId, playerId));
         } catch (ReadException | DeleteException ex) {
+            LOGGER.severe("Unexpected error occurred"+ex.getMessage());
             throw new InternalServerErrorException(ex);
         } 
     }
@@ -120,12 +122,12 @@ public class StatsREST {
     }
     
     @GET
-    @Path("{id}")
+    @Path("{matchId}/{playerId}")
     @Produces({"application/xml"})
-    public Stats find(@PathParam("id") Integer id) {
+    public Stats find(@PathParam("matchId") Integer matchId,@PathParam("playerId") Integer playerId) {
         Stats stats=null;
         try {
-            stats=ejb.findStatById(id);
+            stats=ejb.findStatById(matchId, playerId);
         } catch (ReadException ex) {
             throw new InternalServerErrorException(ex);
         }

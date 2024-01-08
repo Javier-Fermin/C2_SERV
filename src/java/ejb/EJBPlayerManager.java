@@ -12,6 +12,7 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -28,7 +29,7 @@ public class EJBPlayerManager implements PlayerManagerLocal {
     /**
      * Entity manager object.
      */
-    @PersistenceContext
+    @PersistenceContext(unitName = "C2PU")
     private EntityManager em;
 
     /**
@@ -62,11 +63,11 @@ public class EJBPlayerManager implements PlayerManagerLocal {
      * @throws ReadException If there is any Exception during processing.
      */
     @Override
-    public Set<Player> findPlayers() throws ReadException {
-        Set<Player> players = null;
+    public List<Player> findPlayers() throws ReadException {
+        List<Player> players = null;
         try {
             LOGGER.info("PlayerManager: Reading all players.");
-            players = (Set<Player>) em.createNamedQuery("findPlayers").getResultList();
+            players = em.createNamedQuery("findPlayers").getResultList();
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "PlayerManager: Exception reading all players:",
                     e.getMessage());

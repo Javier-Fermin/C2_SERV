@@ -7,6 +7,7 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
@@ -33,7 +34,7 @@ public interface PlayerManagerLocal {
      * @return a set of {@link Player} with all the players.
      * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Player> findPlayers() throws ReadException;
+    public List<Player> findPlayers() throws ReadException;
 
     /**
      * Creates a {@link Player} in the underlying application storage.

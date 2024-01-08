@@ -1,12 +1,12 @@
 package ejb;
 
-import java.util.Set;
 
 import entity.Match;
 import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.util.List;
 import javax.ejb.Local;
 
 //import javax.ejb.Local;
@@ -23,7 +23,7 @@ public interface MatchManagerLocal {
      * @return A set of all Matches played .
      * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Match> findAllMatches() throws ReadException;
+    public List<Match> findAllMatches() throws ReadException;
 
     /**
      * Finds a set of all {@link Match} .
@@ -31,7 +31,7 @@ public interface MatchManagerLocal {
      * @return A set of {@link Match} that are played in Tournaments.
      * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Match> findAllTournamentMatches() throws ReadException;
+    public List<Match> findAllTournamentMatches() throws ReadException;
 
     /**
      * Finds a set of {@link Match} played in a League.
@@ -39,7 +39,7 @@ public interface MatchManagerLocal {
      * @return A set of {@link Match} that are played in a League.
      * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Match> findAllLeagueMatches() throws ReadException;
+    public List<Match> findAllLeagueMatches() throws ReadException;
 
     /**
      * Finds a {@link Match} by its id.
@@ -57,7 +57,7 @@ public interface MatchManagerLocal {
      * @return A set of {@link Match} that are played in a specific Tournament.
      * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Match> findMatchesByTournamentId(Integer id) throws ReadException;
+    public List<Match> findMatchesByTournamentId(Integer id) throws ReadException;
 
     /**
      * Finds a {@link Match} by its id that is played in a specific League.
@@ -66,7 +66,7 @@ public interface MatchManagerLocal {
      * @return A set of {@link Match} that are played in a specific League.
      * @throws ReadException If there is any Exception during processing.
      */
-    public Set<Match> findMatchesByLeagueId(Integer id) throws ReadException;
+    public List<Match> findMatchesByLeagueId(Integer id) throws ReadException;
 
     /**
      * Creates a {@link Match} in the underlying application storage.
@@ -98,5 +98,5 @@ public interface MatchManagerLocal {
      * @return
      * @throws FindException
      */
-    public Set<Match> findMatchesByUserNickname(String nickname) throws ReadException;
+    public List<Match> findMatchesByUserNickname(String nickname) throws ReadException;
 }
