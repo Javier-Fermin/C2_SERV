@@ -45,7 +45,7 @@ public class EJBAdminManager implements AdminManagerLocal {
         Admin admin = null;
         try {
             LOGGER.info("AdminManager: Finding the admin by email.");
-            admin = (Admin) em.createNamedQuery("findAdminByMail").setParameter("mail",email).getSingleResult(); 
+            admin = (Admin) em.createNamedQuery("findUserByMail").setParameter("email", email).getSingleResult();
             if (admin != null) {
                 LOGGER.log(Level.INFO, "AdminManager: Admin found {0}", admin.getEmail());
             }

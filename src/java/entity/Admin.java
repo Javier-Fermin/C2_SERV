@@ -21,10 +21,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author javie
  */
 @Entity
-@Table(name="admin",schema="esport_six")
-@NamedQueries(
-        @NamedQuery(name = "findAdmins", query = "SELECT a FROM Admin a")
-)
+@Table(name="adminA",schema="esport_six")
+@NamedQueries({
+        @NamedQuery(name = "findAdmins", query = "SELECT a FROM Admin a"),
+        @NamedQuery(name = "findAdminById", query = "SELECT a FROM Admin a WHERE a.id = :id"),
+        @NamedQuery(name = "findAdminByEmail", query = "SELECT a FROM Admin a WHERE a.email = :email")
+})
 @XmlRootElement
 public class Admin extends User{
 

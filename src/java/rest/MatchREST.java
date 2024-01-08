@@ -7,6 +7,7 @@ package rest;
 
 import ejb.EJBMatchManager;
 import ejb.MatchManagerLocal;
+import ejb.TournamentLocalManagerEJB;
 import entity.Match;
 import exception.CreateException;
 import exception.DeleteException;
@@ -114,7 +115,8 @@ public class MatchREST {
     public void delete(@PathParam("id") Integer id) {
         try {
             LOGGER.log(Level.INFO, "MatchRESTful service: delete Match by id={0}.", id);
-            ejb.deleteMatch(ejb.findAMatch(id));
+            Match match = ejb.findAMatch(id);
+            ejb.deleteMatch(match);
         } catch (ReadException | DeleteException ex) {
             LOGGER.log(Level.SEVERE,
                     "MatchRESTful service: Exception deleting match by id, {0}",

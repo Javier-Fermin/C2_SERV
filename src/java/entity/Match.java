@@ -9,7 +9,6 @@ import entity.League;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -42,8 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
         @NamedQuery(name = "findAllMatches", query = "SELECT m FROM Match m"),
         @NamedQuery(name = "findAllLeagueMatches", query = "SELECT m FROM Match m WHERE m.league IS NOT NULL"),
         @NamedQuery(name = "findAMatch", query = "SELECT m FROM Match m WHERE m.id = :id"),
-        @NamedQuery(name = "findTournamentById", query = "SELECT m FROM Match m WHERE m.id = :id"),
-        @NamedQuery(name = "findLeagueById", query = "SELECT m FROM Match m WHERE m.id = :id"),
+        @NamedQuery(name = "findMatchesByTournamentId", query = "SELECT m FROM Match m WHERE m.tournament.idTournament = :tournament"),
+        @NamedQuery(name = "findMatchesByLeagueId", query = "SELECT m FROM Match m WHERE m.league.id = :league"),
         @NamedQuery(name = "findMatchesByUserNickname", query = "SELECT m from Match m where m.id in (SELECT s.match.id from Stats s WHERE s.player.nickname = :nickname)")
 })
 @XmlRootElement
