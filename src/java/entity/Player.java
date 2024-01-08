@@ -7,6 +7,7 @@ package entity;
 
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This class is the entity player
@@ -43,7 +45,7 @@ public class Player extends User {
     /**
      * list of Stats
      */
-    @OneToMany(mappedBy="player", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="player")
     private List<Stats> stats;
 
     public Player() {

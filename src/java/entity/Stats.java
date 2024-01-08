@@ -10,6 +10,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -71,14 +72,14 @@ public class Stats implements Serializable{
      * Player of the play entity
      */
     @JoinColumn(name="playerId",updatable=false,insertable=false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Player player;
 
     /**
      * Match of the play entity
      */
     @JoinColumn(name="matchId",updatable=false,insertable=false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Match match;
     
     public Stats() {

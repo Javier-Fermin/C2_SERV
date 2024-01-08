@@ -6,6 +6,7 @@
 package ejb;
 
 import entity.Stats;
+import entity.StatsId;
 import exception.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,17 +32,11 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
     @PersistenceContext(unitName = "C2PU")
     private EntityManager em;
     
-    /**
-     * Finds a {@link Stats} by its id
-     * 
-     * @param id the id of the desired stats
-     * @return the {@link Stats} with the given id
-     * @throws ReadException if there is an exception during the method
-     */
     @Override
-    public Stats findStatById(Integer id) throws ReadException {
+    public Stats findStatById(Integer matchId, Integer playerId) throws ReadException {
         Stats stats = null;
         try{
+            StatsId id = new StatsId(matchId, playerId);
             LOGGER.info("Finding stats by id.");
             stats = em.find(Stats.class, id);
         }catch(Exception e){
@@ -83,7 +78,7 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
         List<Stats> stats = null;
         try{
             LOGGER.info("Finding stats by player nickname.");
-            stats = em.createNamedQuery("findStatsByLeagueName")
+            stats = em.createNamedQuery("findStatsByPlayerNickname")
                     .setParameter("nickname", nickname)
                     .getResultList();
         }catch(Exception e){

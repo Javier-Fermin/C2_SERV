@@ -9,8 +9,6 @@ import entity.League;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.CascadeType.REMOVE;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,6 +27,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This is the class for the Match data
@@ -84,7 +83,7 @@ public class Match implements Serializable {
     /**
      * plays of the Match entity
      */
-    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "match")
     private Set<Stats> stats;
 
     /**
@@ -139,12 +138,12 @@ public class Match implements Serializable {
     public void setLeague(League league) {
         this.league = league;
     }
-
+    
     public Set<Stats> getStats() {
         return stats;
     }
 
-    public void setPlays(Set<Stats> stats) {
+    public void setStats(Set<Stats> stats) {
         this.stats = stats;
     }
 

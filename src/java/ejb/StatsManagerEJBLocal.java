@@ -24,7 +24,7 @@ public interface StatsManagerEJBLocal {
      * @return the {@link Stats} with the given id
      * @throws ReadException if there is an exception during the method
      */
-    public Stats findStatById(Integer id) throws ReadException;
+    public Stats findStatById(Integer matchId, Integer playerId) throws ReadException;
     
     /**
      * Finds a list of {@link Stats} with all the possible Stats
