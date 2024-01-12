@@ -42,8 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
         @NamedQuery(name = "findAllMatches", query = "SELECT m FROM Match m"),
         @NamedQuery(name = "findAllLeagueMatches", query = "SELECT m FROM Match m WHERE m.league IS NOT NULL"),
         @NamedQuery(name = "findAMatch", query = "SELECT m FROM Match m WHERE m.id = :id"),
-        @NamedQuery(name = "findTournamentById", query = "SELECT m FROM Match m WHERE m.id = :id"),
-        @NamedQuery(name = "findLeagueById", query = "SELECT m FROM Match m WHERE m.id = :id"),
+        @NamedQuery(name = "findMatchesByTournamentId", query = "SELECT m FROM Match m WHERE m.tournament.idTournament = :tournament"),
+        @NamedQuery(name = "findMatchesByLeagueId", query = "SELECT m FROM Match m WHERE m.league.id = :league"),
         @NamedQuery(name = "findMatchesByUserNickname", query = "SELECT m from Match m where m.id in (SELECT s.match.id from Stats s WHERE s.player.nickname = :nickname)")
 })
 @XmlRootElement
@@ -83,7 +83,7 @@ public class Match implements Serializable {
     /**
      * plays of the Match entity
      */
-    @OneToMany(mappedBy = "match")
+    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
     private Set<Stats> stats;
 
     /**

@@ -84,7 +84,7 @@ public class Tournament implements Serializable{
     /***
      * Matches of the tournament
      */
-    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Match> matches;
     
     

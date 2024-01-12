@@ -74,7 +74,7 @@ public class League implements Serializable {
     /**
      * Set of matches for league entity
      */
-    @OneToMany(mappedBy = "league", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "league", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
     private List<Match> matches;
 
     /**

@@ -25,9 +25,10 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "player", schema = "esport_six")
-@NamedQueries(
-        @NamedQuery(name = "findPlayers", query = "SELECT p FROM Player p")
-)
+@NamedQueries({
+        @NamedQuery(name = "findPlayers", query = "SELECT p FROM Player p"),
+        @NamedQuery(name = "findPlayerByEmail", query = "SELECT p FROM Player p WHERE p.email = :email")
+})
 @XmlRootElement
 public class Player extends User {
 
@@ -43,7 +44,7 @@ public class Player extends User {
     /**
      * list of Stats
      */
-    @OneToMany(mappedBy="player")
+    @OneToMany(mappedBy="player", fetch = FetchType.EAGER)
     private List<Stats> stats;
 
     public Player() {
