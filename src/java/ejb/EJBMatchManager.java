@@ -126,7 +126,7 @@ public class EJBMatchManager implements MatchManagerLocal {
         List<Match> match = null;
         try {
             LOGGER.info("MatchManager: Finding the matches played in tournaments by id.");
-            match =  em.createNamedQuery("findMatchTournamentById").setParameter("id", id).getResultList();
+            match =  em.createNamedQuery("findMatchesByTournamentId").setParameter("tournament", id).getResultList();
             if (match != null) {
                 LOGGER.log(Level.INFO, "MatchManager: Matches found: {0}", match.size());
             }
@@ -149,7 +149,7 @@ public class EJBMatchManager implements MatchManagerLocal {
         List<Match> match = null;
         try {
             LOGGER.info("MatchManager: Finding the matches played in leagues by id.");
-            match =  em.createNamedQuery("findMatchLeagueById").setParameter("id", id).getResultList();
+            match =  em.createNamedQuery("findMatchesByLeagueId").setParameter("league", id).getResultList();
             if (match != null) {
                 LOGGER.log(Level.INFO, "MatchManager: Matches found: {0}", match.size());
             }

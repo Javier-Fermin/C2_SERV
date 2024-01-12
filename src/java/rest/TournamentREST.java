@@ -103,10 +103,11 @@ public class TournamentREST {
     @Path("{id}")
     public void delete(@PathParam("id") Integer id){
         try{
-            LOGGER.log(Level.INFO, "TournamentREST service: delete.", id);
-            ejbT.deleteTournament(ejbT.findTournamentById(id));
+            LOGGER.log(Level.INFO, "TournamentREST service: delete tournament id = {0}.", id);
+            Tournament t = ejbT.findTournamentById(id);
+            ejbT.deleteTournament(t);
         }catch(DeleteException ex){
-            LOGGER.log(Level.SEVERE, "TournamentREST service: Exception deleting tournament", ex.getMessage());
+            LOGGER.log(Level.SEVERE, "TournamentREST service: Exception deleting tournament, {0}", ex.getMessage());
             throw new InternalServerErrorException(ex);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE, "TournamentREST service: Exception finding the tournament, {0}.", ex.getMessage());

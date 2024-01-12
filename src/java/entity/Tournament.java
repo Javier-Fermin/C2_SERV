@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;

@@ -203,6 +203,5 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
                     e.getMessage());
             throw new DeleteException(e.getMessage());
         }
-    }
-    
+    }    
 }

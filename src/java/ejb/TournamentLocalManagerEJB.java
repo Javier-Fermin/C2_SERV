@@ -80,4 +80,5 @@ public interface TournamentLocalManagerEJB {
      * @throws DeleteException If there is any Exception during processing.
      */
     public void deleteTournament(Tournament tournament) throws DeleteException;
+    
 }

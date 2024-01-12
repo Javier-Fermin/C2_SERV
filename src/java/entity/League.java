@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 /**
  * NamedQueries for League entity
  */
+import static javax.persistence.CascadeType.ALL;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "findAllLeagues", query = "Select l from League l"),
