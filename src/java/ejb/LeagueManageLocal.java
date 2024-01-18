@@ -70,7 +70,7 @@ public interface LeagueManageLocal {
      * @return league finded by the name
      * @throws ReadException if have any errors
      */
-    public League findLeagueByName(String name) throws ReadException;
+    public List<League> findLeagueByName(String name) throws ReadException;
     
     /**
      * Find all finished leagues taking locals date, throws ReadException in case of error
@@ -97,6 +97,6 @@ public interface LeagueManageLocal {
      * @return league by the match id
      * @throws ReadException if have any errors
      */
-    public League findLeagueForMatch(Integer id) throws ReadException;
+    public List<League> findLeagueForMatch(Integer id) throws ReadException;
     
 }
