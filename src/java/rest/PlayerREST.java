@@ -157,4 +157,22 @@ public class PlayerREST {
         return player;
 
     }
+    
+    @GET
+    @Path("player/{nickname}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Player findPlayerByNickname(@PathParam("nickname") String nickname) {
+        Player player = null;
+        try {
+            LOGGER.log(Level.INFO, "PlayerRESTful service: find Player by email={0}.", nickname);
+            player = ejb.findPlayerByNickname(nickname);
+        } catch (ReadException ex) {
+            LOGGER.log(Level.SEVERE,
+                    "PlayerRESTful service: Exception reading player by email, {0}",
+                    ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        }
+        return player;
+
+    }
 }

@@ -17,9 +17,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -37,7 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "match", schema = "esport_six")
-
 @NamedQueries({
     @NamedQuery(name = "findAllTournamentMatches", query = "SELECT m FROM Match m WHERE m.tournament IS NOT NULL"),
         @NamedQuery(name = "findAllMatches", query = "SELECT m FROM Match m"),
@@ -45,7 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
         @NamedQuery(name = "findAMatch", query = "SELECT m FROM Match m WHERE m.id = :id"),
         @NamedQuery(name = "findMatchesByTournamentId", query = "SELECT m FROM Match m WHERE m.tournament.idTournament = :tournament"),
         @NamedQuery(name = "findMatchesByLeagueId", query = "SELECT m FROM Match m WHERE m.league.id = :league"),
-        @NamedQuery(name = "findMatchesByUserNickname", query = "SELECT m from Match m where m.id in (SELECT s.match.id from Stats s WHERE s.player.nickname = :nickname)")
+        @NamedQuery(name = "findMatchesByUserNickname", query = "SELECT m from Match m where m.id in (SELECT s.match.id from Stats s WHERE s.player.nickname = :nickname)"),
+        @NamedQuery(name="findMatchByDescription",
+            query="SELECT m FROM Match m WHERE m.description = :description")
 })
 @XmlRootElement
 public class Match implements Serializable {
@@ -140,6 +138,7 @@ public class Match implements Serializable {
         this.league = league;
     }
     
+    @XmlTransient
     public Set<Stats> getStats() {
         return stats;
     }

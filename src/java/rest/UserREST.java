@@ -6,6 +6,7 @@
 package rest;
 
 import ejb.UserManagerLocal;
+import entity.Player;
 import entity.User;
 import exception.CreateException;
 import exception.DeleteException;
@@ -142,17 +143,42 @@ public class UserREST {
     @GET
     @Path("email/{email}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public User findUserByEmail(@PathParam("email") String email) {
-        User user = null;
+    public List<User> findUserByEmail(@PathParam("email") String email) {
+        List<User> users = null;
         try {
             LOGGER.log(Level.INFO, "UserRESTful service: find User by email={0}.", email);
-            user = ejb.findUserByMail(email);
+            users = ejb.findUserByMail(email);
         } catch (ReadException ex) {
             LOGGER.log(Level.SEVERE,
                     "UserRESTful service: Exception reading user by email, {0}",
                     ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
-        return user;
+        return users;
+    }
+    
+    /**
+     * RESTful POST method for creating {@link User} objects from XML
+     * representation.
+     *
+     * @param user The object containing user data.
+     */
+    @POST
+    @Path("logIn")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<User> logIn(User user) {
+        List<User> users = null;
+        try {
+            users = ejb.findUserByMail(user.getEmail());
+            if(users.get(0).getPasswd().equals(user.getPasswd())){
+                return users;
+            }else{
+                return null;
+            }
+        } catch (ReadException ex) {
+            Logger.getLogger(UserREST.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

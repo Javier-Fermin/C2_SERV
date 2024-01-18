@@ -61,4 +61,6 @@ public interface PlayerManagerLocal {
     public void updatePlayer(Player player) throws UpdateException;
     
     public Player findPlayerById(Integer id) throws ReadException;
+    
+    public Player findPlayerByNickname(String nickname) throws ReadException;
 }

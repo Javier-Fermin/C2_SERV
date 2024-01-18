@@ -151,4 +151,20 @@ public class EJBPlayerManager implements PlayerManagerLocal {
         }
         return player;
     }
+    
+    @Override
+    public Player findPlayerByNickname(String nickname) throws ReadException {
+         Player player = null;
+        try {
+            LOGGER.info("UserManager: Finding the player by nickname.");
+            player = (Player) em.createNamedQuery("findPlayerByNickname").setParameter("nickname", nickname).getSingleResult();
+            if (player != null) {
+                LOGGER.log(Level.INFO, "PlayerManager: Player found {0}", player.getId());
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "PlayerManager: Exception Finding player by nickname:", e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return player;
+    }
 }

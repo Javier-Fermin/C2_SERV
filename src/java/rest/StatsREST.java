@@ -7,7 +7,6 @@ package rest;
 
 import ejb.StatsManagerEJBLocal;
 import entity.Stats;
-import entity.StatsId;
 import exception.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -83,12 +82,12 @@ public class StatsREST {
     }
     
     @GET
-    @Path("match/{id}")
+    @Path("match/{description}")
     @Produces({"application/xml"})
-    public List<Stats> findStatsByMatchId(@PathParam("id") Integer id) {
+    public List<Stats> findStatsByMatchDescription(@PathParam("description") String description) {
         List<Stats> stats=null;
         try {
-            stats=ejb.findStatsByMatchId(id);
+            stats=ejb.findStatsByMatchDescription(description);
         } catch (ReadException ex) {
             throw new InternalServerErrorException(ex);
         }

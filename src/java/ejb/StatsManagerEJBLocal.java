@@ -50,7 +50,7 @@ public interface StatsManagerEJBLocal {
      * @return the list of {@link Stats} that fullfilled the requirements
      * @throws ReadException if there is any exception during the method
      */
-    public List<Stats> findStatsByMatchId(Integer matchId) throws ReadException;
+    public List<Stats> findStatsByMatchDescription(String matchDescription) throws ReadException;
     
     /**
      * Finds a list of {@link Stats} by the league name

@@ -41,19 +41,19 @@ public class EJBUserManager implements UserManagerLocal {
      * @throws ReadException
      */
     @Override
-    public User findUserByMail(String email) throws ReadException {
-        User user = null;
+    public List<User> findUserByMail(String email) throws ReadException {
+        List<User> users = null;
         try {
             LOGGER.info("UserManager: Finding the user by email.");
-            user = (User) em.createNamedQuery("findUserByMail").setParameter("email", email).getSingleResult();
-            if (user != null) {
-                LOGGER.log(Level.INFO, "UserManager: User found {0}", user.getEmail());
+            users = em.createNamedQuery("findUserByMail").setParameter("email", email).getResultList();
+            if (users != null) {
+                LOGGER.log(Level.INFO, "UserManager: User found {0}", users.get(0).getEmail());
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "UserManager: Exception Finding user by email:", e.getMessage());
             throw new ReadException(e.getMessage());
         }
-        return user;
+        return users;
     }
 
     /**

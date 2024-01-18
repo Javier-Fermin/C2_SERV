@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
         @NamedQuery(name = "findUsers", query = "SELECT u FROM User u"),
         @NamedQuery(name = "findUserByMail",query = "SELECT u FROM User u WHERE u.email = :email"),
-        @NamedQuery(name = "findUserById", query = "SELECT u FROM User u WHERE u.id = :id")
+        @NamedQuery(name = "findUserById", query = "SELECT u FROM User u WHERE u.id = :id"),
+        @NamedQuery(name = "signIn",query = "SELECT u FROM User u WHERE u.email = :email AND u.passwd = :passwd")
 })
 @Table(name="user",schema="esport_six")
 @XmlRootElement  

@@ -96,12 +96,12 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
      * @throws ReadException if there is any exception during the method
      */
     @Override
-    public List<Stats> findStatsByMatchId(Integer matchId) throws ReadException {
+    public List<Stats> findStatsByMatchDescription(String matchDescription) throws ReadException {
         List<Stats> stats = null;
         try{
             LOGGER.info("Finding stats by match id.");
-            stats = em.createNamedQuery("findStatsByMatchId")
-                    .setParameter("matchId", matchId)
+            stats = em.createNamedQuery("findStatsByMatchDescription")
+                    .setParameter("matchDescription", matchDescription)
                     .getResultList();
         }catch(Exception e){
             LOGGER.severe("Unexpected error occurred during finding stats by match id: "+e.getMessage());
