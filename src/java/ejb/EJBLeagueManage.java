@@ -59,9 +59,7 @@ public class EJBLeagueManage implements LeagueManageLocal {
     @Override
     public void updateLeague(League league) throws UpdateException {
         try {
-            if (!em.contains(league)) {
-                em.merge(league);
-            }
+            em.merge(league);
             em.flush();
             LOGGER.info("LeagueManage: league Updated.");
         } catch (Exception e) {
