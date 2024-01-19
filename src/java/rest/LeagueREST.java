@@ -128,8 +128,8 @@ public class LeagueREST {
     @GET
     @Path("league/{name}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public League findLeagueByName(@PathParam("name") String name) {
-        League league = null;
+    public List<League> findLeagueByName(@PathParam("name") String name) {
+        List<League> league = null;
         try {
             LOGGER.log(Level.INFO, "LeagueREST service: find league by ", name);
             league = ejb.findLeagueByName(name);
@@ -219,8 +219,8 @@ public class LeagueREST {
     @GET
     @Path("match/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public League findLeagueForMatch(@PathParam("id") Integer id) {
-        League league = null;
+    public List<League> findLeagueForMatch(@PathParam("id") Integer id) {
+        List<League> league = null;
         try {
             LOGGER.log(Level.INFO, "LeagueREST service: find league by match ", id);
             league = ejb.findLeagueForMatch(id);

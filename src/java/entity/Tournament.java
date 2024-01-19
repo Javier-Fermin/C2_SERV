@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -84,8 +85,7 @@ public class Tournament implements Serializable{
     /***
      * Matches of the tournament
      */
-
-    @OneToMany(mappedBy = "tournament", cascade=ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Match> matches;
     
     

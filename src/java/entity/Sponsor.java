@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,7 +55,7 @@ public class Sponsor implements Serializable{
     /***
      * Tournaments this sponsor supports
      */
-    @ManyToMany(mappedBy="sponsors")
+    @ManyToMany(mappedBy="sponsors", cascade=CascadeType.REMOVE)
     private Set<Tournament> tournaments;
 
     

@@ -175,4 +175,21 @@ public class MatchREST {
         }
         return matches;
     }
+    
+    @GET
+    @Path("match/{description}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Match findMatchByDescription(@PathParam("description") String description) {
+        Match match = null;
+        try {
+            LOGGER.log(Level.INFO, "MatchRESTful service: find match by description.");
+            match = ejb.findMatchByDescription(description);
+        } catch (ReadException ex) {
+            LOGGER.log(Level.SEVERE,
+                    "MatchRESTful service: Exception reading match by description, {0}",
+                    ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        }
+        return match;
+    }
 }

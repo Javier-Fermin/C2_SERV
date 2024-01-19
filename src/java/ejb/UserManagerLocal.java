@@ -25,7 +25,7 @@ public interface UserManagerLocal {
      * @return the {@link User} found
      * @throws ReadException
      */
-    public User findUserByMail(String email) throws ReadException;
+    public List<User> findUserByMail(String email) throws ReadException;
 
     /**
      * Finds all {@link User} in the underlying application storage.

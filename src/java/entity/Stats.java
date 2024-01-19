@@ -28,11 +28,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "stats", schema = "esport_six")
 @NamedQueries({
-    @NamedQuery(name="findAllStats",query="SELECT s FROM Stats s"),
+    @NamedQuery(name="findAllStats",
+            query="SELECT s FROM Stats s"),
     @NamedQuery(name="findStatsByPlayerNickname",
             query="SELECT s FROM Stats s WHERE s.player.nickname = :nickname"),
-    @NamedQuery(name="findStatsByMatchId",
-        query="SELECT s FROM Stats s WHERE s.match.id = :matchId"),
+    @NamedQuery(name="findStatsByMatchDescription",
+        query="SELECT s FROM Stats s WHERE s.match.description = :matchDescription"),
     @NamedQuery(name="findStatsByLeagueName",
         query="SELECT s FROM Stats s WHERE s.match in (SELECT m.id FROM Match m WHERE m.league.name = :leagueName)"),
     @NamedQuery(name="findStatsByTournamentName",
@@ -72,14 +73,14 @@ public class Stats implements Serializable{
      * Player of the play entity
      */
     @JoinColumn(name="playerId",updatable=false,insertable=false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Player player;
 
     /**
      * Match of the play entity
      */
     @JoinColumn(name="matchId",updatable=false,insertable=false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Match match;
     
     public Stats() {
@@ -189,7 +190,6 @@ public class Stats implements Serializable{
      * 
      * @return the player field
      */
-    @XmlTransient
     public Player getPlayer() {
         return player;
     }
@@ -208,7 +208,6 @@ public class Stats implements Serializable{
      * 
      * @return the match field
      */
-    @XmlTransient
     public Match getMatch() {
         return match;
     }

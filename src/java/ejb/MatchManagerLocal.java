@@ -99,4 +99,6 @@ public interface MatchManagerLocal {
      * @throws FindException
      */
     public List<Match> findMatchesByUserNickname(String nickname) throws ReadException;
+    
+    public Match findMatchByDescription(String description) throws ReadException;
 }

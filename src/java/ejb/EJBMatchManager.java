@@ -229,4 +229,20 @@ public class EJBMatchManager implements MatchManagerLocal {
         }
         return match;
     }
+    
+    @Override
+    public Match findMatchByDescription(String description) throws ReadException {
+        Match match = null;
+        try {
+            LOGGER.info("MatchManager: Finding the match by the introduced description");
+            match = (Match) em.createNamedQuery("findMatchByDescription").setParameter("description", description).getSingleResult();
+            if (match != null) {
+                LOGGER.log(Level.INFO, "MatchManager: Match found: {0}", match.getId());
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "MatchManager: Exception Finding match by description:", e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return match;
+    }
 }

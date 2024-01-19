@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author javie
  */
 @Entity
-@Table(name="adminA",schema="esport_six")
+@Table(name="admin",schema="esport_six")
 @NamedQueries({
         @NamedQuery(name = "findAdmins", query = "SELECT a FROM Admin a"),
         @NamedQuery(name = "findAdminById", query = "SELECT a FROM Admin a WHERE a.id = :id"),

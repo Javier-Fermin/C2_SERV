@@ -28,7 +28,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
         @NamedQuery(name = "findPlayers", query = "SELECT p FROM Player p"),
         @NamedQuery(name = "findPlayerById", query = "SELECT p FROM Player p WHERE p.id = :id"),
-        @NamedQuery(name = "findPlayerByEmail", query = "SELECT p FROM Player p WHERE p.email = :email")
+        @NamedQuery(name = "findPlayerByEmail", query = "SELECT p FROM Player p WHERE p.email = :email"),
+        @NamedQuery(name="findPlayerByNickname",
+            query="SELECT p FROM Player p WHERE p.nickname = :nickname")
 })
 @XmlRootElement
 public class Player extends User {
@@ -45,7 +47,7 @@ public class Player extends User {
     /**
      * list of Stats
      */
-    @OneToMany(mappedBy="player")
+    @OneToMany(mappedBy="player", fetch = FetchType.EAGER)
     private List<Stats> stats;
 
     public Player() {
@@ -74,6 +76,7 @@ public class Player extends User {
         this.nickname = nickname;
     }
 
+    @XmlTransient
     public List<Stats> getStats() {
         return stats;
     }
