@@ -12,6 +12,8 @@ import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
 import exception.UpdateException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Date;
@@ -221,13 +223,16 @@ public class TournamentREST {
         List<Tournament> tournaments=null;
         
         try{
-            LOGGER.log(Level.INFO, "TournamentREST service: find tournaments by date = {0}.",dateText);
-            OffsetDateTime odt = OffsetDateTime.parse(dateText);
-            Instant instant = odt.toInstant();
-            Date date = Date.from(instant);
+            SimpleDateFormat sDt = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sDt.parse(dateText);
+            
+            LOGGER.log(Level.INFO, "TournamentREST service: find tournaments by date = {0}.",date);
             tournaments=ejbT.findTournamentsByDate(date);
         }catch(ReadException ex){
             LOGGER.log(Level.SEVERE, "TournamentREST service: Exception finding any tournament, {0}.", ex.getMessage());
+            throw new InternalServerErrorException(ex);
+        } catch (ParseException ex) {
+            LOGGER.log(Level.SEVERE, "TournamentREST service: Exception parsing date, {0}.", ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         
