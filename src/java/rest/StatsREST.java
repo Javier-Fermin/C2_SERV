@@ -20,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -34,23 +35,24 @@ public class StatsREST {
     private StatsManagerEJBLocal ejb;
     
     @POST
-    @Consumes({"application/xml"})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Stats stats) {
         try {
-            LOGGER.info("Creating stats");
+            LOGGER.info("StatsREST service: Creating stats");
             ejb.createStats(stats);
         } catch (CreateException ex) {
-            LOGGER.severe("Unexpected error occurred"+ex.getMessage());
+            LOGGER.severe("StatsREST service: Unexpected error occurred"+ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
     }
     
     @PUT
-    @Consumes({"application/xml"})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void update(Stats stats) {
         try {
             ejb.updateStats(stats);
         } catch (UpdateException ex) {
+            LOGGER.severe("StatsREST service: Unexpected error occurred"+ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
     }
@@ -60,22 +62,23 @@ public class StatsREST {
     //@Consumes({"application/xml", "application/json"})
     public void delete(@PathParam("matchId") Integer matchId,@PathParam("playerId") Integer playerId) {
         try {
-            LOGGER.info("Deleting stats");
+            LOGGER.info("StatsREST service: Deleting stats");
             ejb.deleteStats(ejb.findStatById(matchId, playerId));
         } catch (ReadException | DeleteException ex) {
-            LOGGER.severe("Unexpected error occurred"+ex.getMessage());
+            LOGGER.severe("StatsREST service: Unexpected error occurred"+ex.getMessage());
             throw new InternalServerErrorException(ex);
         } 
     }
     
     @GET
     @Path("player/{nickname}")
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Stats> findStatsByPlayerNickname(@PathParam("nickname") String nickname) {
         List<Stats> stats=null;
         try {
             stats=ejb.findStatsByPlayerNickname(nickname);
         } catch (ReadException ex) {
+            LOGGER.severe("StatsREST service: Unexpected error occurred"+ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         return stats;
@@ -83,12 +86,13 @@ public class StatsREST {
     
     @GET
     @Path("match/{description}")
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Stats> findStatsByMatchDescription(@PathParam("description") String description) {
         List<Stats> stats=null;
         try {
             stats=ejb.findStatsByMatchDescription(description);
         } catch (ReadException ex) {
+            LOGGER.severe("StatsREST service: Unexpected error occurred"+ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         return stats;
@@ -96,7 +100,7 @@ public class StatsREST {
     
     @GET
     @Path("league/{name}")
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Stats> findStatsByLeagueName(@PathParam("name") String leagueName) {
         List<Stats> stats=null;
         try {
@@ -109,12 +113,14 @@ public class StatsREST {
     
     @GET
     @Path("tournament/{name}")
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Stats> findStatsByTournamentName(@PathParam("name") String tournamentName) {
         List<Stats> stats=null;
         try {
+            LOGGER.info("StatsREST service: Finding stats by tournament name.");
             stats=ejb.findStatsByTournamentName(tournamentName);
         } catch (ReadException ex) {
+            LOGGER.severe("StatsREST service: Error while finding desired stats."+ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         return stats;
@@ -122,24 +128,28 @@ public class StatsREST {
     
     @GET
     @Path("{matchId}/{playerId}")
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Stats find(@PathParam("matchId") Integer matchId,@PathParam("playerId") Integer playerId) {
         Stats stats=null;
         try {
+            LOGGER.info("StatsREST service: Finding a stat by ID.");
             stats=ejb.findStatById(matchId, playerId);
         } catch (ReadException ex) {
+            LOGGER.severe("StatsREST service: Error while finding desired stats."+ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         return stats;
     }
     
     @GET
-    @Produces({"application/xml"})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Stats> findAll() {
         List<Stats> users=null;
         try {
+            LOGGER.info("StatsREST service: Finding all stats");
             users=ejb.findAllStats();
         } catch (ReadException ex) {
+            LOGGER.severe("StatsREST service: Error while finding desired stats."+ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         return users;

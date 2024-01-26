@@ -151,4 +151,18 @@ public class EJBUserManager implements UserManagerLocal {
         }
         return user;
     }
+
+    @Override
+    public void recoverPassword(String passwd, String email) throws ReadException {
+        try {    
+            List<User> users = null;
+            users = findUserByMail(email);
+            User user = null;
+            user = users.get(0);
+            user.setPasswd(passwd);
+            updateUser(user);
+        } catch (UpdateException ex) {
+            Logger.getLogger(EJBUserManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

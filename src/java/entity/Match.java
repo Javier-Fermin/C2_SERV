@@ -82,7 +82,7 @@ public class Match implements Serializable {
     /**
      * plays of the Match entity
      */
-    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     private Set<Stats> stats;
 
     /**

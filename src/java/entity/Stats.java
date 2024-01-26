@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -72,15 +73,15 @@ public class Stats implements Serializable{
     /**
      * Player of the play entity
      */
-    @JoinColumn(name="playerId",updatable=false,insertable=false)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="playerId",updatable=false,insertable=false,nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Player player;
 
     /**
      * Match of the play entity
      */
-    @JoinColumn(name="matchId",updatable=false,insertable=false)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="matchId",updatable=false,insertable=false,nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade =CascadeType.ALL)
     private Match match;
     
     public Stats() {

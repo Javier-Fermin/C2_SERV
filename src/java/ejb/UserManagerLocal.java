@@ -66,5 +66,7 @@ public interface UserManagerLocal {
      * @throws exception.ReadException
      */
     public User findUserById(Integer id) throws ReadException;
+    
+    public void recoverPassword(String passwd, String email) throws ReadException;
 
 }

@@ -7,8 +7,10 @@ package rest;
 
 import ejb.EJBMatchManager;
 import ejb.MatchManagerLocal;
+import ejb.StatsManagerEJBLocal;
 import ejb.TournamentLocalManagerEJB;
 import entity.Match;
+import entity.Stats;
 import exception.CreateException;
 import exception.DeleteException;
 import exception.ReadException;
@@ -47,6 +49,9 @@ public class MatchREST {
      */
     @EJB
     private MatchManagerLocal ejb;
+
+    @EJB
+    private StatsManagerEJBLocal ejbStats;
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -175,7 +180,7 @@ public class MatchREST {
         }
         return matches;
     }
-    
+
     @GET
     @Path("match/{description}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
