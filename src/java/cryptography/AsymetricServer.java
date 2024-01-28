@@ -27,14 +27,14 @@ import javax.crypto.Cipher;
  */
 public class AsymetricServer {
     
-    private static final String PATH = ResourceBundle.getBundle("resources.Properties").getString("KEY_STORAGE_PATH");
+    //private static final String PATH = ResourceBundle.getBundle("resources.Properties").getString("");
     
     public static String decryptData(String password) {
         byte[] decryptedData = null;
         String passwordReceived = null;
         try {
             // Load Private Key
-            FileInputStream fis = new FileInputStream(PATH);
+            FileInputStream fis = new FileInputStream("C:\\Users\\imape\\Documents\\Clase\\C2_SERV\\src\\java\\cryptography\\privateKey.der");
             byte[] privateKeyBytes = new byte[fis.available()];
             fis.read(privateKeyBytes);
 

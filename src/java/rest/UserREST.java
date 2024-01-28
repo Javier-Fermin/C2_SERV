@@ -5,6 +5,7 @@
  */
 package rest;
 
+import cryptography.AsymetricServer;
 import cryptography.SymmetricCryptography;
 import ejb.UserManagerLocal;
 import entity.Player;
@@ -70,6 +71,7 @@ public class UserREST {
     public void createUser(User user) {
         try {
             LOGGER.log(Level.INFO, "UserRESTful service: create {0}.", user);
+            user.setPasswd(AsymetricServer.hashText(AsymetricServer.decryptData(user.getPasswd())));
             ejb.createUser(user);
         } catch (CreateException ex) {
             LOGGER.log(Level.SEVERE,
@@ -189,6 +191,8 @@ public class UserREST {
         LOGGER.info("UserRESTful service: LogIn user: "+user.getEmail());
         List<User> users = null;
         try {
+            user.setPasswd(AsymetricServer.hashText(AsymetricServer.decryptData(user.getPasswd())));
+            
             users = ejb.findUserByMail(user.getEmail());
             if(users.isEmpty()){
                 LOGGER.severe("UserRESTful service: No user found for LogIn");
