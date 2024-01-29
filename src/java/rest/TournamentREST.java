@@ -14,8 +14,6 @@ import exception.ReadException;
 import exception.UpdateException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -173,18 +171,18 @@ public class TournamentREST {
     @GET
     @Path("tournament/{name}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Tournament> findTournamentByName(@PathParam("name") String name){
-        List<Tournament> tournaments=null;
+    public Tournament findTournamentByName(@PathParam("name") String name){
+        Tournament tournament=null;
         
         try{
             LOGGER.log(Level.INFO, "TournamentREST service: find tournaments by name contains {0}.",name);
-            tournaments=ejbT.findTournamentsByName(name);
+            tournament=ejbT.findOneTournamentByName(name);
         }catch(ReadException ex){
             LOGGER.log(Level.SEVERE, "TournamentREST service: Exception finding any tournament, {0}.", ex.getMessage());
             throw new InternalServerErrorException(ex);
         }
         
-        return tournaments;
+        return tournament;
     }
     /**
      * RESTful GET method for finding {@link Tournament} objects by format.

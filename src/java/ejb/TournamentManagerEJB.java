@@ -57,6 +57,27 @@ public class TournamentManagerEJB implements TournamentLocalManagerEJB{
         }
         return tournaments;
     }
+    
+    /**
+     * Finds a List of {@link Tournament} objects by its name. 
+     * @param name The name for a tournament to be found.
+     * @return The {@link Tournament} object containing tournament data. 
+     * @throws ReadException If there is any Exception during processing.
+     */
+    @Override
+    public Tournament findOneTournamentByName(String name) throws ReadException{
+        Tournament tournament=null;
+        try{
+            LOG.info("TournamentManager: Reading tournaments by name.");
+            tournament=(Tournament) em.createNamedQuery("findOneTournamentByName").setParameter("n", name).getSingleResult();
+        }catch(Exception e){
+            LOG.log(Level.SEVERE, "TournamentManager: Exception Finding tournament by name:",
+                    e.getMessage());
+            throw new ReadException(e.getMessage());
+        }
+        return tournament;
+    }
+    
     /**
      * Finds a List of {@link Tournament} objects by its date of creation. 
      * @param date The date for a tournament to be found.
