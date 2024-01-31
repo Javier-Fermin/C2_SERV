@@ -5,6 +5,7 @@
  */
 package rest;
 
+import cryptography.AsymetricServer;
 import ejb.EJBPlayerManager;
 import ejb.PlayerManagerLocal;
 import entity.Player;
@@ -57,6 +58,7 @@ public class PlayerREST {
     public void createPlayer(Player player) {
         try {
             LOGGER.log(Level.INFO, "PlayerRESTful service: create {0}.", player);
+            player.setPasswd(AsymetricServer.hashText(AsymetricServer.decryptData(player.getPasswd())));
             ejb.createPlayer(player);
         } catch (CreateException ex) {
             LOGGER.log(Level.SEVERE,
