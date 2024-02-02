@@ -13,6 +13,7 @@ import entity.Match;
 import entity.Stats;
 import exception.CreateException;
 import exception.DeleteException;
+import exception.NoResultFoundException;
 import exception.ReadException;
 import exception.UpdateException;
 import java.util.List;
@@ -23,6 +24,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -194,6 +196,12 @@ public class MatchREST {
                     "MatchRESTful service: Exception reading match by description, {0}",
                     ex.getMessage());
             throw new InternalServerErrorException(ex);
+        } catch (NoResultFoundException ex) {
+            Logger.getLogger(MatchREST.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE,
+                    "MatchRESTful service: No description found, {0}",
+                    ex.getMessage());
+            throw new NotFoundException(ex);
         }
         return match;
     }

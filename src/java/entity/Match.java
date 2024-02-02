@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -88,6 +89,7 @@ public class Match implements Serializable {
     /**
      * descrition of the match
      */
+    @Column(unique = true)
     private String description;
 
     public String getDescription() {

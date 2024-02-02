@@ -4,6 +4,7 @@ package ejb;
 import entity.Match;
 import exception.CreateException;
 import exception.DeleteException;
+import exception.NoResultFoundException;
 import exception.ReadException;
 import exception.UpdateException;
 import java.util.List;
@@ -100,5 +101,5 @@ public interface MatchManagerLocal {
      */
     public List<Match> findMatchesByUserNickname(String nickname) throws ReadException;
     
-    public Match findMatchByDescription(String description) throws ReadException;
+    public Match findMatchByDescription(String description) throws ReadException, NoResultFoundException;
 }

@@ -11,9 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entity.Match;
+import exception.NoResultFoundException;
 import exception.ReadException;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 /**
  * EJB class for managing Match entity CRUD operations.
@@ -231,7 +233,7 @@ public class EJBMatchManager implements MatchManagerLocal {
     }
     
     @Override
-    public Match findMatchByDescription(String description) throws ReadException {
+    public Match findMatchByDescription(String description) throws ReadException , NoResultFoundException{
         Match match = null;
         try {
             LOGGER.info("MatchManager: Finding the match by the introduced description");
@@ -239,10 +241,13 @@ public class EJBMatchManager implements MatchManagerLocal {
             if (match != null) {
                 LOGGER.log(Level.INFO, "MatchManager: Match found: {0}", match.getId());
             }
+        } catch (NoResultException e) {
+            LOGGER.log(Level.SEVERE, "MatchManager: No description found:", e.getMessage());
+            throw new NoResultFoundException(e.getMessage());
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "MatchManager: Exception Finding match by description:", e.getMessage());
             throw new ReadException(e.getMessage());
-        }
+        } 
         return match;
     }
 }
