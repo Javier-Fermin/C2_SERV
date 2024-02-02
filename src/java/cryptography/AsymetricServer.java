@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -38,7 +39,7 @@ public class AsymetricServer {
         String passwordReceived = null;
         try {
             // Load Private Key
-            FileInputStream fis = new FileInputStream("C:\\Users\\imape\\Documents\\Clase\\C2_SERV\\src\\java\\cryptography\\privateKey.der");
+            InputStream fis = AsymetricServer.class.getResourceAsStream("privateKey.der");
             byte[] privateKeyBytes = new byte[fis.available()];
             fis.read(privateKeyBytes);
 

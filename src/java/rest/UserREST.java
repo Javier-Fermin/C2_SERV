@@ -200,6 +200,7 @@ public class UserREST {
             }
             if(users.get(0).getPasswd().equals(user.getPasswd())){
                 LOGGER.info("UserRESTful service: user found");
+                users.get(0).setPasswd(null);
                 return users;
             }else{
                 LOGGER.severe("UserRESTful service: No user found for LogIn");
@@ -218,7 +219,8 @@ public class UserREST {
      */
     @GET
     @Path("recoverPassword/{email}")
-    public void recoverPassword(@PathParam("email") String email){
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public User recoverPassword(@PathParam("email") String email){
         LOGGER.info("UserRESTful service: Password recovery requested.");
         SymmetricCryptography symCryp = new SymmetricCryptography();
         LOGGER.info("UserRESTful service: Getting credentials for mail.");
@@ -257,7 +259,9 @@ public class UserREST {
             LOGGER.info("UserRESTful service: Sending the mail...");
             Transport.send(message);
             LOGGER.info("UserRESTful service: Mail sent.");
-            ejb.recoverPassword(generatedUserPasswd, email);
+            User returnUser = ejb.recoverPassword(AsymetricServer.hashText(generatedUserPasswd), email);
+            returnUser.setPasswd(null);
+            return returnUser;
         } catch (MessagingException | ReadException e) {
             LOGGER.severe("UserRESTful service: "+e.getMessage());
             throw new InternalServerErrorException(e.getMessage());

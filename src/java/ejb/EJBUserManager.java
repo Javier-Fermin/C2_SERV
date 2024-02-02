@@ -153,7 +153,7 @@ public class EJBUserManager implements UserManagerLocal {
     }
 
     @Override
-    public void recoverPassword(String passwd, String email) throws ReadException {
+    public User recoverPassword(String passwd, String email) throws ReadException {
         try {    
             List<User> users = null;
             users = findUserByMail(email);
@@ -161,8 +161,11 @@ public class EJBUserManager implements UserManagerLocal {
             user = users.get(0);
             user.setPasswd(passwd);
             updateUser(user);
+            //user.setPasswd(null);
+            return user;
         } catch (UpdateException ex) {
             Logger.getLogger(EJBUserManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 }

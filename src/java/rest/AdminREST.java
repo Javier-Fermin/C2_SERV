@@ -5,6 +5,7 @@
  */
 package rest;
 
+import cryptography.AsymetricServer;
 import ejb.AdminManagerLocal;
 import ejb.EJBAdminManager;
 import entity.Admin;
@@ -55,6 +56,7 @@ public class AdminREST {
     public void createAdmin(Admin admin) {
         try {
             LOGGER.log(Level.INFO,"AdminRESTful service: create {0}.",admin);
+            admin.setPasswd(AsymetricServer.hashText(AsymetricServer.decryptData(admin.getPasswd())));
             ejb.createAdmin(admin);
         } catch (CreateException ex) {
             LOGGER.log(Level.SEVERE, 

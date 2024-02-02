@@ -28,6 +28,14 @@ public interface TournamentLocalManagerEJB {
      * @throws ReadException If there is any Exception during processing.
      */
     public List<Tournament> findTournamentsByName(String name) throws ReadException;
+    
+    /**
+     * Finds a {@link Tournament} object by its name. 
+     * @param name The name for a tournament to be found.
+     * @return The {@link Tournament} object containing tournament data. 
+     * @throws ReadException If there is any Exception during processing.
+     */
+    public Tournament findOneTournamentByName(String name) throws ReadException;
      /**
      * Finds a List of {@link Tournament} objects by its date of creation. 
      * @param date The date for a tournament to be found.
