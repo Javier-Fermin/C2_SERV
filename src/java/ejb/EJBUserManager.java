@@ -158,9 +158,11 @@ public class EJBUserManager implements UserManagerLocal {
             List<User> users = null;
             users = findUserByMail(email);
             User user = null;
-            user = users.get(0);
-            user.setPasswd(passwd);
-            updateUser(user);
+            if(!users.isEmpty()){
+                user = users.get(0);
+                user.setPasswd(passwd);
+                updateUser(user);
+            }
             //user.setPasswd(null);
             return user;
         } catch (UpdateException ex) {

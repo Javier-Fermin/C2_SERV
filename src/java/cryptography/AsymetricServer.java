@@ -27,10 +27,11 @@ import javax.crypto.Cipher;
  * @author imape
  */
 public class AsymetricServer {
-    
-    //private static final String PATH = ResourceBundle.getBundle("resources.Properties").getString("");
+
+    private static final Logger LOGGER = Logger.getLogger(AsymetricServer.class.getName());
     
     public static String decryptData(String password) {
+        LOGGER.info("AsymetricServer: Decrypting data");
         byte[] decryptedData = null;
         String passwordReceived = null;
         try {
@@ -53,12 +54,13 @@ public class AsymetricServer {
             System.out.println("Received from client: " + new String(decryptedData));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.severe("AsymetricServer: Exception during decrypting data: "+e.getMessage());
         }
         return passwordReceived;
     }
 
     public static String hashText(String text) {
+        LOGGER.info("AsymetricServer: Hashing text");
         try {
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = sha256.digest(text.getBytes());
@@ -72,23 +74,25 @@ public class AsymetricServer {
 
             return hexStringBuilder.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            LOGGER.severe("AsymetricServer: Exception during hashing text: "+e.getMessage());
             return null;
         }
     }
 
     public static byte[] fileReader(String path) {
+        LOGGER.info("AsymetricServer: Reading data");
         byte ret[] = null;
         File file = new File(path);
         try {
             ret = Files.readAllBytes(file.toPath());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.severe("AsymetricServer: Exception during reading data: "+e.getMessage());
         }
         return ret;
     }
 
     public static byte[] dehexadecimal(String hexString) {
+        LOGGER.info("AsymetricServer: Undoing hexadecimal");
         int len = hexString.length();
         byte[] result = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {

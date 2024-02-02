@@ -16,6 +16,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 
 import javax.crypto.Cipher;
@@ -38,8 +39,10 @@ import javax.mail.internet.MimeMessage;
  */
 public class SymmetricCryptography {
     private static byte[] salt = "salt_uwu".getBytes(); 
-    private String path = System.getProperties().getProperty("user.home","C:\\");
+    private static final Logger LOGGER = Logger.getLogger(SymmetricCryptography.class.getName());
 
+    
+    
     /**
      * Cifra un texto con AES, modo CBC y padding PKCS5Padding (simétrica) y lo
      * retorna
@@ -51,21 +54,19 @@ public class SymmetricCryptography {
     public void cifrarTexto(String clave, String mensaje) {
         KeySpec derivedKey = null;
         SecretKeyFactory secretKeyFactory = null;
+        LOGGER.info("SymmetricCryptography: Reading data");
         try {
-            if(!checkFileExists("\\PSP_ENCRIPTADO")){
-                mkFolder("\\PSP_ENCRIPTADO");
-            }
             derivedKey = new PBEKeySpec(clave.toCharArray(), salt, 65536, 128); 
 	    // AES tiene los siguientes tmños de key: 128, 192, or 256 bits
             
             // SecretKeyFactory is used to obtain a secret key from the key specification using the PBKDF2 algorithm 
             secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             byte[] derivedKeyPBK = null;
-            if(checkFileExists("\\PSP_ENCRIPTADO\\Key.dat")){
-                derivedKeyPBK = fileReader(path+"\\PSP_ENCRIPTADO\\Key.dat");
+            if(checkFileExists(getClass().getResource("Key.dat").getPath())){
+                derivedKeyPBK = fileReader(getClass().getResource("Key.dat").getPath());
             }else{
                 derivedKeyPBK = secretKeyFactory.generateSecret(derivedKey).getEncoded();
-                fileWriter(path+ "\\PSP_ENCRIPTADO\\Key.dat", derivedKeyPBK);   
+                fileWriter(getClass().getResource("Key.dat").getPath(), derivedKeyPBK);   
             }    
             SecretKey derivedKeyPBK_AES = new SecretKeySpec(derivedKeyPBK, 0, derivedKeyPBK.length, "AES");
 
@@ -78,9 +79,9 @@ public class SymmetricCryptography {
             // Añadimos el vector de inicialización
             byte[] combined = concatArrays(iv, encodedMessage);
             
-            fileWriter(path+ "\\PSP_ENCRIPTADO\\Mail.dat", combined);
+            fileWriter(getClass().getResource("Mail.dat").getPath(), combined);
         } catch (InvalidKeyException | NoSuchAlgorithmException | InvalidKeySpecException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
         }
     }
 
@@ -93,9 +94,9 @@ public class SymmetricCryptography {
     public String descifrarTexto(String clave) {
         String ret = null;
         // Fichero leído
-        byte[] fileContent = fileReader(path+ "\\PSP_ENCRIPTADO\\Mail.dat");
+        byte[] fileContent = fileReader(getClass().getResource("Mail.dat").getPath());
         try {
-            byte[] key = fileReader(path+"\\PSP_ENCRIPTADO\\Key.dat");
+            byte[] key = fileReader(getClass().getResource("Key.dat").getPath());
             SecretKey privateKey = new SecretKeySpec(key, 0, key.length, "AES");
 
             // Creamos un Cipher con el algoritmos que vamos a usar
@@ -105,7 +106,7 @@ public class SymmetricCryptography {
             byte[] decodedMessage = cipher.doFinal(Arrays.copyOfRange(fileContent, 16, fileContent.length));
             ret = new String(decodedMessage);
         } catch (InvalidAlgorithmParameterException | InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
         }
         return ret;
     }
@@ -134,7 +135,7 @@ public class SymmetricCryptography {
         try (FileOutputStream fos = new FileOutputStream(path)) {
                 fos.write(text);
         } catch (IOException e) {
-                e.printStackTrace();
+            LOGGER.severe(e.getMessage());
         }
     }
 
@@ -156,12 +157,12 @@ public class SymmetricCryptography {
     }
 
     private void mkFolder(String folder){
-        File file = new File(path+folder);
+        File file = new File(folder);
         file.mkdir();
     }
     
     public Boolean checkFileExists(String file){
-        File f = new File(path+file);
+        File f = new File(file);
         return f.exists();
     }
 }

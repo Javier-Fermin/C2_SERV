@@ -81,7 +81,7 @@ public class Stats implements Serializable{
      * Match of the play entity
      */
     @JoinColumn(name="matchId",updatable=false,insertable=false,nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER, cascade =CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade =CascadeType.MERGE)
     private Match match;
     
     public Stats() {

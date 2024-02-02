@@ -205,6 +205,7 @@ public class StatsManagerEJB implements StatsManagerEJBLocal{
             em.remove(stats);
             LOGGER.info("Stats deleted.");
         }catch(Exception e){
+            e.printStackTrace();
             LOGGER.severe("Unexpected error occurred during delete: "+e.getMessage());
             throw new DeleteException(e.getMessage());
         }
