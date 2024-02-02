@@ -6,13 +6,14 @@
 package entity;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * This class has the data of a User that has admin privileges
@@ -21,13 +22,25 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="admin",schema="esport_six")
+@NamedQueries({
+        @NamedQuery(name = "findAdmins", query = "SELECT a FROM Admin a"),
+        @NamedQuery(name = "findAdminById", query = "SELECT a FROM Admin a WHERE a.id = :id"),
+        @NamedQuery(name = "findAdminByEmail", query = "SELECT a FROM Admin a WHERE a.email = :email")
+})
+@XmlRootElement
 public class Admin extends User{
-    /**
-     * Id field for the Admin entity
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+
+    public Admin(Date joinDate) {
+        this.joinDate = joinDate;
+    }
+
+    public Admin(Date joinDate, String name, String passwd, String phone, String email, String address, UserType userType) {
+        super(name, passwd, phone, email, address, userType);
+        this.joinDate = joinDate;
+    }
+
+    public Admin() {
+    }
     
     /**
      * This is the date when the Admin joined the application
@@ -35,20 +48,50 @@ public class Admin extends User{
     @Temporal(TemporalType.DATE)
     private Date joinDate;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+    /**
+     * 
+     * @return 
+     */
     public Date getJoinDate() {
         return joinDate;
     }
 
+    /**
+     * 
+     * @param joinDate 
+     */
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.joinDate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Admin other = (Admin) obj;
+        if (!Objects.equals(this.joinDate, other.joinDate)) {
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public String toString() {
+        return "Admin{" + ", joinDate=" + joinDate + '}';
     }
     
     

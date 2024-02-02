@@ -5,53 +5,100 @@
  */
 package entity;
 
+import entity.League;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This is the class for the Match data
- * 
- * @author javie
+ *
+ * @author imanol
  */
 @Entity
-@Table(name="match",schema="esport_six")
-public class Match {
+@Table(name = "match", schema = "esport_six")
+@NamedQueries({
+    @NamedQuery(name = "findAllTournamentMatches", query = "SELECT m FROM Match m WHERE m.tournament IS NOT NULL"),
+        @NamedQuery(name = "findAllMatches", query = "SELECT m FROM Match m"),
+        @NamedQuery(name = "findAllLeagueMatches", query = "SELECT m FROM Match m WHERE m.league IS NOT NULL"),
+        @NamedQuery(name = "findAMatch", query = "SELECT m FROM Match m WHERE m.id = :id"),
+        @NamedQuery(name = "findMatchesByTournamentId", query = "SELECT m FROM Match m WHERE m.tournament.idTournament = :tournament"),
+        @NamedQuery(name = "findMatchesByLeagueId", query = "SELECT m FROM Match m WHERE m.league.id = :league"),
+        @NamedQuery(name = "findMatchesByUserNickname", query = "SELECT m from Match m where m.id in (SELECT s.match.id from Stats s WHERE s.player.nickname = :nickname)"),
+        @NamedQuery(name="findMatchByDescription",
+            query="SELECT m FROM Match m WHERE m.description = :description")
+})
+@XmlRootElement
+public class Match implements Serializable {
+
     /**
      * Id field for the Match entity
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    
+
     /**
      * playedDate field for the Match entity
      */
+    @Temporal(TemporalType.DATE)
     private Date playedDate;
-    
+
     /**
      * winner field for the Match entity
      */
     @Enumerated(EnumType.ORDINAL)
     private Team winner;
-    
+
     /**
      * tournament field for the Match entity
      */
+    @ManyToOne
     private Tournament tournament;
-    
+
     /**
      * league field for the Match entity
      */
+    @ManyToOne
     private League league;
-    
+
     /**
      * plays of the Match entity
      */
-    private Set<Stats> plays;
+    @OneToMany(mappedBy = "match", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
+    private Set<Stats> stats;
+
+    /**
+     * descrition of the match
+     */
+    @Column(unique = true)
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Integer getId() {
         return id;
@@ -92,14 +139,39 @@ public class Match {
     public void setLeague(League league) {
         this.league = league;
     }
-
-    public Set<Stats> getPlays() {
-        return plays;
+    
+    @XmlTransient
+    public Set<Stats> getStats() {
+        return stats;
     }
 
-    public void setPlays(Set<Stats> plays) {
-        this.plays = plays;
+    public void setStats(Set<Stats> stats) {
+        this.stats = stats;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Match [id=" + id + ", playedDate=" + playedDate + ", winner=" + winner + ", tournament=" + tournament
+                + ", league=" + league + ", stats=" + stats + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Match)) {
+            return false;
+        }
+        Match other = (Match) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
 }
